@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ChainRenamer.App/ChainRenamer.App.csproj" />
+    <Project Path="src/ChainRenamer.Cli/ChainRenamer.Cli.csproj" />
+    <Project Path="src/ChainRenamer.Engine/ChainRenamer.Engine.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ChainRenamer.Engine.Tests/ChainRenamer.Engine.Tests.csproj" />
+  </Folder>
+</Solution>
