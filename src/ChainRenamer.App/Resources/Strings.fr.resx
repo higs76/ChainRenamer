@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Colonne de la chaîne -->
+  <data name="AddModule" xml:space="preserve"><value>+ Ajouter un module</value></data>
+  <data name="MoveUp" xml:space="preserve"><value>Monter</value></data>
+  <data name="MoveDown" xml:space="preserve"><value>Descendre</value></data>
+  <data name="RemoveStep" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="Step_Changes" xml:space="preserve"><value>{0} modification(s)</value></data>
+  <data name="Step_Disabled" xml:space="preserve"><value>désactivée</value></data>
+  <data name="Step_NameWatermark" xml:space="preserve"><value>Nom (facultatif)</value></data>
+  <data name="Step_Enabled" xml:space="preserve"><value>Active</value></data>
+  <data name="Step_Off" xml:space="preserve"><value>Désactivée</value></data>
+
+  <!-- Aperçu -->
+  <data name="Column_Original" xml:space="preserve"><value>Original</value></data>
+  <data name="Column_Before" xml:space="preserve"><value>Avant</value></data>
+  <data name="Column_After" xml:space="preserve"><value>Après</value></data>
+  <data name="Summary" xml:space="preserve"><value>{0} fichiers · {1} modifiés · {2} exclus</value></data>
+  <data name="Banner_Disabled" xml:space="preserve"><value>Étape désactivée : la sortie est identique à l'entrée.</value></data>
+  <data name="Banner_Error" xml:space="preserve"><value>Cette étape est en erreur et n'est pas appliquée : {0}</value></data>
+
+  <!-- Modules -->
+  <data name="Module_Source" xml:space="preserve"><value>Source</value></data>
+  <data name="Module_Replace" xml:space="preserve"><value>Remplacer</value></data>
+  <data name="Module_Sort" xml:space="preserve"><value>Trier</value></data>
+
+  <data name="Source_Folder" xml:space="preserve"><value>Dossier</value></data>
+  <data name="Source_FolderWatermark" xml:space="preserve"><value>C:\Vidéos ou \\serveur\partage\dossier</value></data>
+  <data name="Source_Browse" xml:space="preserve"><value>Parcourir…</value></data>
+  <data name="Source_Load" xml:space="preserve"><value>Charger</value></data>
+  <data name="Source_Loading" xml:space="preserve"><value>Chargement…</value></data>
+  <data name="Source_Subfolders" xml:space="preserve"><value>Inclure les sous-dossiers</value></data>
+  <data name="Source_Hint" xml:space="preserve"><value>Décochez les fichiers à exclure.</value></data>
+  <data name="Source_NotFound" xml:space="preserve"><value>Dossier introuvable, ou partage réseau inaccessible.</value></data>
+  <data name="Source_AccessDenied" xml:space="preserve"><value>Accès refusé.</value></data>
+
+  <data name="Replace_Find" xml:space="preserve"><value>Rechercher</value></data>
+  <data name="Replace_With" xml:space="preserve"><value>Remplacer par</value></data>
+  <data name="Replace_Regex" xml:space="preserve"><value>Expression régulière ($1, $2… pour les groupes)</value></data>
+  <data name="Replace_MatchCase" xml:space="preserve"><value>Respecter la casse</value></data>
+  <data name="Replace_Part" xml:space="preserve"><value>Appliquer à</value></data>
+  <data name="Part_Stem" xml:space="preserve"><value>Nom sans extension</value></data>
+  <data name="Part_Extension" xml:space="preserve"><value>Extension seule</value></data>
+  <data name="Part_Whole" xml:space="preserve"><value>Nom complet</value></data>
+
+  <data name="Sort_Descending" xml:space="preserve"><value>Ordre décroissant</value></data>
+  <data name="Sort_Hint" xml:space="preserve"><value>Ordre naturel : « Épisode 2 » vient avant « Épisode 10 ».</value></data>
+</root>

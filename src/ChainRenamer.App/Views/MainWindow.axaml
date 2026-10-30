@@ -1,22 +1,174 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ChainRenamer.App.ViewModels"
+        xmlns:res="using:ChainRenamer.App.Resources"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="750"
         x:Class="ChainRenamer.App.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ChainRenamer">
+        Title="{Binding Title}"
+        Width="1280" Height="800">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+    <Window.Styles>
+        <!-- A block of the chain column -->
+        <Style Selector="Border.step">
+            <Setter Property="Padding" Value="4,6" />
+        </Style>
+        <!-- A disabled step must be obvious: faded, title struck through, pause icon -->
+        <Style Selector="Border.step.disabled">
+            <Setter Property="Opacity" Value="0.45" />
+        </Style>
+        <Style Selector="Border.step.disabled TextBlock.title">
+            <Setter Property="TextDecorations" Value="Strikethrough" />
+        </Style>
+        <Style Selector="Button.tool">
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
 
+        <!-- Preview grid -->
+        <Style Selector="TextBlock.cell">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="8,0" />
+        </Style>
+        <Style Selector="TextBlock.changed">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="TextBlock.excluded">
+            <Setter Property="Opacity" Value="0.45" />
+            <Setter Property="TextDecorations" Value="Strikethrough" />
+        </Style>
+
+        <Style Selector="Border.banner">
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Background" Value="#33FFB900" />
+        </Style>
+        <Style Selector="Border.banner.error">
+            <Setter Property="Background" Value="#33E81123" />
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="320,Auto,*">
+
+        <!-- Left: the chain of modules, top to bottom in execution order -->
+        <DockPanel Margin="8">
+            <Button DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                    Margin="0,8,0,0" Content="{x:Static res:Strings.AddModule}">
+                <Button.Flyout>
+                    <MenuFlyout ItemsSource="{Binding AddEntries}">
+                        <MenuFlyout.ItemContainerTheme>
+                            <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}"
+                                          x:DataType="vm:AddModuleEntry">
+                                <Setter Property="Header" Value="{Binding Title}" />
+                                <Setter Property="Command" Value="{Binding Command}" />
+                            </ControlTheme>
+                        </MenuFlyout.ItemContainerTheme>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+
+            <ListBox x:Name="StepList" ItemsSource="{Binding Steps}" SelectedItem="{Binding SelectedStep}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:StepViewModel">
+                        <Border Classes="step" Classes.disabled="{Binding !IsEnabled}">
+                            <Grid ColumnDefinitions="36,*,Auto">
+                                <TextBlock Text="{Binding Number}" FontSize="22" FontWeight="Light" VerticalAlignment="Center" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Classes="title" Text="{Binding Title}" FontWeight="SemiBold" />
+                                        <TextBlock Text="⏸" IsVisible="{Binding !IsEnabled}" />
+                                        <TextBlock Text="⚠" Foreground="#E81123" ToolTip.Tip="{Binding Error}"
+                                                   IsVisible="{Binding Error, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontStyle="Italic" TextTrimming="CharacterEllipsis"
+                                               IsVisible="{Binding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                    <TextBlock Text="{Binding Status}" FontSize="12" Opacity="0.7" />
+                                </StackPanel>
+                                <!-- The source is fixed: no move or remove buttons -->
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" IsVisible="{Binding !IsSource}">
+                                    <Button Classes="tool" Content="↑" ToolTip.Tip="{x:Static res:Strings.MoveUp}"
+                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).MoveUpCommand}" CommandParameter="{Binding}" />
+                                    <Button Classes="tool" Content="↓" ToolTip.Tip="{x:Static res:Strings.MoveDown}"
+                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).MoveDownCommand}" CommandParameter="{Binding}" />
+                                    <Button Classes="tool" Content="✕" ToolTip.Tip="{x:Static res:Strings.RemoveStep}"
+                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).RemoveStepCommand}" CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <GridSplitter Grid.Column="1" Width="4" ResizeDirection="Columns" />
+
+        <!-- Right: preview on top, settings of the selected step below -->
+        <Grid Grid.Column="2" RowDefinitions="Auto,Auto,*,Auto" Margin="8">
+            <TextBlock Text="{Binding Summary}" Margin="0,0,0,6" Opacity="0.8" />
+
+            <Border Grid.Row="1" Classes="banner" Classes.error="{Binding BannerIsError}"
+                    IsVisible="{Binding Banner, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock Text="{Binding Banner}" TextWrapping="Wrap" />
+            </Border>
+
+            <DataGrid Grid.Row="2" ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
+                      CanUserSortColumns="False" CanUserReorderColumns="False"
+                      GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="44">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="vm:PreviewRow">
+                                <CheckBox IsChecked="{Binding IsIncluded}" IsEnabled="{Binding CanToggle}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_Original}" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="vm:PreviewRow">
+                                <TextBlock Classes="cell" Text="{Binding Original}" Opacity="0.7" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_Before}" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="vm:PreviewRow">
+                                <TextBlock Classes="cell" Classes.excluded="{Binding !IsIncluded}" Text="{Binding Before}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_After}" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="vm:PreviewRow">
+                                <TextBlock Classes="cell" Classes.changed="{Binding IsChanged}" Text="{Binding After}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Settings of the selected step -->
+            <Border Grid.Row="3" Margin="0,8,0,0" Padding="12" CornerRadius="4" MinHeight="180"
+                    Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+                <StackPanel DataContext="{Binding SelectedStep}" x:DataType="vm:StepViewModel" Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Margin="16,0" Text="{Binding Name}" IsVisible="{Binding !IsSource}"
+                                 PlaceholderText="{x:Static res:Strings.Step_NameWatermark}" />
+                        <ToggleSwitch Grid.Column="2" IsChecked="{Binding IsEnabled}" IsVisible="{Binding !IsSource}"
+                                      OnContent="{x:Static res:Strings.Step_Enabled}" OffContent="{x:Static res:Strings.Step_Off}" />
+                    </Grid>
+                    <ContentControl Content="{Binding Settings}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>

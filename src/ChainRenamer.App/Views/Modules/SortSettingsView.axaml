@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.SortSettingsView"
+             x:DataType="vm:SortSettingsViewModel">
+    <StackPanel Spacing="8">
+        <CheckBox IsChecked="{Binding Descending}" Content="{x:Static res:Strings.Sort_Descending}" />
+        <TextBlock Text="{x:Static res:Strings.Sort_Hint}" Opacity="0.7" />
+    </StackPanel>
+</UserControl>

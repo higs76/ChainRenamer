@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.SourceSettingsView"
+             x:DataType="vm:SourceSettingsViewModel">
+    <StackPanel Spacing="8">
+        <TextBlock Text="{x:Static res:Strings.Source_Folder}" />
+        <Grid ColumnDefinitions="*,Auto,Auto">
+            <TextBox Text="{Binding Folder}" PlaceholderText="{x:Static res:Strings.Source_FolderWatermark}">
+                <TextBox.KeyBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding LoadCommand}" />
+                </TextBox.KeyBindings>
+            </TextBox>
+            <Button Grid.Column="1" Margin="8,0,0,0" Content="{x:Static res:Strings.Source_Browse}" Click="Browse_Click" />
+            <Button Grid.Column="2" Margin="8,0,0,0" Classes="accent" Content="{x:Static res:Strings.Source_Load}"
+                    Command="{Binding LoadCommand}" />
+        </Grid>
+        <CheckBox IsChecked="{Binding IncludeSubfolders}" Content="{x:Static res:Strings.Source_Subfolders}" />
+        <TextBlock Text="{x:Static res:Strings.Source_Loading}" IsVisible="{Binding LoadCommand.IsRunning}" />
+        <TextBlock Text="{Binding LoadError}" Foreground="#E81123" TextWrapping="Wrap"
+                   IsVisible="{Binding LoadError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+        <TextBlock Text="{x:Static res:Strings.Source_Hint}" Opacity="0.7" />
+    </StackPanel>
+</UserControl>

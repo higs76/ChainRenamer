@@ -109,11 +109,27 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
 - Garder `docs/etude.md` et le catalogue des modules à jour quand une décision change.
 - Garder les deux README synchronisés.
 
+## L'App (Avalonia)
+
+- **Un module dans l'App** = `ViewModels/Modules/XxxSettingsViewModel` (hérite de `ModuleSettingsViewModel`, fabrique le module avec `ToModule()`) + `Views/Modules/XxxSettingsView.axaml` (trouvée par le `ViewLocator` grâce au nom) + ses textes dans les deux `.resx` + une ligne dans `ModuleCatalog`.
+- **Textes** : `Resources/Strings.resx` (anglais) et `Strings.fr.resx`. La classe `Strings` est générée par MSBuild (métadonnées `StronglyTyped*` dans le `.csproj`). En XAML : `{x:Static res:Strings.Cle}`.
+- `--lang en` ou `--lang fr` force la langue de l'interface.
+- **Pas de police Inter** : ses ligatures affichent `01x01` sous la forme `01×01`. L'aperçu doit montrer les caractères exacts, donc on garde la police du système.
+- **Vérifier visuellement** : l'App peut être rendue sans écran (Avalonia.Headless + Skia, dans un projet jetable hors du dépôt) pour enregistrer des captures.
+
+## Versions
+
+- SemVer, une seule fois dans `Directory.Build.props` (`<Version>`), affichée dans le titre de l'App. Chaque version publiée : une étiquette `vX.Y.Z` et une Release GitHub avec l'exécutable autonome (win-x64, .NET embarqué).
+
 ## Jalon 1 (premier objectif)
+
+Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76 puisse tester tôt sur son PC principal ; l'Applier ensuite.
 
 1. ✅ Créer la solution et les 4 projets (plus le `.gitignore` et les deux README).
 2. ✅ Moteur : modèle (`FileItem`, `Step`, `Item`), pipeline avec cache et recalcul en cascade.
 3. ✅ Modules **Source**, **Replace** (texte et regex) et **Sort** (tri naturel), avec leurs tests. Le parcours du disque est fait par `FileScanner` (asynchrone), pas par le module Source. Reste à faire plus tard : Source sur des dossiers (et pas seulement des fichiers), Sort par date et taille.
-4. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests.
-5. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
-6. App Avalonia minimale, localisable : colonne de modules, grille Original / Avant / Après, panneau de configuration. ✅ Une étape dont le module lève une exception (regex en cours de saisie, par exemple) ne casse pas l'aperçu : `Pipeline.GetResult` la signale en erreur.
+4. ✅ Pipeline robuste : une étape dont le module lève une exception (regex en cours de saisie) recopie son entrée, et `Pipeline.GetResult` la signale en erreur.
+5. ✅ App en aperçu seul, localisable : colonne de modules (monter, descendre, supprimer, désactiver), grille Original / Avant / Après, panneau de réglages de Source, Replace et Sort.
+6. Version 0.1.0 publiée : exécutable autonome et Release GitHub.
+7. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; bouton « Appliquer » dans l'App.
+8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
