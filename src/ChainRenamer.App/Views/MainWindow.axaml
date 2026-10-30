@@ -31,6 +31,19 @@
             <Setter Property="Padding" Value="6,2" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
+        <!-- Drag handle: grab it to move a step or a file (see MainWindow.axaml.cs) -->
+        <Style Selector="TextBlock.handle">
+            <Setter Property="Text" Value="≡" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="6,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Cursor" Value="SizeNorthSouth" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="TextBlock.handle:pointerover">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
 
         <!-- Preview grid -->
         <Style Selector="TextBlock.cell">
@@ -80,9 +93,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="vm:StepViewModel">
                         <Border Classes="step" Classes.disabled="{Binding !IsEnabled}">
-                            <Grid ColumnDefinitions="36,*,Auto">
-                                <TextBlock Text="{Binding Number}" FontSize="22" FontWeight="Light" VerticalAlignment="Center" />
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <Grid ColumnDefinitions="28,32,*,Auto">
+                                <!-- The source is fixed: no handle, no remove button -->
+                                <TextBlock Classes="handle" IsVisible="{Binding !IsSource}" ToolTip.Tip="{x:Static res:Strings.Step_Drag}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Number}" FontSize="22" FontWeight="Light" VerticalAlignment="Center" />
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" Spacing="6">
                                         <TextBlock Classes="title" Text="{Binding Title}" FontWeight="SemiBold" />
                                         <TextBlock Text="⏸" IsVisible="{Binding !IsEnabled}" />
@@ -93,15 +108,9 @@
                                                IsVisible="{Binding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
                                     <TextBlock Text="{Binding Status}" FontSize="12" Opacity="0.7" />
                                 </StackPanel>
-                                <!-- The source is fixed: no move or remove buttons -->
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" IsVisible="{Binding !IsSource}">
-                                    <Button Classes="tool" Content="↑" ToolTip.Tip="{x:Static res:Strings.MoveUp}"
-                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).MoveUpCommand}" CommandParameter="{Binding}" />
-                                    <Button Classes="tool" Content="↓" ToolTip.Tip="{x:Static res:Strings.MoveDown}"
-                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).MoveDownCommand}" CommandParameter="{Binding}" />
-                                    <Button Classes="tool" Content="✕" ToolTip.Tip="{x:Static res:Strings.RemoveStep}"
-                                            Command="{Binding #StepList.((vm:MainViewModel)DataContext).RemoveStepCommand}" CommandParameter="{Binding}" />
-                                </StackPanel>
+                                <Button Grid.Column="3" Classes="tool" Content="✕" IsVisible="{Binding !IsSource}"
+                                        ToolTip.Tip="{x:Static res:Strings.RemoveStep}"
+                                        Command="{Binding #StepList.((vm:MainViewModel)DataContext).RemoveStepCommand}" CommandParameter="{Binding}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -120,20 +129,17 @@
                 <TextBlock Text="{Binding Banner}" TextWrapping="Wrap" />
             </Border>
 
-            <DataGrid Grid.Row="2" ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
+            <DataGrid x:Name="PreviewGrid" Grid.Row="2" ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
                       CanUserSortColumns="False" CanUserReorderColumns="False"
                       GridLinesVisibility="Horizontal" HeadersVisibility="Column">
                 <DataGrid.Columns>
-                    <!-- Check box (source step), or ↑ ↓ to place the file by hand (sort step) -->
-                    <DataGridTemplateColumn Width="72">
+                    <!-- Check box (source step), or handle to place the file by hand (sort step) -->
+                    <DataGridTemplateColumn Width="48">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <Panel HorizontalAlignment="Center">
                                     <CheckBox IsChecked="{Binding IsIncluded}" IsEnabled="{Binding CanToggle}" IsVisible="{Binding !CanMove}" />
-                                    <StackPanel Orientation="Horizontal" IsVisible="{Binding CanMove}">
-                                        <Button Classes="tool" Content="↑" Command="{Binding MoveUpCommand}" ToolTip.Tip="{x:Static res:Strings.Row_MoveUp}" />
-                                        <Button Classes="tool" Content="↓" Command="{Binding MoveDownCommand}" ToolTip.Tip="{x:Static res:Strings.Row_MoveDown}" />
-                                    </StackPanel>
+                                    <TextBlock Classes="handle" IsVisible="{Binding CanMove}" ToolTip.Tip="{x:Static res:Strings.Row_Drag}" />
                                 </Panel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

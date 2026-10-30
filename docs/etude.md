@@ -145,6 +145,7 @@ Décisions :
 ## 7. Idées de confort (à prioriser plus tard)
 
 - Bibliothèque de chaînes enregistrées.
+- Source : historique des dossiers récemment choisis, et dossiers mis en favoris (idée de Higs76, 31/10/2026).
 - Glisser-déposer de fichiers et de dossiers dans la Source.
 - Menu contextuel de l'Explorateur : « Renommer avec ChainRenamer ».
 - Export de l'aperçu en CSV, pour un essai à blanc.

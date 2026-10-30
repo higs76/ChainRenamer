@@ -1,6 +1,5 @@
 using ChainRenamer.Engine;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace ChainRenamer.App.ViewModels;
 
@@ -39,8 +38,7 @@ public sealed partial class PreviewRow : ObservableObject
     /// <summary>Updates the row in place, so that the grid keeps its scroll position.</summary>
     public void CopyFrom(PreviewRow other) => Set(other.Before, other.IsIncluded ? other.After : null);
 
-    [RelayCommand] private void MoveUp() => actions.Move?.Invoke(FileId, -1);
-    [RelayCommand] private void MoveDown() => actions.Move?.Invoke(FileId, +1);
+    public void MoveBy(int offset) => actions.Move?.Invoke(FileId, offset);
 
     private void Set(string before, string? after)
     {

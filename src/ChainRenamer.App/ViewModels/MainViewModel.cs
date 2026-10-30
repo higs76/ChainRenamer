@@ -71,13 +71,27 @@ public partial class MainViewModel : ViewModelBase
         Refresh();
     }
 
-    [RelayCommand] private void MoveUp(StepViewModel step) => Move(step, -1);
-    [RelayCommand] private void MoveDown(StepViewModel step) => Move(step, +1);
-
-    private void Move(StepViewModel step, int delta)
+    /// <summary>
+    /// Drag and drop with a handle: the dragged step or file takes the place of the one under the pointer.
+    /// Called continuously while dragging, so the preview follows the gesture.
+    /// </summary>
+    public void MoveTo(object dragged, object target)
     {
-        int from = Steps.IndexOf(step), to = from + delta;
-        if (to < 1 || to >= Steps.Count) return;
+        switch (dragged, target)
+        {
+            case (StepViewModel step, StepViewModel over):
+                Move(step, Steps.IndexOf(over));
+                break;
+            case (PreviewRow row, PreviewRow over) when row.CanMove:
+                row.MoveBy(Rows.IndexOf(over) - Rows.IndexOf(row));
+                break;
+        }
+    }
+
+    private void Move(StepViewModel step, int to)
+    {
+        int from = Steps.IndexOf(step);
+        if (from < 1 || to < 1 || to >= Steps.Count || to == from) return;
 
         pipeline.Move(step.Id, to);
         Steps.Move(from, to);

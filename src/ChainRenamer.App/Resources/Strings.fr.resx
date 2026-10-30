@@ -7,8 +7,7 @@
 
   <!-- Colonne de la chaîne -->
   <data name="AddModule" xml:space="preserve"><value>+ Ajouter un module</value></data>
-  <data name="MoveUp" xml:space="preserve"><value>Monter</value></data>
-  <data name="MoveDown" xml:space="preserve"><value>Descendre</value></data>
+  <data name="Step_Drag" xml:space="preserve"><value>Glisser pour déplacer cette étape</value></data>
   <data name="RemoveStep" xml:space="preserve"><value>Supprimer</value></data>
   <data name="Step_Changes" xml:space="preserve"><value>{0} modification(s)</value></data>
   <data name="Step_Disabled" xml:space="preserve"><value>désactivée</value></data>
@@ -50,9 +49,8 @@
   <data name="Part_Whole" xml:space="preserve"><value>Nom complet</value></data>
 
   <data name="Sort_Descending" xml:space="preserve"><value>Ordre décroissant</value></data>
-  <data name="Sort_Hint" xml:space="preserve"><value>Ordre naturel : « Épisode 2 » vient avant « Épisode 10 ». Pour placer un fichier à la main, utilisez ↑ ↓ dans la grille.</value></data>
+  <data name="Sort_Hint" xml:space="preserve"><value>Ordre naturel : « Épisode 2 » vient avant « Épisode 10 ». Pour placer un fichier à la main, faites-le glisser par sa poignée ≡ dans la grille.</value></data>
   <data name="Sort_Manual" xml:space="preserve"><value>Ordre ajusté à la main.</value></data>
   <data name="Sort_Reset" xml:space="preserve"><value>Revenir à l'ordre naturel</value></data>
-  <data name="Row_MoveUp" xml:space="preserve"><value>Monter ce fichier</value></data>
-  <data name="Row_MoveDown" xml:space="preserve"><value>Descendre ce fichier</value></data>
+  <data name="Row_Drag" xml:space="preserve"><value>Glisser pour déplacer ce fichier</value></data>
 </root>
