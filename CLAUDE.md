@@ -32,6 +32,7 @@ Correspondance avec l'étude (rédigée en français) :
 | Fichier, FichierId | `FileItem`, `FileId` |
 | Étape, EtapeId | `Step`, `StepId` |
 | Résultat (une ligne) | `Item` ; la sortie d'une étape est une liste ordonnée d'`Item` (rang = position, inclus = présent) |
+| Résultat d'une étape | `StepResult` : ses `Items` et son erreur éventuelle (le module a levé une exception : l'étape recopie son entrée) |
 | Chaîne en mémoire | `Pipeline` |
 | Applicateur | `Applier` |
 | Chaîne (`.chaine`) | `Chain` (`.chain`) |
@@ -115,4 +116,4 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
 3. ✅ Modules **Source**, **Replace** (texte et regex) et **Sort** (tri naturel), avec leurs tests. Le parcours du disque est fait par `FileScanner` (asynchrone), pas par le module Source. Reste à faire plus tard : Source sur des dossiers (et pas seulement des fichiers), Sort par date et taille.
 4. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests.
 5. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
-6. App Avalonia minimale, localisable : colonne de modules, grille Original / Avant / Après, panneau de configuration. À prévoir d'abord : une étape dont le module lève une exception (regex en cours de saisie, par exemple) ne doit pas casser l'aperçu. Le pipeline la marque en erreur et recopie son entrée.
+6. App Avalonia minimale, localisable : colonne de modules, grille Original / Avant / Après, panneau de configuration. ✅ Une étape dont le module lève une exception (regex en cours de saisie, par exemple) ne casse pas l'aperçu : `Pipeline.GetResult` la signale en erreur.

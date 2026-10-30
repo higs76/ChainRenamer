@@ -177,6 +177,43 @@ public class PipelineTests
         Assert.Throws<ArgumentOutOfRangeException>(() => pipeline.Move(stepA.Id, 0));
     }
 
+    private sealed class FailingModule : IModule
+    {
+        public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) => throw new ArgumentException("bad pattern");
+    }
+
+    [Fact]
+    public void A_failing_step_reports_its_error_and_copies_its_input()
+    {
+        pipeline.Update(stepB with { Module = new FailingModule() });
+
+        var result = pipeline.GetResult(stepB.Id);
+
+        Assert.True(result.Failed);
+        Assert.IsType<ArgumentException>(result.Error);
+        Assert.Same(pipeline.GetInput(stepB.Id), result.Items);
+        Assert.Equal(["x-a-c", "y-a-c"], Names(pipeline.Output));
+    }
+
+    [Fact]
+    public void Fixing_a_failing_step_clears_its_error()
+    {
+        pipeline.Update(stepB with { Module = new FailingModule() });
+        _ = pipeline.Output;
+        pipeline.Update(stepB);
+
+        Assert.False(pipeline.GetResult(stepB.Id).Failed);
+        Assert.Equal(["x-a-b-c", "y-a-b-c"], Names(pipeline.Output));
+    }
+
+    [Fact]
+    public void A_disabled_failing_step_is_not_in_error()
+    {
+        pipeline.Update(stepB with { Module = new FailingModule(), IsEnabled = false });
+
+        Assert.False(pipeline.GetResult(stepB.Id).Failed);
+    }
+
     [Fact]
     public void Unknown_step_is_rejected()
     {

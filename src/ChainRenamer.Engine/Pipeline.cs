@@ -8,7 +8,7 @@ namespace ChainRenamer.Engine;
 public sealed class Pipeline
 {
     private readonly List<Step> steps = [];
-    private readonly List<IReadOnlyList<Item>?> outputs = [];
+    private readonly List<StepResult?> results = [];
     private IReadOnlyList<Item> initial = [];
 
     public Pipeline(IModule source) => InsertAt(0, new Step(StepId.New(), source));
@@ -17,7 +17,7 @@ public sealed class Pipeline
     public IReadOnlyList<FileItem> Files { get; private set; } = [];
 
     /// <summary>Output of the last step: the final names, in final order.</summary>
-    public IReadOnlyList<Item> Output => Compute(steps.Count - 1);
+    public IReadOnlyList<Item> Output => Compute(steps.Count - 1).Items;
 
     public void SetFiles(IEnumerable<FileItem> files)
     {
@@ -48,7 +48,7 @@ public sealed class Pipeline
     {
         int i = IndexOfMovable(id);
         steps.RemoveAt(i);
-        outputs.RemoveAt(i);
+        results.RemoveAt(i);
         InvalidateFrom(i);
     }
 
@@ -65,30 +65,40 @@ public sealed class Pipeline
         InvalidateFrom(Math.Min(i, newIndex));
     }
 
-    public IReadOnlyList<Item> GetInput(StepId id) => IndexOf(id) is var i and > 0 ? Compute(i - 1) : initial;
+    public IReadOnlyList<Item> GetInput(StepId id) => IndexOf(id) is var i and > 0 ? Compute(i - 1).Items : initial;
 
-    public IReadOnlyList<Item> GetOutput(StepId id) => Compute(IndexOf(id));
+    public IReadOnlyList<Item> GetOutput(StepId id) => Compute(IndexOf(id)).Items;
+
+    public StepResult GetResult(StepId id) => Compute(IndexOf(id));
 
     private Step InsertAt(int index, Step step)
     {
         steps.Insert(index, step);
-        outputs.Insert(index, null);
+        results.Insert(index, null);
         InvalidateFrom(index);
         return step;
     }
 
-    private IReadOnlyList<Item> Compute(int index)
+    private StepResult Compute(int index)
     {
-        if (outputs[index] is { } cached) return cached;
+        if (results[index] is { } cached) return cached;
 
-        var input = index == 0 ? initial : Compute(index - 1);
+        var input = index == 0 ? initial : Compute(index - 1).Items;
         var step = steps[index];
-        return outputs[index] = step.IsEnabled ? step.Module.Apply(input) : input;
+        return results[index] = step.IsEnabled ? Apply(step.Module, input) : new(input);
+    }
+
+    // A failing module (e.g. a regex still being typed) must not break the whole preview:
+    // the step keeps its input and reports the error.
+    private static StepResult Apply(IModule module, IReadOnlyList<Item> input)
+    {
+        try { return new(module.Apply(input)); }
+        catch (Exception ex) { return new(input, ex); }
     }
 
     private void InvalidateFrom(int index)
     {
-        for (int i = index; i < outputs.Count; i++) outputs[i] = null;
+        for (int i = index; i < results.Count; i++) results[i] = null;
     }
 
     private int IndexOf(StepId id) =>
