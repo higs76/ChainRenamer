@@ -42,6 +42,7 @@ Ses limites :
 - Le bloc n°1 **Source** est fixe : dossier local ou UNC, sélection des fichiers à traiter (par exemple 25 sur 100).
 - Les autres blocs ont une **poignée** pour les réordonner par glisser-déposer. Chacun affiche son numéro, son type, un **nom optionnel** (pour distinguer deux modules du même type), un résumé de ses réglages et son nombre de modifications.
 - Chaque bloc peut être dupliqué, désactivé ou supprimé. Un bouton « + Ajouter un module » termine la liste.
+- **Une étape désactivée doit sauter aux yeux**, aussi bien dans la colonne étendue que réduite : bloc grisé et semi-transparent, titre barré, icône « pause », mention « désactivée » à la place du nombre de modifications. Quand elle est sélectionnée, l'aperçu le rappelle par un bandeau : « Étape désactivée : la sortie est identique à l'entrée ».
 - **La colonne se réduit** : il ne reste que le numéro et une icône par module, et le survol affiche le détail en surimpression.
 
 **Partie droite, en haut : l'aperçu**
@@ -71,6 +72,12 @@ Règles :
 - le recalcul part de la première étape touchée. Modifier l'étape p recalcule à partir de p ; déplacer une étape de i vers j recalcule à partir de min(i, j) ;
 - une étape désactivée recopie son entrée ;
 - pas de SGBD : des collections en mémoire suffisent. La chaîne est enregistrée en JSON.
+
+**Mise en œuvre (jalon 1, étape 2).** Une ligne de Resultat est un `Item(FileId, Name)`, et chaque étape produit une liste ordonnée d'`Item` :
+- le **rang** est la position dans la liste : le module Trier réordonne la liste ;
+- un fichier est **inclus** tant qu'il est présent dans la liste : le module Filtrer le retire. L'aperçu retrouve les fichiers exclus à une étape en comparant son entrée et sa sortie.
+
+Les modules « nom » n'ont donc jamais à ignorer les fichiers exclus. Les modules sont des `record` immuables : changer un réglage, c'est remplacer le module de l'étape, ce qui déclenche le recalcul. Renommer une étape ne recalcule rien.
 
 **Renommage disque** : deux phases. Chaque fichier passe d'abord par un nom temporaire unique dérivé de son `FichierId`, puis reçoit son nom final. Cela couvre les échanges, les cycles et les changements de casse seule sur NTFS et SMB. Les conflits sont détectés avant l'application, et un journal permet l'annulation.
 

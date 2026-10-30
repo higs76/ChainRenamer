@@ -31,7 +31,8 @@ Correspondance avec l'étude (rédigée en français) :
 | Moteur | `Engine` |
 | Fichier, FichierId | `FileItem`, `FileId` |
 | Étape, EtapeId | `Step`, `StepId` |
-| Résultat | `StepResult` |
+| Résultat (une ligne) | `Item` ; la sortie d'une étape est une liste ordonnée d'`Item` (rang = position, inclus = présent) |
+| Chaîne en mémoire | `Pipeline` |
 | Applicateur | `Applier` |
 | Chaîne (`.chaine`) | `Chain` (`.chain`) |
 | Source, Filtrer, Trier | `Source`, `Filter`, `Sort` |
@@ -109,8 +110,8 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
 
 ## Jalon 1 (premier objectif)
 
-1. Créer la solution et les 4 projets (plus le `.gitignore` et les deux README).
-2. Moteur : modèle (`FileItem`, `Step`, `StepResult`), pipeline avec cache et recalcul en cascade.
+1. ✅ Créer la solution et les 4 projets (plus le `.gitignore` et les deux README).
+2. ✅ Moteur : modèle (`FileItem`, `Step`, `Item`), pipeline avec cache et recalcul en cascade.
 3. Modules **Source**, **Replace** (texte et regex) et **Sort** (tri naturel), avec leurs tests.
 4. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests.
 5. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
