@@ -6,6 +6,10 @@
              x:DataType="vm:SortSettingsViewModel">
     <StackPanel Spacing="8">
         <CheckBox IsChecked="{Binding Descending}" Content="{x:Static res:Strings.Sort_Descending}" />
-        <TextBlock Text="{x:Static res:Strings.Sort_Hint}" Opacity="0.7" />
+        <TextBlock Text="{x:Static res:Strings.Sort_Hint}" Opacity="0.7" TextWrapping="Wrap" />
+        <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsManual}">
+            <TextBlock Text="{x:Static res:Strings.Sort_Manual}" VerticalAlignment="Center" FontWeight="SemiBold" />
+            <Button Content="{x:Static res:Strings.Sort_Reset}" Command="{Binding ResetOrderCommand}" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

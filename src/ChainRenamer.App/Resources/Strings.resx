@@ -12,7 +12,8 @@
   <data name="RemoveStep" xml:space="preserve"><value>Remove</value></data>
   <data name="Step_Changes" xml:space="preserve"><value>{0} change(s)</value></data>
   <data name="Step_Disabled" xml:space="preserve"><value>disabled</value></data>
-  <data name="Step_NameWatermark" xml:space="preserve"><value>Optional name</value></data>
+  <data name="Step_NameLabel" xml:space="preserve"><value>Step name:</value></data>
+  <data name="Step_NameWatermark" xml:space="preserve"><value>optional, shown in the chain</value></data>
   <data name="Step_Enabled" xml:space="preserve"><value>Enabled</value></data>
   <data name="Step_Off" xml:space="preserve"><value>Disabled</value></data>
 
@@ -49,5 +50,9 @@
   <data name="Part_Whole" xml:space="preserve"><value>Whole name</value></data>
 
   <data name="Sort_Descending" xml:space="preserve"><value>Descending</value></data>
-  <data name="Sort_Hint" xml:space="preserve"><value>Natural order: "Episode 2" comes before "Episode 10".</value></data>
+  <data name="Sort_Hint" xml:space="preserve"><value>Natural order: "Episode 2" comes before "Episode 10". To place a file by hand, use ↑ ↓ in the grid.</value></data>
+  <data name="Sort_Manual" xml:space="preserve"><value>Order adjusted by hand.</value></data>
+  <data name="Sort_Reset" xml:space="preserve"><value>Back to natural order</value></data>
+  <data name="Row_MoveUp" xml:space="preserve"><value>Move this file up</value></data>
+  <data name="Row_MoveDown" xml:space="preserve"><value>Move this file down</value></data>
 </root>

@@ -119,9 +119,14 @@ public partial class MainViewModel : ViewModelBase
         var result = pipeline.GetResult(step.Id);
         var before = input.ToDictionary(i => i.FileId, i => i.Name);
         var after = result.Items.ToDictionary(i => i.FileId, i => i.Name);
-        Action<FileId, bool>? toggle = step.IsSource ? source.SetIncluded : null;
+        var actions = step.Settings switch
+        {
+            SourceSettingsViewModel => new RowActions(Toggle: source.SetIncluded),
+            SortSettingsViewModel sort => new RowActions(Move: (id, offset) => sort.Move(pipeline.GetOutput(step.Id), id, offset)),
+            _ => new RowActions(),
+        };
 
-        PreviewRow Row(FileId id, string? newName) => new(id, originals.GetValueOrDefault(id, ""), before[id], newName, toggle);
+        PreviewRow Row(FileId id, string? newName) => new(id, originals.GetValueOrDefault(id, ""), before[id], newName, actions);
 
         // The source keeps the folder order, so that unchecking a file does not move it.
         // Other steps show their output order, then the files they left out.
@@ -130,15 +135,7 @@ public partial class MainViewModel : ViewModelBase
             : [.. result.Items.Select(i => Row(i.FileId, i.Name)),
                .. input.Where(i => !after.ContainsKey(i.FileId)).Select(i => Row(i.FileId, null))];
 
-        if (Rows.Select(r => r.FileId).SequenceEqual(rows.Select(r => r.FileId)))
-        {
-            for (int k = 0; k < rows.Count; k++) Rows[k].CopyFrom(rows[k]);
-        }
-        else
-        {
-            Rows.Clear();
-            foreach (var row in rows) Rows.Add(row);
-        }
+        UpdateRows(step, rows);
 
         int excluded = input.Count - result.Items.Count;
         Summary = string.Format(Strings.Summary, result.Items.Count, step.ChangeCount - excluded, excluded);
@@ -148,5 +145,36 @@ public partial class MainViewModel : ViewModelBase
             (_, { } error) => (string.Format(Strings.Banner_Error, error), true),
             _ => (null, false),
         };
+    }
+
+    private StepViewModel? rowsStep;
+
+    /// <summary>
+    /// For the same step and the same files, rows are reordered and updated in place,
+    /// so that the grid keeps its scroll position (typing a regex, clicking ↑ ↓…).
+    /// </summary>
+    private void UpdateRows(StepViewModel step, List<PreviewRow> rows)
+    {
+        var current = Rows.ToDictionary(r => r.FileId);
+        if (step != rowsStep || rows.Count != Rows.Count || !rows.All(r => current.ContainsKey(r.FileId)))
+        {
+            rowsStep = step;
+            Rows.Clear();
+            foreach (var row in rows) Rows.Add(row);
+            return;
+        }
+
+        for (int k = 0; k < rows.Count; k++)
+        {
+            var row = current[rows[k].FileId];
+            int from = Rows.IndexOf(row);
+            if (from != k)
+            {
+                // Not Rows.Move: the DataGrid does not redraw on a "Move" notification.
+                Rows.RemoveAt(from);
+                Rows.Insert(k, row);
+            }
+            row.CopyFrom(rows[k]);
+        }
     }
 }

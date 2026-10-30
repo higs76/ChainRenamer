@@ -135,5 +135,6 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 4. ✅ Pipeline robuste : une étape dont le module lève une exception (regex en cours de saisie) recopie son entrée, et `Pipeline.GetResult` la signale en erreur.
 5. ✅ App en aperçu seul, localisable : colonne de modules (monter, descendre, supprimer, désactiver), grille Original / Avant / Après, panneau de réglages de Source, Replace et Sort.
 6. ✅ Version 0.1.0 publiée : exécutable autonome et Release GitHub.
+   - 0.2.0 (retours de Higs76) : le nom de l'étape est séparé et étiqueté dans le panneau (il était pris pour le texte à remplacer) ; Sort accepte un ordre manuel (↑ ↓ dans la grille, `SortModule.ManualOrder`, propre à la session). À prévoir : glisser-déposer des lignes, ou « placer à la position N », pour les longs déplacements.
 7. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; bouton « Appliquer » dans l'App.
 8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.

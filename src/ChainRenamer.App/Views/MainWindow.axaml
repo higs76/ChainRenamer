@@ -124,10 +124,17 @@
                       CanUserSortColumns="False" CanUserReorderColumns="False"
                       GridLinesVisibility="Horizontal" HeadersVisibility="Column">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="44">
+                    <!-- Check box (source step), or ↑ ↓ to place the file by hand (sort step) -->
+                    <DataGridTemplateColumn Width="72">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
-                                <CheckBox IsChecked="{Binding IsIncluded}" IsEnabled="{Binding CanToggle}" HorizontalAlignment="Center" />
+                                <Panel HorizontalAlignment="Center">
+                                    <CheckBox IsChecked="{Binding IsIncluded}" IsEnabled="{Binding CanToggle}" IsVisible="{Binding !CanMove}" />
+                                    <StackPanel Orientation="Horizontal" IsVisible="{Binding CanMove}">
+                                        <Button Classes="tool" Content="↑" Command="{Binding MoveUpCommand}" ToolTip.Tip="{x:Static res:Strings.Row_MoveUp}" />
+                                        <Button Classes="tool" Content="↓" Command="{Binding MoveDownCommand}" ToolTip.Tip="{x:Static res:Strings.Row_MoveDown}" />
+                                    </StackPanel>
+                                </Panel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -159,13 +166,20 @@
             <Border Grid.Row="3" Margin="0,8,0,0" Padding="12" CornerRadius="4" MinHeight="180"
                     Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
                 <StackPanel DataContext="{Binding SelectedStep}" x:DataType="vm:StepViewModel" Spacing="10">
-                    <Grid ColumnDefinitions="Auto,*,Auto">
+                    <!-- The step itself: title, enabled, optional name. Kept apart from the module settings below,
+                         so that the name field is not mistaken for a setting ("Replace [ ___ ]"). -->
+                    <Grid ColumnDefinitions="Auto,Auto,*,Auto">
                         <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
-                        <TextBox Grid.Column="1" Margin="16,0" Text="{Binding Name}" IsVisible="{Binding !IsSource}"
-                                 PlaceholderText="{x:Static res:Strings.Step_NameWatermark}" />
-                        <ToggleSwitch Grid.Column="2" IsChecked="{Binding IsEnabled}" IsVisible="{Binding !IsSource}"
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" Margin="24,0,0,0"
+                                    IsVisible="{Binding !IsSource}">
+                            <TextBlock Text="{x:Static res:Strings.Step_NameLabel}" VerticalAlignment="Center" Opacity="0.7" FontSize="12" />
+                            <TextBox Width="240" FontSize="12" Text="{Binding Name}"
+                                     PlaceholderText="{x:Static res:Strings.Step_NameWatermark}" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Column="3" IsChecked="{Binding IsEnabled}" IsVisible="{Binding !IsSource}"
                                       OnContent="{x:Static res:Strings.Step_Enabled}" OffContent="{x:Static res:Strings.Step_Off}" />
                     </Grid>
+                    <Separator />
                     <ContentControl Content="{Binding Settings}" />
                 </StackPanel>
             </Border>
