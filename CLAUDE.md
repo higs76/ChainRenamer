@@ -119,7 +119,11 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
 
 ## Versions
 
-- SemVer, une seule fois dans `Directory.Build.props` (`<Version>`), affichée dans le titre de l'App. Chaque version publiée : une étiquette `vX.Y.Z` et une Release GitHub avec l'exécutable autonome (win-x64, .NET embarqué).
+- SemVer, une seule fois dans `Directory.Build.props` (`<Version>`), affichée dans le titre de l'App. Chaque version publiée : une étiquette `vX.Y.Z` et une Release GitHub (notes en anglais puis en français, `--prerelease` tant qu'on est en 0.x) avec l'exécutable autonome zippé, `ChainRenamer-X.Y.Z-win-x64.zip`.
+- Fabriquer l'exécutable (un seul `ChainRenamer.exe`, .NET embarqué ; ne zipper que l'exe, pas les `.pdb`) :
+  ```
+  dotnet publish src/ChainRenamer.App -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -o <dossier>
+  ```
 
 ## Jalon 1 (premier objectif)
 
@@ -130,6 +134,6 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 3. ✅ Modules **Source**, **Replace** (texte et regex) et **Sort** (tri naturel), avec leurs tests. Le parcours du disque est fait par `FileScanner` (asynchrone), pas par le module Source. Reste à faire plus tard : Source sur des dossiers (et pas seulement des fichiers), Sort par date et taille.
 4. ✅ Pipeline robuste : une étape dont le module lève une exception (regex en cours de saisie) recopie son entrée, et `Pipeline.GetResult` la signale en erreur.
 5. ✅ App en aperçu seul, localisable : colonne de modules (monter, descendre, supprimer, désactiver), grille Original / Avant / Après, panneau de réglages de Source, Replace et Sort.
-6. Version 0.1.0 publiée : exécutable autonome et Release GitHub.
+6. ✅ Version 0.1.0 publiée : exécutable autonome et Release GitHub.
 7. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; bouton « Appliquer » dans l'App.
 8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
