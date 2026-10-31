@@ -21,8 +21,6 @@ public partial class SourceSettingsViewModel : ModuleSettingsViewModel
 
     public override IModule ToModule() => new SourceModule(Folder, IncludeSubfolders) { Excluded = Excluded };
 
-    public void SetIncluded(FileId id, bool included) => Excluded = included ? Excluded.Remove(id) : Excluded.Add(id);
-
     partial void OnIncludeSubfoldersChanged(bool value)
     {
         if (Folder.Length > 0) LoadCommand.Execute(null);

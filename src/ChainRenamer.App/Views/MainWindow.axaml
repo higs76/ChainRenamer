@@ -59,6 +59,12 @@
             <Setter Property="TextDecorations" Value="Strikethrough" />
         </Style>
 
+        <!-- Skipped by the selected name step: kept as it is, but still renamed by the other steps -->
+        <Style Selector="TextBlock.skipped">
+            <Setter Property="Opacity" Value="0.45" />
+            <Setter Property="FontStyle" Value="Italic" />
+        </Style>
+
         <Style Selector="Border.banner">
             <Setter Property="Padding" Value="10,6" />
             <Setter Property="Margin" Value="0,0,0,6" />
@@ -159,14 +165,29 @@
 
             <DataGrid x:Name="PreviewGrid" Grid.Row="2" ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
                       CanUserSortColumns="False" CanUserReorderColumns="False"
-                      GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+                      GridLinesVisibility="Horizontal" HeadersVisibility="Column" SelectionMode="Extended">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static res:Strings.Select_Check}" Command="{Binding CheckSelectionCommand}" InputGesture="Space" />
+                        <MenuItem Header="{x:Static res:Strings.Select_Uncheck}" Command="{Binding UncheckSelectionCommand}" />
+                        <MenuItem Header="{x:Static res:Strings.Select_Invert}" Command="{Binding InvertChecksCommand}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <!-- Check box (source step), or handle to place the file by hand (sort step) -->
+                    <!-- Check box (source step: included; name step: applied), or handle to place the file by hand (sort step) -->
                     <DataGridTemplateColumn Width="48">
+                        <DataGridTemplateColumn.Header>
+                            <!-- The header keeps 12 px on the left and 32 px for a sort icon on the right: negative margins give the check box the whole column back. -->
+                            <CheckBox MinWidth="0" Padding="0" Margin="-12,0,-32,0" HorizontalAlignment="Center"
+                                      IsChecked="{Binding #PreviewGrid.((vm:MainViewModel)DataContext).AllChecked}"
+                                      IsVisible="{Binding #PreviewGrid.((vm:MainViewModel)DataContext).CanCheck}"
+                                      ToolTip.Tip="{x:Static res:Strings.Check_All}" />
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <Panel HorizontalAlignment="Center">
-                                    <CheckBox IsChecked="{Binding IsIncluded}" IsEnabled="{Binding CanToggle}" IsVisible="{Binding !CanMove}" />
+                                    <CheckBox IsChecked="{Binding IsChecked}" IsEnabled="{Binding CanCheck}" IsVisible="{Binding !CanMove}"
+                                              ToolTip.Tip="{Binding #PreviewGrid.((vm:MainViewModel)DataContext).CheckTip}" />
                                     <TextBlock Classes="handle" IsVisible="{Binding CanMove}" ToolTip.Tip="{x:Static res:Strings.Row_Drag}" />
                                 </Panel>
                             </DataTemplate>
@@ -182,7 +203,7 @@
                     <DataGridTemplateColumn Header="{x:Static res:Strings.Column_Before}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
-                                <TextBlock Classes="cell" Classes.excluded="{Binding !IsIncluded}" Text="{Binding Before}" />
+                                <TextBlock Classes="cell" Classes.excluded="{Binding !IsIncluded}" Classes.skipped="{Binding IsSkipped}" Text="{Binding Before}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -190,7 +211,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Conflict}">
-                                    <TextBlock Classes="cell" Classes.changed="{Binding IsChanged}" Classes.conflict="{Binding HasConflict}"
+                                    <TextBlock Classes="cell" Classes.changed="{Binding IsChanged}" Classes.conflict="{Binding HasConflict}" Classes.skipped="{Binding IsSkipped}"
                                                Text="{Binding After}" />
                                     <TextBlock Classes="conflict" Text="{Binding Conflict, StringFormat='⚠ {0}'}" IsVisible="{Binding HasConflict}" />
                                 </StackPanel>

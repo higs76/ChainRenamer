@@ -13,6 +13,7 @@ public static class ModuleCatalog
     public static IReadOnlyList<ModuleType> Addable { get; } =
     [
         new(Strings.Module_Replace, () => new ReplaceSettingsViewModel()),
+        new(Strings.Module_RegexReplace, () => new RegexReplaceSettingsViewModel()),
         new(Strings.Module_Sort, () => new SortSettingsViewModel()),
     ];
 }

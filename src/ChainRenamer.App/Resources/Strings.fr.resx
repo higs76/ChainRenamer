@@ -53,6 +53,7 @@
   <data name="Module_Source" xml:space="preserve"><value>Source</value></data>
   <data name="Module_Replace" xml:space="preserve"><value>Remplacer</value></data>
   <data name="Module_Sort" xml:space="preserve"><value>Trier</value></data>
+  <data name="Module_RegexReplace" xml:space="preserve"><value>Remplacer (regex)</value></data>
 
   <data name="Source_Folder" xml:space="preserve"><value>Dossier</value></data>
   <data name="Source_FolderWatermark" xml:space="preserve"><value>C:\Vidéos ou \\serveur\partage\dossier</value></data>
@@ -60,18 +61,29 @@
   <data name="Source_Load" xml:space="preserve"><value>Charger</value></data>
   <data name="Source_Loading" xml:space="preserve"><value>Chargement…</value></data>
   <data name="Source_Subfolders" xml:space="preserve"><value>Inclure les sous-dossiers</value></data>
-  <data name="Source_Hint" xml:space="preserve"><value>Décochez les fichiers à exclure.</value></data>
+  <data name="Source_Hint" xml:space="preserve"><value>Décochez les fichiers à exclure. Maj + clic : toute une plage. Espace : les lignes sélectionnées (Ctrl + clic). Clic droit : inverser les coches.</value></data>
   <data name="Source_NotFound" xml:space="preserve"><value>Dossier introuvable, ou partage réseau inaccessible.</value></data>
   <data name="Source_AccessDenied" xml:space="preserve"><value>Accès refusé.</value></data>
 
-  <data name="Replace_Find" xml:space="preserve"><value>Rechercher</value></data>
-  <data name="Replace_With" xml:space="preserve"><value>Remplacer par</value></data>
-  <data name="Replace_Regex" xml:space="preserve"><value>Expression régulière ($1, $2… pour les groupes)</value></data>
+  <data name="Replace_Find" xml:space="preserve"><value>Remplacer le texte</value></data>
+  <data name="Replace_With" xml:space="preserve"><value>par</value></data>
   <data name="Replace_MatchCase" xml:space="preserve"><value>Respecter la casse</value></data>
-  <data name="Replace_Part" xml:space="preserve"><value>Appliquer à</value></data>
-  <data name="Part_Stem" xml:space="preserve"><value>Nom sans extension</value></data>
-  <data name="Part_Extension" xml:space="preserve"><value>Extension seule</value></data>
-  <data name="Part_Whole" xml:space="preserve"><value>Nom complet</value></data>
+  <data name="Replace_Occurrence" xml:space="preserve"><value>Occurrences</value></data>
+  <data name="Occurrence_All" xml:space="preserve"><value>Toutes</value></data>
+  <data name="Occurrence_First" xml:space="preserve"><value>La première</value></data>
+  <data name="Occurrence_Last" xml:space="preserve"><value>La dernière</value></data>
+  <data name="Replace_Hint" xml:space="preserve"><value>S'applique au nom sans son extension.</value></data>
+
+  <data name="Regex_Pattern" xml:space="preserve"><value>Expression régulière</value></data>
+  <data name="Regex_With" xml:space="preserve"><value>Remplacer par ($1, $2… pour les groupes)</value></data>
+
+  <data name="Check_Included" xml:space="preserve"><value>Inclus dans la chaîne : décochez pour écarter ce fichier du renommage</value></data>
+  <data name="Check_Applied" xml:space="preserve"><value>Cette étape s'applique à ce fichier : décochez pour le laisser tel quel</value></data>
+  <data name="Check_All" xml:space="preserve"><value>Tout cocher ou tout décocher</value></data>
+  <data name="Select_Check" xml:space="preserve"><value>Cocher les fichiers sélectionnés</value></data>
+  <data name="Select_Uncheck" xml:space="preserve"><value>Décocher les fichiers sélectionnés</value></data>
+  <data name="Select_Invert" xml:space="preserve"><value>Inverser les coches</value></data>
+  <data name="Summary_Skipped" xml:space="preserve"><value> · {0} ignorés par cette étape</value></data>
 
   <data name="Sort_Descending" xml:space="preserve"><value>Ordre décroissant</value></data>
   <data name="Sort_Hint" xml:space="preserve"><value>Ordre naturel : « Épisode 2 » vient avant « Épisode 10 ». Pour placer un fichier à la main, faites-le glisser par sa poignée ≡ dans la grille.</value></data>

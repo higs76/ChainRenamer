@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using ChainRenamer.App.Resources;
 using ChainRenamer.App.ViewModels.Modules;
@@ -39,7 +40,10 @@ public partial class MainViewModel : ViewModelBase
     public ObservableCollection<PreviewRow> Rows { get; } = [];
     public IReadOnlyList<AddModuleEntry> AddEntries { get; }
 
-    [ObservableProperty] public partial StepViewModel? SelectedStep { get; set; }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanCheck), nameof(CheckTip))]
+    [NotifyCanExecuteChangedFor(nameof(CheckSelectionCommand), nameof(UncheckSelectionCommand), nameof(InvertChecksCommand))]
+    public partial StepViewModel? SelectedStep { get; set; }
     [ObservableProperty] public partial string Summary { get; set; } = "";
     [ObservableProperty] public partial string? Banner { get; set; }
     [ObservableProperty] public partial bool BannerIsError { get; set; }
@@ -100,6 +104,98 @@ public partial class MainViewModel : ViewModelBase
         Steps.Move(from, to);
         SelectedStep = step;
         Refresh();
+    }
+
+    // ───────────── Checking files ─────────────
+
+    /// <summary>
+    /// The files unchecked in the grid of the selected step: left out by the source, or skipped by a name step.
+    /// Null when the step has no check boxes (list steps other than the source).
+    /// </summary>
+    private ImmutableHashSet<FileId>? Unchecked
+    {
+        get => SelectedStep switch
+        {
+            { IsSource: true } => source.Excluded,
+            { IsNameStep: true } step => step.Skipped,
+            _ => null,
+        };
+        set
+        {
+            if (value is null || SelectedStep is not { } step) return;
+            if (step.IsSource) source.Excluded = value;
+            else step.Skipped = value;
+        }
+    }
+
+    public bool CanCheck => Unchecked is not null;
+
+    /// <summary>Both kinds of check box look alike: the tooltip tells what this one does.</summary>
+    public string? CheckTip => SelectedStep switch
+    {
+        { IsSource: true } => Strings.Check_Included,
+        { IsNameStep: true } => Strings.Check_Applied,
+        _ => null,
+    };
+
+    /// <summary>The rows selected in the grid (Ctrl+click, Shift+click, Ctrl+A), set by the view.</summary>
+    public IReadOnlyList<PreviewRow> SelectedRows { get; set; } = [];
+
+    // The last file checked or unchecked by a click: the start of a Shift+click range.
+    private FileId? anchor;
+
+    private bool refreshing;
+
+    /// <summary>The header check box: checked, unchecked, or indeterminate when only some files are.</summary>
+    [ObservableProperty] public partial bool? AllChecked { get; set; }
+
+    partial void OnAllCheckedChanged(bool? value)
+    {
+        if (!refreshing && value is bool check) Check(Rows, check);
+    }
+
+    private void Check(IEnumerable<PreviewRow> rows, bool check)
+    {
+        var ids = rows.Select(r => r.FileId);
+        if (Unchecked is { } current) Unchecked = check ? current.Except(ids) : current.Union(ids);
+    }
+
+    private void CheckOne(FileId id, bool check)
+    {
+        anchor = id;
+        if (Unchecked is { } current) Unchecked = check ? current.Remove(id) : current.Add(id);
+    }
+
+    /// <summary>Shift+click on a check box: the whole range from the last clicked file takes that file's state.</summary>
+    public void CheckRange(PreviewRow to)
+    {
+        int from = Rows.ToList().FindIndex(r => r.FileId == anchor);
+        if (from < 0)
+        {
+            CheckOne(to.FileId, !to.IsChecked);
+            return;
+        }
+
+        int end = Rows.IndexOf(to);
+        Check(Rows.Skip(Math.Min(from, end)).Take(Math.Abs(end - from) + 1), Rows[from].IsChecked);
+    }
+
+    /// <summary>Space on selected rows: checks them all, unless they all are already.</summary>
+    public void ToggleSelection()
+    {
+        if (CanCheck && SelectedRows.Count > 0) Check(SelectedRows, SelectedRows.Any(r => !r.IsChecked));
+    }
+
+    [RelayCommand(CanExecute = nameof(CanCheck))]
+    private void CheckSelection() => Check(SelectedRows, true);
+
+    [RelayCommand(CanExecute = nameof(CanCheck))]
+    private void UncheckSelection() => Check(SelectedRows, false);
+
+    [RelayCommand(CanExecute = nameof(CanCheck))]
+    private void InvertChecks()
+    {
+        if (Unchecked is { } current) Unchecked = [.. Rows.Select(r => r.FileId).Where(id => !current.Contains(id))];
     }
 
     // ───────────── Applying the renaming ─────────────
@@ -244,10 +340,10 @@ public partial class MainViewModel : ViewModelBase
         var after = result.Items.ToDictionary(i => i.FileId, i => i.Name);
         var actions = step.Settings switch
         {
-            SourceSettingsViewModel => new RowActions(Toggle: source.SetIncluded),
             SortSettingsViewModel sort => new RowActions(Move: (id, offset) => sort.Move(pipeline.GetOutput(step.Id), id, offset)),
-            _ => new RowActions(),
+            _ => new RowActions(Check: CanCheck ? CheckOne : null),
         };
+        var skipped = step.IsNameStep ? step.Skipped : [];
 
         // The conflicts there would be if the chain stopped at this step (plus, on the last step, those found on disk).
         var conflicts = RenamePlan.Create(pipeline.Files, result.Items).Conflicts.ToDictionary(c => c.FileId, c => c.Kind);
@@ -255,7 +351,7 @@ public partial class MainViewModel : ViewModelBase
             foreach (var (id, kind) in diskConflicts) conflicts.TryAdd(id, kind);
 
         PreviewRow Row(FileId id, string? newName) => new(id, originals.GetValueOrDefault(id, ""), before[id], newName,
-            conflicts.TryGetValue(id, out var kind) ? Describe(kind) : null, actions);
+            skipped.Contains(id), conflicts.TryGetValue(id, out var kind) ? Describe(kind) : null, actions);
 
         // The source keeps the folder order, so that unchecking a file does not move it.
         // Other steps show their output order, then the files they left out.
@@ -267,7 +363,14 @@ public partial class MainViewModel : ViewModelBase
         UpdateRows(step, rows);
 
         int excluded = input.Count - result.Items.Count;
-        Summary = string.Format(Strings.Summary, result.Items.Count, step.ChangeCount - excluded, excluded, conflicts.Count);
+        int skippedCount = Rows.Count(r => r.IsSkipped);
+        Summary = string.Format(Strings.Summary, result.Items.Count, step.ChangeCount - excluded, excluded, conflicts.Count)
+            + (skippedCount > 0 ? string.Format(Strings.Summary_Skipped, skippedCount) : "");
+
+        refreshing = true;
+        int checkedCount = Rows.Count(r => r.IsChecked);
+        AllChecked = checkedCount == Rows.Count && Rows.Count > 0 ? true : checkedCount == 0 ? false : null;
+        refreshing = false;
         (Banner, BannerIsError) = (step.IsEnabled, step.Error) switch
         {
             (false, _) => (Strings.Banner_Disabled, false),

@@ -11,7 +11,7 @@ Classic batch renamers apply their rules in a fixed order, each rule once, and o
 ## Planned features
 
 - **List modules** decide which files are included and in what order: Source (local folders and UNC network shares), Filter, Sort (natural sort, date, size…).
-- **Name modules** change the name: Replace (text or regex), Case, Remove, Insert, Numbering, Extension, Capture (regex named groups reused as variables).
+- **Name modules** change the name: Replace, Replace (regex), Case, Remove, Insert, Numbering, Extension, Capture (regex named groups reused as variables).
 - **Drop lists**: paste a list of lines (for example episode titles), and line N goes to file N.
 - **Step-by-step preview**: Original | Before | After, with changes highlighted and conflicts flagged (duplicates, forbidden characters, reserved names, path length).
 - **Safe renaming**: two-phase renaming (handles swaps, cycles and case-only changes), and an undo log.
