@@ -22,6 +22,7 @@ public partial class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         pipeline = new Pipeline(source.ToModule());
+        Steps.CollectionChanged += (_, _) => OnPropertyChanged(nameof(CanReorder));
         source.FilesLoaded += files =>
         {
             originals = files.ToDictionary(f => f.Id, f => f.Name);
@@ -39,6 +40,9 @@ public partial class MainViewModel : ViewModelBase
     public ObservableCollection<StepViewModel> Steps { get; } = [];
     public ObservableCollection<PreviewRow> Rows { get; } = [];
     public IReadOnlyList<AddModuleEntry> AddEntries { get; }
+
+    /// <summary>At least two steps besides the fixed source: their order can be changed.</summary>
+    public bool CanReorder => Steps.Count > 2;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanCheck), nameof(CheckTip))]

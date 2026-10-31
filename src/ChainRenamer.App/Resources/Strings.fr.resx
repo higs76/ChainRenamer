@@ -8,6 +8,8 @@
   <!-- Colonne de la chaîne -->
   <data name="AddModule" xml:space="preserve"><value>+ Ajouter un module</value></data>
   <data name="Step_Drag" xml:space="preserve"><value>Glisser pour déplacer cette étape</value></data>
+  <data name="Chain_Title" xml:space="preserve"><value>Chaîne de renommage</value></data>
+  <data name="Chain_Hint" xml:space="preserve"><value>Faites glisser une étape par sa poignée ≡ pour changer l'ordre. Chaque étape travaille sur le résultat de la précédente.</value></data>
   <data name="RemoveStep" xml:space="preserve"><value>Supprimer</value></data>
   <data name="Step_Changes" xml:space="preserve"><value>{0} modification(s)</value></data>
   <data name="Step_Disabled" xml:space="preserve"><value>désactivée</value></data>
