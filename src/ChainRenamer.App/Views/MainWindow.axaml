@@ -49,6 +49,12 @@
         </Style>
 
         <!-- Preview grid -->
+        <Style Selector="TextBlock.header">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
         <Style Selector="TextBlock.cell">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="8,0" />
@@ -164,7 +170,10 @@
 
         <!-- Right: preview on top, settings of the selected step below -->
         <Grid Grid.Column="2" RowDefinitions="Auto,Auto,*,Auto" Margin="8">
-            <TextBlock Text="{Binding Summary}" Margin="0,0,0,6" Opacity="0.8" />
+            <DockPanel Margin="0,0,0,6">
+                <CheckBox DockPanel.Dock="Right" IsChecked="{Binding ShowOriginal}" Content="{x:Static res:Strings.ShowOriginal}" FontSize="12" />
+                <TextBlock Text="{Binding Summary}" Opacity="0.8" VerticalAlignment="Center" />
+            </DockPanel>
 
             <Border Grid.Row="1" Classes="banner" Classes.error="{Binding BannerIsError}"
                     IsVisible="{Binding Banner, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
@@ -201,21 +210,30 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_Original}" Width="*">
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Classes="header" Text="{x:Static res:Strings.Column_Original}" ToolTip.Tip="{x:Static res:Strings.Column_Original_Tip}" />
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <TextBlock Classes="cell" Text="{Binding Original}" Opacity="0.7" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_Before}" Width="*">
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Classes="header" Text="{Binding #PreviewGrid.((vm:MainViewModel)DataContext).BeforeHeader}" ToolTip.Tip="{x:Static res:Strings.Column_Before_Tip}" />
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <TextBlock Classes="cell" Classes.excluded="{Binding !IsIncluded}" Classes.skipped="{Binding IsSkipped}" Text="{Binding Before}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static res:Strings.Column_After}" Width="*">
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Classes="header" Text="{Binding #PreviewGrid.((vm:MainViewModel)DataContext).AfterHeader}" ToolTip.Tip="{x:Static res:Strings.Column_After_Tip}" />
+                        </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
                                 <StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Conflict}">
@@ -243,6 +261,9 @@
                             <TextBox Width="240" FontSize="12" Text="{Binding Name}"
                                      PlaceholderText="{x:Static res:Strings.Step_NameWatermark}" />
                         </StackPanel>
+                        <!-- What the module does, next to the step name -->
+                        <TextBlock Grid.Column="2" Text="{Binding Description}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"
+                                   VerticalAlignment="Center" Margin="16,0" />
                         <ToggleSwitch Grid.Column="3" IsChecked="{Binding IsEnabled}" IsVisible="{Binding !IsSource}"
                                       OnContent="{x:Static res:Strings.Step_Enabled}" OffContent="{x:Static res:Strings.Step_Off}" />
                     </Grid>

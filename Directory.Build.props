@@ -5,6 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- SemVer: MAJOR.MINOR.PATCH. Each published version also gets a git tag vX.Y.Z. -->
-    <Version>0.5.1</Version>
+    <Version>0.6.0</Version>
   </PropertyGroup>
 </Project>

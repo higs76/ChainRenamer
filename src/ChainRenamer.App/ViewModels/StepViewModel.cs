@@ -23,6 +23,7 @@ public partial class StepViewModel : ViewModelBase
     public StepId Id { get; }
     public ModuleSettingsViewModel Settings { get; }
     public string Title => Settings.Title;
+    public string Description => Settings.Description;
     public bool IsSource => Settings is SourceSettingsViewModel;
 
     /// <summary>A step that only changes names: the user can make it skip some files.</summary>

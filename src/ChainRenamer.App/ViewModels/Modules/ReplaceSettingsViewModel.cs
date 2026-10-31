@@ -22,6 +22,7 @@ public partial class ReplaceSettingsViewModel : ModuleSettingsViewModel
     ];
 
     public override string Title => Strings.Module_Replace;
+    public override string Description => Strings.Replace_Description;
 
     public override IModule ToModule() => new ReplaceModule(Find, ReplaceWith, MatchCase, Occurrence);
 }

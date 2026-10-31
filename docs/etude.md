@@ -81,7 +81,9 @@ Les modules « nom » n'ont donc jamais à ignorer les fichiers exclus. Les modu
 
 **Portée d'une étape (31/10/2026, demande de Higs76).** On cherche souvent une règle qui convient à tous les fichiers, et quelques-uns en sont les « dommages collatéraux ». Une étape de module « nom » peut donc ignorer certains fichiers (`Step.Skipped`, décochés dans la grille de l'étape) : le pipeline ne donne au module que les autres, puis remet les fichiers ignorés à leur rang, inchangés. Le module n'en sait rien et reste pur. Une Numérotation numérote ainsi les seuls fichiers concernés, de 1 à k. Les modules « liste » ignorent la portée. Elle est propre à la session, comme les exclusions de Source et l'ordre manuel de Trier ; une portée par condition (« seulement si le nom contient… »), enregistrable, viendra plus tard.
 
-Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retire le fichier de toute la chaîne ; décocher dans une étape la fait seulement sauter pour ce fichier. Une infobulle les distingue ; des zones d'aide restent à concevoir. Sélection rapide dans la grille : case d'en-tête (tout, rien, état partiel), Maj + clic pour une plage, Espace sur les lignes sélectionnées, clic droit pour cocher, décocher ou inverser.
+Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retire le fichier de toute la chaîne ; décocher dans une étape la fait seulement sauter pour ce fichier. Une infobulle les distingue ; des zones d'aide restent à concevoir. Sélection rapide dans la grille : case d'en-tête (tout, rien, état partiel), Maj + clic pour une plage, Espace sur les lignes sélectionnées, clic droit pour cocher, décocher ou inverser. Sélection par rectangle comme dans l'Explorateur : appuyer sur une ligne et glisser ; avec Ctrl, les lignes s'ajoutent à la sélection.
+
+**Lisibilité de l'aperçu (retours d'un testeur, 31/10/2026).** Les en-têtes nomment l'étape choisie : « Original (source) », « Avant l'étape 2 · Remplacer », « Après l'étape 2 · Remplacer », avec une infobulle chacun. La colonne Original peut être masquée (petits écrans). Chaque module a une description d'une phrase, affichée à côté du nom de l'étape. Le menu d'ajout suit un ordre logique : modules « liste » d'abord, puis modules « nom » du plus simple au plus avancé ; Remplacer (regex) s'appelle « Remplacer (avancé) ».
 
 **Renommage disque** : deux phases. Chaque fichier passe d'abord par un nom temporaire unique dérivé de son `FichierId`, puis reçoit son nom final. Cela couvre les échanges, les cycles et les changements de casse seule sur NTFS et SMB. Les conflits sont détectés avant l'application, et un journal permet l'annulation.
 
@@ -96,7 +98,7 @@ Principe : chaque module fait une seule chose simple, et la puissance vient de l
 
 **Modules « nom »**
 - **Remplacer** : un texte par un autre, dans le nom sans l'extension, en respectant ou non la casse ; occurrences : toutes (par défaut), la première ou la dernière.
-- **Remplacer (regex)** : la même chose avec une expression régulière et ses groupes (`$1`). Séparé de Remplacer, qui reste simple pour le cas courant (décision du 31/10/2026).
+- **Remplacer (avancé)** : la même chose avec une expression régulière et ses groupes (`$1`). Séparé de Remplacer, qui reste simple pour le cas courant (décision du 31/10/2026).
 - **Casse** : minuscules, MAJUSCULES, Titre (avec mots exclus), Phrase.
 - **Supprimer** : n premiers ou derniers caractères, entre deux positions, entre deux textes.
 - **Insérer** : à une position, avant ou après un texte, à un marqueur.

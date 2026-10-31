@@ -108,8 +108,10 @@ public sealed class DragReorder
         _ => null,
     };
 
+    private object? ItemNearest(double y) => ItemNearest(list, y);
+
     /// <summary>The item whose row is closest to <paramref name="y"/>, among the rows visible in the list.</summary>
-    private object? ItemNearest(double y) =>
+    internal static object? ItemNearest(Control list, double y) =>
         list.GetVisualDescendants().OfType<Control>()
             .Where(c => c is ListBoxItem or DataGridRow && c.IsEffectivelyVisible)
             .Select(c => (Item: c.DataContext, Top: c.TranslatePoint(default, list)?.Y ?? double.NaN, c.Bounds.Height))

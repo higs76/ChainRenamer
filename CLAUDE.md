@@ -37,7 +37,7 @@ Correspondance avec l'étude (rédigée en français) :
 | Applicateur | `Applier` |
 | Chaîne (`.chaine`) | `Chain` (`.chain`) |
 | Source, Filtrer, Trier | `Source`, `Filter`, `Sort` |
-| Remplacer, Remplacer (regex), Casse, Supprimer, Insérer, Numérotation, Extension, Capturer | `Replace`, `RegexReplace`, `Case`, `Remove`, `Insert`, `Numbering`, `Extension`, `Capture` |
+| Remplacer, Remplacer (avancé, regex), Casse, Supprimer, Insérer, Numérotation, Extension, Capturer | `Replace`, `RegexReplace`, `Case`, `Remove`, `Insert`, `Numbering`, `Extension`, `Capture` |
 | Liste – remplacer / insérer | `ListReplace` / `ListInsert` |
 
 ## Environnement
@@ -144,4 +144,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
    - 0.3.0 : poignées ≡ de glisser-déposer pour les modules et pour les fichiers (étape Sort), avec défilement automatique au bord. Mécanisme commun : `Views/DragReorder.cs`, qui repère l'élément de classe `handle` dans le modèle d'un élément de liste. En headless, les `DispatcherTimer` ne se déclenchent pas : simuler des mouvements de souris pour tester.
 7. ✅ `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; barre du haut de l'App : « Appliquer le renommage » (confirmation intégrée), « Annuler ce renommage », conflits en rouge dans la grille. Version 0.4.0, essayée sur `\\MonNas\video\travail`.
    - Consolidation (retours de Higs76, 31/10/2026) : portée des étapes « nom » (`Step.Skipped`) ; Replace classique (casse, occurrences toutes, première ou dernière ; nom sans extension) et regex sortie dans `RegexReplace` ; sélection rapide dans la grille (case d'en-tête, Maj + clic, Espace, clic droit : cocher, décocher, inverser).
+   - 0.6.0 (retours d'un testeur) : sélection par rectangle (`Views/MarqueeSelect.cs`, Ctrl pour ajouter) ; en-têtes « Avant / Après l'étape n · nom » ; colonne Original masquable ; description de chaque module (`ModuleSettingsViewModel.Description`) à côté du nom de l'étape ; menu d'ajout ordonné (Trier, Remplacer, Remplacer (avancé)).
 8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.

@@ -14,6 +14,9 @@ public abstract class ModuleSettingsViewModel : ViewModelBase
 
     public abstract string Title { get; }
 
+    /// <summary>What the module does, in one sentence, shown next to the step name.</summary>
+    public abstract string Description { get; }
+
     public abstract IModule ToModule();
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)

@@ -12,6 +12,5 @@
             <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ReplaceWith}" FontFamily="Consolas,monospace" />
         </Grid>
         <CheckBox IsChecked="{Binding MatchCase}" Content="{x:Static res:Strings.Replace_MatchCase}" />
-        <TextBlock Text="{x:Static res:Strings.Replace_Hint}" Opacity="0.7" FontSize="12" />
     </StackPanel>
 </UserControl>

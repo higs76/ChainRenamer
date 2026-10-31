@@ -12,8 +12,9 @@ public static class ModuleCatalog
     /// </summary>
     public static IReadOnlyList<ModuleType> Addable { get; } =
     [
+        // In a logical order: list modules first, then name modules from the simplest.
+        new(Strings.Module_Sort, () => new SortSettingsViewModel()),
         new(Strings.Module_Replace, () => new ReplaceSettingsViewModel()),
         new(Strings.Module_RegexReplace, () => new RegexReplaceSettingsViewModel()),
-        new(Strings.Module_Sort, () => new SortSettingsViewModel()),
     ];
 }

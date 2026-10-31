@@ -18,6 +18,7 @@ public partial class SourceSettingsViewModel : ModuleSettingsViewModel
     public event Action<IReadOnlyList<FileItem>>? FilesLoaded;
 
     public override string Title => Strings.Module_Source;
+    public override string Description => Strings.Source_Description;
 
     public override IModule ToModule() => new SourceModule(Folder, IncludeSubfolders) { Excluded = Excluded };
 

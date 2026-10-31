@@ -19,6 +19,5 @@
                       SelectedValueBinding="{Binding Value, x:DataType=vm:OccurrenceChoice}"
                       DisplayMemberBinding="{Binding Label, x:DataType=vm:OccurrenceChoice}" />
         </WrapPanel>
-        <TextBlock Text="{x:Static res:Strings.Replace_Hint}" Opacity="0.7" FontSize="12" />
     </StackPanel>
 </UserControl>

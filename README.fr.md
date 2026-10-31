@@ -11,7 +11,7 @@ Les renommeurs classiques appliquent leurs règles dans un ordre fixe, chacune u
 ## Fonctionnalités prévues
 
 - **Modules « liste »**, qui décident quels fichiers sont inclus et dans quel ordre : Source (dossiers locaux et partages réseau UNC), Filtrer, Trier (tri naturel, date, taille…).
-- **Modules « nom »**, qui modifient le nom : Remplacer, Remplacer (regex), Casse, Supprimer, Insérer, Numérotation, Extension, Capturer (groupes nommés d'une regex, réutilisés comme variables).
+- **Modules « nom »**, qui modifient le nom : Remplacer, Remplacer (avancé, regex), Casse, Supprimer, Insérer, Numérotation, Extension, Capturer (groupes nommés d'une regex, réutilisés comme variables).
 - **Listes de dépôt** : on colle une liste de lignes, par exemple des titres d'épisodes, et la ligne N va au fichier N.
 - **Aperçu étape par étape** : Original | Avant | Après, avec les changements surlignés et les conflits signalés (doublons, caractères interdits, noms réservés, longueur de chemin).
 - **Renommage sûr** : renommage en deux phases (il gère les échanges, les cycles et les changements de casse seule) et journal d'annulation.

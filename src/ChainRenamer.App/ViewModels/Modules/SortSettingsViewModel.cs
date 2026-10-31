@@ -19,6 +19,7 @@ public partial class SortSettingsViewModel : ModuleSettingsViewModel
     public bool IsManual => !ManualOrder.IsEmpty;
 
     public override string Title => Strings.Module_Sort;
+    public override string Description => Strings.Sort_Description;
 
     public override IModule ToModule() => new SortModule(Descending) { ManualOrder = ManualOrder };
 

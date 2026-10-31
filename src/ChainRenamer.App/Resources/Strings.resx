@@ -19,9 +19,13 @@
   <data name="Step_Off" xml:space="preserve"><value>Disabled</value></data>
 
   <!-- Preview -->
-  <data name="Column_Original" xml:space="preserve"><value>Original</value></data>
-  <data name="Column_Before" xml:space="preserve"><value>Before</value></data>
-  <data name="Column_After" xml:space="preserve"><value>After</value></data>
+  <data name="Column_Original" xml:space="preserve"><value>Original (source)</value></data>
+  <data name="Column_Original_Tip" xml:space="preserve"><value>The name of the file on disk, before any step.</value></data>
+  <data name="Column_Before" xml:space="preserve"><value>Before step {0} · {1}</value></data>
+  <data name="Column_Before_Tip" xml:space="preserve"><value>The name this step receives: the result of the steps above it.</value></data>
+  <data name="Column_After" xml:space="preserve"><value>After step {0} · {1}</value></data>
+  <data name="Column_After_Tip" xml:space="preserve"><value>The name once this step is applied.</value></data>
+  <data name="ShowOriginal" xml:space="preserve"><value>Show the original name</value></data>
   <data name="Summary" xml:space="preserve"><value>{0} files · {1} changed · {2} excluded · {3} conflicts</value></data>
   <data name="Banner_Disabled" xml:space="preserve"><value>Disabled step: its output is identical to its input.</value></data>
   <data name="Banner_Error" xml:space="preserve"><value>This step has an error and is skipped: {0}</value></data>
@@ -55,7 +59,11 @@
   <data name="Module_Source" xml:space="preserve"><value>Source</value></data>
   <data name="Module_Replace" xml:space="preserve"><value>Replace</value></data>
   <data name="Module_Sort" xml:space="preserve"><value>Sort</value></data>
-  <data name="Module_RegexReplace" xml:space="preserve"><value>Replace (regex)</value></data>
+  <data name="Module_RegexReplace" xml:space="preserve"><value>Replace (advanced)</value></data>
+  <data name="Source_Description" xml:space="preserve"><value>Chooses the files to rename: a folder, its subfolders if you wish, and the files you leave checked.</value></data>
+  <data name="Sort_Description" xml:space="preserve"><value>Puts the files in order, natural or by hand. The order matters for numbering and lists.</value></data>
+  <data name="Replace_Description" xml:space="preserve"><value>Replaces a text by another in the name, without touching the extension.</value></data>
+  <data name="Regex_Description" xml:space="preserve"><value>Replaces what a regular expression finds, without touching the extension. Groups ($1, $2…) reuse the captured parts.</value></data>
 
   <data name="Source_Folder" xml:space="preserve"><value>Folder</value></data>
   <data name="Source_FolderWatermark" xml:space="preserve"><value>C:\Videos or \\server\share\folder</value></data>
@@ -74,7 +82,6 @@
   <data name="Occurrence_All" xml:space="preserve"><value>All</value></data>
   <data name="Occurrence_First" xml:space="preserve"><value>The first one</value></data>
   <data name="Occurrence_Last" xml:space="preserve"><value>The last one</value></data>
-  <data name="Replace_Hint" xml:space="preserve"><value>Works on the name without its extension.</value></data>
 
   <data name="Regex_Pattern" xml:space="preserve"><value>Regular expression</value></data>
   <data name="Regex_With" xml:space="preserve"><value>Replace with ($1, $2… for groups)</value></data>

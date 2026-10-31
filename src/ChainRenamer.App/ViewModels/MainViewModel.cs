@@ -52,6 +52,13 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty] public partial string? Banner { get; set; }
     [ObservableProperty] public partial bool BannerIsError { get; set; }
 
+    // Column headers name the selected step, so that "before" and "after" are clear.
+    [ObservableProperty] public partial string BeforeHeader { get; set; } = "";
+    [ObservableProperty] public partial string AfterHeader { get; set; } = "";
+
+    /// <summary>The Original column can be hidden on small screens.</summary>
+    [ObservableProperty] public partial bool ShowOriginal { get; set; } = true;
+
     partial void OnSelectedStepChanged(StepViewModel? value) => RefreshPreview();
 
     private void AddStep(ModuleSettingsViewModel settings)
@@ -365,6 +372,10 @@ public partial class MainViewModel : ViewModelBase
                .. input.Where(i => !after.ContainsKey(i.FileId)).Select(i => Row(i.FileId, null))];
 
         UpdateRows(step, rows);
+
+        string stepLabel = string.IsNullOrWhiteSpace(step.Name) ? step.Title : step.Name.Trim();
+        BeforeHeader = string.Format(Strings.Column_Before, step.Number, stepLabel);
+        AfterHeader = string.Format(Strings.Column_After, step.Number, stepLabel);
 
         int excluded = input.Count - result.Items.Count;
         int skippedCount = Rows.Count(r => r.IsSkipped);

@@ -23,9 +23,26 @@ public partial class MainWindow : Window
         };
         PreviewGrid.AddHandler(PointerPressedEvent, OnGridPressed, RoutingStrategies.Tunnel);
         PreviewGrid.AddHandler(KeyDownEvent, OnGridKeyDown, RoutingStrategies.Tunnel);
+
+        // Selection with a rectangle, as in the Explorer (Ctrl: added to the selection).
+        MarqueeSelect.Attach(PreviewGrid);
     }
 
     private MainViewModel? ViewModel => DataContext as MainViewModel;
+
+    // A DataGrid column is not in the visual tree and has no DataContext: its visibility is set from here.
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        base.OnDataContextChanged(e);
+        if (ViewModel is not { } vm) return;
+
+        var original = PreviewGrid.Columns[1];
+        original.IsVisible = vm.ShowOriginal;
+        vm.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(MainViewModel.ShowOriginal)) original.IsVisible = vm.ShowOriginal;
+        };
+    }
 
     private void MoveTo(object dragged, object target) => ViewModel?.MoveTo(dragged, target);
 
