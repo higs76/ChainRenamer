@@ -117,11 +117,13 @@ Mise en œuvre (`Engine/Renaming`) :
 
 ## L'App (Avalonia)
 
-- **Un module dans l'App** = `ViewModels/Modules/XxxSettingsViewModel` (hérite de `ModuleSettingsViewModel`, fabrique le module avec `ToModule()`) + `Views/Modules/XxxSettingsView.axaml` (trouvée par le `ViewLocator` grâce au nom) + ses textes dans les deux `.resx` + une ligne dans `ModuleCatalog`.
+- **Un module dans l'App** = `ViewModels/Modules/XxxSettingsViewModel` (hérite de `ModuleSettingsViewModel`, fabrique le module avec `ToModule()`, et se remplit depuis un module chargé par son constructeur `XxxSettingsViewModel(XxxModule? module = null)`) + `Views/Modules/XxxSettingsView.axaml` (trouvée par le `ViewLocator` grâce au nom) + ses textes dans les deux `.resx` + une ligne `ModuleType.Of<XxxModule>(…)` dans `ModuleCatalog`. Côté moteur, le module porte `[Module("Xxx")]`.
+- **Chaînes et bibliothèque** : `MainViewModel.Chains.cs` (partie de `MainViewModel`). Une chaîne est « modifiée » quand son JSON diffère du dernier enregistré. Les questions (renommer ? abandonner les modifications ? supprimer ?) passent par `Confirm(texte, oui, action)`, affichée dans la barre du haut ; « Enregistrer sous » y saisit le nom. Les sélecteurs de fichiers et le menu Chaînes (reconstruit à chaque ouverture) sont dans `MainWindow.axaml.cs`.
+- **Préférences** : `Preferences` (record), dans `%APPDATA%\ChainRenamer\settings.json` : emplacement de la bibliothèque, colonne Original. Un harnais d'essai change `Preferences.FilePath` pour ne pas toucher aux réglages de Higs76.
 - **Textes** : `Resources/Strings.resx` (anglais) et `Strings.fr.resx`. La classe `Strings` est générée par MSBuild (métadonnées `StronglyTyped*` dans le `.csproj`). En XAML : `{x:Static res:Strings.Cle}`.
 - `--lang en` ou `--lang fr` force la langue de l'interface.
 - **Pas de police Inter** : ses ligatures affichent `01x01` sous la forme `01×01`. L'aperçu doit montrer les caractères exacts, donc on garde la police du système.
-- **Vérifier visuellement** : l'App peut être rendue sans écran (Avalonia.Headless + Skia, dans un projet jetable hors du dépôt) pour enregistrer des captures.
+- **Vérifier visuellement** : l'App peut être rendue sans écran (Avalonia.Headless + Skia, dans un projet jetable hors du dépôt) pour enregistrer des captures. Ne jamais faire `await` d'une tâche réellement asynchrone dans le harnais : pomper `Dispatcher.UIThread.RunJobs()` jusqu'à ce qu'elle soit terminée, sinon tout se bloque.
 
 ## Versions
 
@@ -146,4 +148,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 7. ✅ `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; barre du haut de l'App : « Appliquer le renommage » (confirmation intégrée), « Annuler ce renommage », conflits en rouge dans la grille. Version 0.4.0, essayée sur `\\MonNas\video\travail`.
    - Consolidation (retours de Higs76, 31/10/2026) : portée des étapes « nom » (`Step.Skipped`) ; Replace classique (casse, occurrences toutes, première ou dernière ; nom sans extension) et regex sortie dans `RegexReplace` ; sélection rapide dans la grille (case d'en-tête, Maj + clic, Espace, clic droit : cocher, décocher, inverser).
    - 0.6.0 (retours d'un testeur) : sélection par rectangle (`Views/MarqueeSelect.cs`, Ctrl pour ajouter) ; en-têtes « Avant / Après l'étape n · nom » ; colonne Original masquable ; description de chaque module (`ModuleSettingsViewModel.Description`) à côté du nom de l'étape ; menu d'ajout ordonné (Trier, Remplacer, Remplacer (avancé)).
-8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.
+   - 0.7.0 : format `.chain` (`Chain`, JSON versionné, types `[Module("…")]`, erreurs `ChainError`) ; bibliothèque (`ChainLibrary` : dossier de `.chain` + `favorites.json`, import, export, zip de sauvegarde, déplacement) ; menus Fichier et Chaînes ; préférences ; Remplacer « au début / à la fin du nom » ; README qui explique le principe.
+8. CLI minimale : charger une `.chain` (chemin ou nom dans la bibliothèque), afficher l'aperçu, appliquer avec `--apply`.

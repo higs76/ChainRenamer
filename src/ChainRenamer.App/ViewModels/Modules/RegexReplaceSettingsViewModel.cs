@@ -7,6 +7,11 @@ namespace ChainRenamer.App.ViewModels.Modules;
 
 public partial class RegexReplaceSettingsViewModel : ModuleSettingsViewModel
 {
+    public RegexReplaceSettingsViewModel(RegexReplaceModule? module = null)
+    {
+        if (module is not null) (Pattern, ReplaceWith, MatchCase) = module;
+    }
+
     [ObservableProperty] public partial string Pattern { get; set; } = "";
     [ObservableProperty] public partial string ReplaceWith { get; set; } = "";
     [ObservableProperty] public partial bool MatchCase { get; set; }

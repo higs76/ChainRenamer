@@ -99,4 +99,51 @@
   <data name="Sort_Manual" xml:space="preserve"><value>Order adjusted by hand.</value></data>
   <data name="Sort_Reset" xml:space="preserve"><value>Back to natural order</value></data>
   <data name="Row_Drag" xml:space="preserve"><value>Drag to move this file</value></data>
+
+  <data name="Occurrence_Start" xml:space="preserve"><value>At the start of the name</value></data>
+  <data name="Occurrence_End" xml:space="preserve"><value>At the end of the name</value></data>
+  <data name="Menu_File" xml:space="preserve"><value>_File</value></data>
+  <data name="Menu_New" xml:space="preserve"><value>New chain</value></data>
+  <data name="Menu_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Menu_SaveAs" xml:space="preserve"><value>Save as…</value></data>
+  <data name="Menu_Import" xml:space="preserve"><value>Import…</value></data>
+  <data name="Menu_Export" xml:space="preserve"><value>Export this chain…</value></data>
+  <data name="Menu_ExportAll" xml:space="preserve"><value>Export the whole library…</value></data>
+  <data name="Menu_Quit" xml:space="preserve"><value>Quit</value></data>
+  <data name="Menu_Chains" xml:space="preserve"><value>_Chains</value></data>
+  <data name="Menu_AllChains" xml:space="preserve"><value>All chains</value></data>
+  <data name="Menu_NoChain" xml:space="preserve"><value>(no saved chain)</value></data>
+  <data name="Menu_Favorite" xml:space="preserve"><value>Favorite chain</value></data>
+  <data name="Menu_Delete" xml:space="preserve"><value>Delete this chain…</value></data>
+  <data name="Menu_OpenLibrary" xml:space="preserve"><value>Open the library folder</value></data>
+  <data name="Menu_MoveLibrary" xml:space="preserve"><value>Change the library location…</value></data>
+  <data name="Chain_Untitled" xml:space="preserve"><value>New chain</value></data>
+  <data name="SaveAs_Prompt" xml:space="preserve"><value>Chain name:</value></data>
+  <data name="SaveAs_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="SaveAs_Replace" xml:space="preserve"><value>Replace</value></data>
+  <data name="SaveAs_Exists" xml:space="preserve"><value>A chain is already named “{0}”: it will be replaced.</value></data>
+  <data name="SaveAs_Invalid" xml:space="preserve"><value>This name cannot be used as a file name.</value></data>
+  <data name="Chain_Saved" xml:space="preserve"><value>Chain “{0}” saved.</value></data>
+  <data name="Chain_Loaded" xml:space="preserve"><value>Chain “{0}” loaded.</value></data>
+  <data name="Chain_Deleted" xml:space="preserve"><value>Chain “{0}” deleted.</value></data>
+  <data name="Chain_Discard" xml:space="preserve"><value>The changes to “{0}” are not saved. Discard them?</value></data>
+  <data name="Chain_DiscardYes" xml:space="preserve"><value>Discard</value></data>
+  <data name="Chain_DeleteConfirm" xml:space="preserve"><value>Delete the chain “{0}” from the library?</value></data>
+  <data name="Chain_DeleteYes" xml:space="preserve"><value>Delete</value></data>
+  <data name="Chain_IoError" xml:space="preserve"><value>Could not read or write the chain: {0}</value></data>
+  <data name="ChainError_InvalidFile" xml:space="preserve"><value>This file is not a chain.</value></data>
+  <data name="ChainError_UnsupportedVersion" xml:space="preserve"><value>This chain was saved by a newer version of ChainRenamer (format {0}).</value></data>
+  <data name="ChainError_UnknownModule" xml:space="preserve"><value>This chain uses a module this version does not know: {0}.</value></data>
+  <data name="ChainError_InvalidSettings" xml:space="preserve"><value>The settings of the module {0} are invalid.</value></data>
+  <data name="Import_Done" xml:space="preserve"><value>{0} chain(s) imported.</value></data>
+  <data name="Export_Done" xml:space="preserve"><value>Exported to {0}.</value></data>
+  <data name="Library_Moved" xml:space="preserve"><value>The library is now in {0}.</value></data>
+  <data name="Picker_Import" xml:space="preserve"><value>Import chains</value></data>
+  <data name="Picker_Export" xml:space="preserve"><value>Export the chain</value></data>
+  <data name="Picker_ExportAll" xml:space="preserve"><value>Export the library</value></data>
+  <data name="Picker_Library" xml:space="preserve"><value>Library folder</value></data>
+  <data name="Picker_Chains" xml:space="preserve"><value>Chains and library backups</value></data>
+  <data name="Picker_Chain" xml:space="preserve"><value>Chain</value></data>
+  <data name="Picker_Backup" xml:space="preserve"><value>Library backup</value></data>
+  <data name="Backup_Name" xml:space="preserve"><value>ChainRenamer library</value></data>
 </root>

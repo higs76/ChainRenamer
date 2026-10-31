@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Reflection;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -40,6 +41,8 @@ public sealed record Chain(ImmutableArray<Step> Steps)
         RespectRequiredConstructorParameters = true,
         RespectNullableAnnotations = true,
         WriteIndented = true,
+        // Readable files: apostrophes, accents and "+" as typed, not as '. Safe, since this is not HTML.
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
     /// <summary>The module types that can be saved, by their <see cref="ModuleAttribute"/> name.</summary>

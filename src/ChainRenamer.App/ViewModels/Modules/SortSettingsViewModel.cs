@@ -9,6 +9,8 @@ namespace ChainRenamer.App.ViewModels.Modules;
 
 public partial class SortSettingsViewModel : ModuleSettingsViewModel
 {
+    public SortSettingsViewModel(SortModule? module = null) => Descending = module?.Descending ?? false;
+
     [ObservableProperty] public partial bool Descending { get; set; }
 
     /// <summary>Set by the ↑ ↓ buttons of the preview grid.</summary>

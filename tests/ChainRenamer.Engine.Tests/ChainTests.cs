@@ -43,6 +43,19 @@ public class ChainTests
     }
 
     [Fact]
+    public void Json_keeps_text_as_typed()
+    {
+        var json = new Chain([new(StepId.New(), new RegexReplaceModule(@"(\d+)'é", "S$1"), "L'épisode")]).ToJson();
+
+        Assert.Contains("""
+            "name": "L'épisode"
+            """, json);
+        Assert.Contains("""
+            "pattern": "(\\d+)'é"
+            """, json);
+    }
+
+    [Fact]
     public void Session_data_is_not_saved()
     {
         var file = FileId.New();

@@ -15,6 +15,12 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding NewChainCommand}" />
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveCommand}" />
+        <KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsCommand}" />
+    </Window.KeyBindings>
+
     <Window.Styles>
         <!-- A block of the chain column -->
         <Style Selector="Border.step">
@@ -94,7 +100,33 @@
     </Window.Styles>
 
     <DockPanel>
-    <!-- Top bar: status or confirmation on the left, apply and undo on the right -->
+    <!-- Menu. The chain lists, the file pickers and the library folder are handled in MainWindow.axaml.cs. -->
+    <Menu DockPanel.Dock="Top">
+        <MenuItem Header="{x:Static res:Strings.Menu_File}">
+            <MenuItem Header="{x:Static res:Strings.Menu_New}" Command="{Binding NewChainCommand}" InputGesture="Ctrl+N" />
+            <MenuItem Header="{x:Static res:Strings.Menu_Save}" Command="{Binding SaveCommand}" InputGesture="Ctrl+S" />
+            <MenuItem Header="{x:Static res:Strings.Menu_SaveAs}" Command="{Binding SaveAsCommand}" InputGesture="Ctrl+Shift+S" />
+            <Separator />
+            <MenuItem Header="{x:Static res:Strings.Menu_Import}" Click="OnImport" />
+            <MenuItem Header="{x:Static res:Strings.Menu_Export}" Click="OnExport" />
+            <MenuItem Header="{x:Static res:Strings.Menu_ExportAll}" Click="OnExportAll" />
+            <Separator />
+            <MenuItem Header="{x:Static res:Strings.Menu_Quit}" Click="OnQuit" />
+        </MenuItem>
+        <MenuItem x:Name="ChainsMenu" Header="{x:Static res:Strings.Menu_Chains}">
+            <!-- The favorite chains are inserted here when the menu opens -->
+            <MenuItem x:Name="AllChainsMenu" Header="{x:Static res:Strings.Menu_AllChains}" />
+            <Separator />
+            <MenuItem Header="{x:Static res:Strings.Menu_Favorite}" ToggleType="CheckBox"
+                      IsChecked="{Binding IsFavorite}" IsEnabled="{Binding HasName}" />
+            <MenuItem Header="{x:Static res:Strings.Menu_Delete}" Command="{Binding DeleteChainCommand}" />
+            <Separator />
+            <MenuItem Header="{x:Static res:Strings.Menu_OpenLibrary}" Click="OnOpenLibrary" ToolTip.Tip="{Binding LibraryFolder}" />
+            <MenuItem Header="{x:Static res:Strings.Menu_MoveLibrary}" Click="OnMoveLibrary" />
+        </MenuItem>
+    </Menu>
+
+    <!-- Top bar: status, question or chain name on the left, apply and undo on the right -->
     <Border DockPanel.Dock="Top" Padding="12,8" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
         <DockPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
@@ -104,12 +136,31 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsConfirming}">
                 <TextBlock Text="{Binding ConfirmText}" FontWeight="SemiBold" VerticalAlignment="Center" />
-                <Button Classes="accent" Content="{x:Static res:Strings.Apply_Yes}" Command="{Binding ConfirmApplyCommand}" />
-                <Button Content="{x:Static res:Strings.Apply_No}" Command="{Binding CancelApplyCommand}" />
+                <Button Classes="accent" Content="{Binding ConfirmYes}" Command="{Binding ConfirmCommand}" />
+                <Button Content="{x:Static res:Strings.Apply_No}" Command="{Binding CancelConfirmCommand}" />
+            </StackPanel>
+            <!-- Save as: Enter saves, Escape cancels -->
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsNaming}">
+                <TextBlock Text="{x:Static res:Strings.SaveAs_Prompt}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <TextBox x:Name="NameBox" Text="{Binding NameInput}" Width="260">
+                    <TextBox.KeyBindings>
+                        <KeyBinding Gesture="Enter" Command="{Binding ConfirmSaveAsCommand}" />
+                        <KeyBinding Gesture="Escape" Command="{Binding CancelSaveAsCommand}" />
+                    </TextBox.KeyBindings>
+                </TextBox>
+                <Button Classes="accent" Content="{Binding SaveAsLabel}" Command="{Binding ConfirmSaveAsCommand}" />
+                <Button Content="{x:Static res:Strings.Apply_No}" Command="{Binding CancelSaveAsCommand}" />
+                <TextBlock Classes="status error" Text="{Binding NameProblem}" VerticalAlignment="Center" />
             </StackPanel>
             <TextBlock Classes="status" Classes.error="{Binding StatusIsError}" Text="{Binding Status}"
-                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Status}"
-                       IsVisible="{Binding !IsConfirming}" />
+                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Status}">
+                <TextBlock.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="!IsConfirming" />
+                        <Binding Path="!IsNaming" />
+                    </MultiBinding>
+                </TextBlock.IsVisible>
+            </TextBlock>
         </DockPanel>
     </Border>
 

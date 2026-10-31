@@ -9,6 +9,12 @@ public sealed record OccurrenceChoice(Occurrence Value, string Label);
 
 public partial class ReplaceSettingsViewModel : ModuleSettingsViewModel
 {
+    // A positional record deconstructs into its parameters, like a tuple.
+    public ReplaceSettingsViewModel(ReplaceModule? module = null)
+    {
+        if (module is not null) (Find, ReplaceWith, MatchCase, Occurrence) = module;
+    }
+
     [ObservableProperty] public partial string Find { get; set; } = "";
     [ObservableProperty] public partial string ReplaceWith { get; set; } = "";
     [ObservableProperty] public partial bool MatchCase { get; set; }
@@ -19,6 +25,8 @@ public partial class ReplaceSettingsViewModel : ModuleSettingsViewModel
         new(Occurrence.All, Strings.Occurrence_All),
         new(Occurrence.First, Strings.Occurrence_First),
         new(Occurrence.Last, Strings.Occurrence_Last),
+        new(Occurrence.Start, Strings.Occurrence_Start),
+        new(Occurrence.End, Strings.Occurrence_End),
     ];
 
     public override string Title => Strings.Module_Replace;

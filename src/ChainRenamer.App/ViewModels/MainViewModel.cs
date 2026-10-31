@@ -21,6 +21,9 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
+        preferences = Preferences.Load();
+        library = new ChainLibrary(preferences.Library);
+        ShowOriginal = preferences.ShowOriginal;
         pipeline = new Pipeline(source.ToModule());
         Steps.CollectionChanged += (_, _) => OnPropertyChanged(nameof(CanReorder));
         source.FilesLoaded += files =>
@@ -30,12 +33,15 @@ public partial class MainViewModel : ViewModelBase
             Refresh();
         };
         Attach(new StepViewModel(pipeline.Steps[0].Id, source));
-        AddEntries = [.. ModuleCatalog.Addable.Select(t => new AddModuleEntry(t.Title, new RelayCommand(() => AddStep(t.Create()))))];
+        AddEntries = [.. ModuleCatalog.Addable.Select(t => new AddModuleEntry(t.Title, new RelayCommand(() => AddStep(t.Create(null)))))];
         SelectedStep = Steps[0];
         Refresh();
     }
 
-    public string Title { get; } = $"ChainRenamer {typeof(MainViewModel).Assembly.GetName().Version?.ToString(3)}";
+    private static readonly string Version = typeof(MainViewModel).Assembly.GetName().Version?.ToString(3) ?? "";
+
+    /// <summary>The window title: the chain, a dot if it has unsaved changes, and the version.</summary>
+    public string Title => $"{ChainName ?? Strings.Chain_Untitled}{(IsModified ? " •" : "")} — ChainRenamer {Version}";
 
     public ObservableCollection<StepViewModel> Steps { get; } = [];
     public ObservableCollection<PreviewRow> Rows { get; } = [];
@@ -61,11 +67,24 @@ public partial class MainViewModel : ViewModelBase
 
     partial void OnSelectedStepChanged(StepViewModel? value) => RefreshPreview();
 
+    partial void OnShowOriginalChanged(bool value)
+    {
+        if (preferences.ShowOriginal == value) return;
+        preferences = preferences with { ShowOriginal = value };   // "with" copies a record, changing some properties
+        preferences.Save();
+    }
+
     private void AddStep(ModuleSettingsViewModel settings)
     {
-        var step = pipeline.Add(settings.ToModule());
-        SelectedStep = Attach(new StepViewModel(step.Id, settings));
+        SelectedStep = AddStep(settings, null, true);
         Refresh();
+    }
+
+    private StepViewModel AddStep(ModuleSettingsViewModel settings, string? name, bool enabled)
+    {
+        var step = new StepViewModel(pipeline.Add(settings.ToModule()).Id, settings) { Name = name, IsEnabled = enabled };
+        pipeline.Update(step.ToStep());
+        return Attach(step);
     }
 
     private StepViewModel Attach(StepViewModel step)
@@ -215,8 +234,11 @@ public partial class MainViewModel : ViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ApplyCommand), nameof(UndoCommand))]
     public partial bool IsBusy { get; set; }
 
+    // A question in the top bar (rename the files? discard the changes?), and what to do if the user agrees.
     [ObservableProperty] public partial bool IsConfirming { get; set; }
     [ObservableProperty] public partial string ConfirmText { get; set; } = "";
+    [ObservableProperty] public partial string ConfirmYes { get; set; } = "";
+    private Func<Task>? confirmed;
     [ObservableProperty] public partial string? Status { get; set; }
     [ObservableProperty] public partial bool StatusIsError { get; set; }
 
@@ -228,20 +250,30 @@ public partial class MainViewModel : ViewModelBase
     private bool CanApply => finalPlan.CanApply && !IsBusy;
     private bool CanUndo => LastJournal is not null && !IsBusy;
 
-    [RelayCommand(CanExecute = nameof(CanApply))]
-    private void Apply()
+    private void Confirm(string text, string yes, Func<Task> action)
     {
-        ConfirmText = string.Format(Strings.Apply_Confirm, finalPlan.Operations.Count, source.Folder);
+        (ConfirmText, ConfirmYes, confirmed) = (text, yes, action);
         IsConfirming = true;
     }
 
     [RelayCommand]
-    private void CancelApply() => IsConfirming = false;
-
-    [RelayCommand]
-    private async Task ConfirmApplyAsync()
+    private async Task ConfirmAsync()
     {
         IsConfirming = false;
+        var action = confirmed;
+        confirmed = null;
+        if (action is not null) await action();
+    }
+
+    [RelayCommand]
+    private void CancelConfirm() => (IsConfirming, confirmed) = (false, null);
+
+    [RelayCommand(CanExecute = nameof(CanApply))]
+    private void Apply() =>
+        Confirm(string.Format(Strings.Apply_Confirm, finalPlan.Operations.Count, source.Folder), Strings.Apply_Yes, RenameAsync);
+
+    private async Task RenameAsync()
+    {
         IsBusy = true;
         try
         {
@@ -326,6 +358,7 @@ public partial class MainViewModel : ViewModelBase
         else if (StatusIsError && !IsBusy)
             Status = null;
 
+        IsModified = CurrentChain().ToJson() != savedJson;
         RefreshPreview();
     }
 
