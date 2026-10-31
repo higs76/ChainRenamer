@@ -68,7 +68,35 @@
         <Style Selector="Border.banner.error">
             <Setter Property="Background" Value="#33E81123" />
         </Style>
+        <Style Selector="TextBlock.conflict">
+            <Setter Property="Foreground" Value="#E81123" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock.status.error">
+            <Setter Property="Foreground" Value="#E81123" />
+        </Style>
     </Window.Styles>
+
+    <DockPanel>
+    <!-- Top bar: status or confirmation on the left, apply and undo on the right -->
+    <Border DockPanel.Dock="Top" Padding="12,8" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                <Button Content="{x:Static res:Strings.Undo}" Command="{Binding UndoCommand}"
+                        IsVisible="{Binding LastJournal, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                <Button Classes="accent" Content="{x:Static res:Strings.Apply}" Command="{Binding ApplyCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsConfirming}">
+                <TextBlock Text="{Binding ConfirmText}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <Button Classes="accent" Content="{x:Static res:Strings.Apply_Yes}" Command="{Binding ConfirmApplyCommand}" />
+                <Button Content="{x:Static res:Strings.Apply_No}" Command="{Binding CancelApplyCommand}" />
+            </StackPanel>
+            <TextBlock Classes="status" Classes.error="{Binding StatusIsError}" Text="{Binding Status}"
+                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Status}"
+                       IsVisible="{Binding !IsConfirming}" />
+        </DockPanel>
+    </Border>
 
     <Grid ColumnDefinitions="320,Auto,*">
 
@@ -161,7 +189,11 @@
                     <DataGridTemplateColumn Header="{x:Static res:Strings.Column_After}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="vm:PreviewRow">
-                                <TextBlock Classes="cell" Classes.changed="{Binding IsChanged}" Text="{Binding After}" />
+                                <StackPanel Orientation="Horizontal" ToolTip.Tip="{Binding Conflict}">
+                                    <TextBlock Classes="cell" Classes.changed="{Binding IsChanged}" Classes.conflict="{Binding HasConflict}"
+                                               Text="{Binding After}" />
+                                    <TextBlock Classes="conflict" Text="{Binding Conflict, StringFormat='⚠ {0}'}" IsVisible="{Binding HasConflict}" />
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -191,4 +223,5 @@
             </Border>
         </Grid>
     </Grid>
+    </DockPanel>
 </Window>

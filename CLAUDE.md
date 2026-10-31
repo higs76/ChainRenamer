@@ -101,6 +101,11 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
 - **Journal d'annulation** (JSON) écrit au fur et à mesure, pour tout défaire, même après une erreur au milieu du traitement.
 - **Réseau UNC** : énumération asynchrone (latence), erreurs d'accès remontées proprement, aucun blocage de l'interface.
 
+Mise en œuvre (`Engine/Renaming`) :
+- `RenamePlan.Create(files, output, exists?)` : les renommages et les conflits (`ConflictKind`). Sans `exists`, pas d'accès disque : c'est ainsi que chaque étape de l'aperçu montre ses conflits. Avec `exists`, la vérification finale juste avant d'appliquer (un fichier a pu apparaître depuis le chargement).
+- `Applier.ApplyAsync` : nom temporaire `~chainrenamer-<FileId>.tmp`, `File.Move` sans écrasement ; à la moindre erreur, tout est défait.
+- Journal en **JSON Lines** (une ligne par déplacement, vidée sur le disque à chaque ligne). Chaque annulation y est aussi écrite (`"Undo": true`) : `Journal.ToUndo` sait ce qui reste à défaire, et `UndoAsync` peut être relancé sans risque. L'App range les journaux dans `%LOCALAPPDATA%\ChainRenamer\journals\`.
+
 ## Façon de travailler
 
 - Le **moteur se développe piloté par les tests** : un module = sa classe + ses tests (cas nominal, cas limites, extension conservée…).
@@ -137,5 +142,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 6. ✅ Version 0.1.0 publiée : exécutable autonome et Release GitHub.
    - 0.2.0 (retours de Higs76) : le nom de l'étape est séparé et étiqueté dans le panneau (il était pris pour le texte à remplacer) ; Sort accepte un ordre manuel (`SortModule.ManualOrder`, propre à la session).
    - 0.3.0 : poignées ≡ de glisser-déposer pour les modules et pour les fichiers (étape Sort), avec défilement automatique au bord. Mécanisme commun : `Views/DragReorder.cs`, qui repère l'élément de classe `handle` dans le modèle d'un élément de liste. En headless, les `DispatcherTimer` ne se déclenchent pas : simuler des mouvements de souris pour tester.
-7. `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; bouton « Appliquer » dans l'App.
+7. ✅ `Applier` en deux phases, avec détection des conflits et journal, plus ses tests ; barre du haut de l'App : « Appliquer le renommage » (confirmation intégrée), « Annuler ce renommage », conflits en rouge dans la grille. Version 0.4.0, essayée sur `\\MonNas\video\travail`.
 8. CLI minimale : charger une `.chain`, afficher l'aperçu, appliquer avec `--apply`.

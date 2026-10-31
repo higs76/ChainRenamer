@@ -20,9 +20,34 @@
   <data name="Column_Original" xml:space="preserve"><value>Original</value></data>
   <data name="Column_Before" xml:space="preserve"><value>Avant</value></data>
   <data name="Column_After" xml:space="preserve"><value>Après</value></data>
-  <data name="Summary" xml:space="preserve"><value>{0} fichiers · {1} modifiés · {2} exclus</value></data>
+  <data name="Summary" xml:space="preserve"><value>{0} fichiers · {1} modifiés · {2} exclus · {3} conflits</value></data>
   <data name="Banner_Disabled" xml:space="preserve"><value>Étape désactivée : la sortie est identique à l'entrée.</value></data>
   <data name="Banner_Error" xml:space="preserve"><value>Cette étape est en erreur et n'est pas appliquée : {0}</value></data>
+
+  <!-- Conflits -->
+  <data name="Conflict_EmptyName" xml:space="preserve"><value>Nom vide</value></data>
+  <data name="Conflict_InvalidCharacter" xml:space="preserve"><value>Caractère interdit (&lt; &gt; : " / \ | ? *)</value></data>
+  <data name="Conflict_ReservedName" xml:space="preserve"><value>Nom réservé par Windows (CON, NUL, COM1…)</value></data>
+  <data name="Conflict_TrailingDotOrSpace" xml:space="preserve"><value>Se termine par un point ou une espace</value></data>
+  <data name="Conflict_PathTooLong" xml:space="preserve"><value>Chemin trop long (plus de 259 caractères)</value></data>
+  <data name="Conflict_Duplicate" xml:space="preserve"><value>Un autre fichier reçoit le même nom</value></data>
+  <data name="Conflict_AlreadyExists" xml:space="preserve"><value>Un fichier de ce nom existe déjà dans le dossier</value></data>
+
+  <!-- Application du renommage -->
+  <data name="Apply" xml:space="preserve"><value>Appliquer le renommage</value></data>
+  <data name="Apply_Confirm" xml:space="preserve"><value>Renommer {0} fichier(s) dans {1} ?</value></data>
+  <data name="Apply_Yes" xml:space="preserve"><value>Renommer</value></data>
+  <data name="Apply_No" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Apply_Checking" xml:space="preserve"><value>Vérification du dossier…</value></data>
+  <data name="Apply_Running" xml:space="preserve"><value>Renommage… {0:P0}</value></data>
+  <data name="Apply_Done" xml:space="preserve"><value>{0} fichier(s) renommé(s).</value></data>
+  <data name="Apply_Blocked" xml:space="preserve"><value>{0} conflit(s) dans les noms finaux : corrigez-les avant d'appliquer.</value></data>
+  <data name="Apply_DiskConflicts" xml:space="preserve"><value>{0} conflit(s) détecté(s) dans le dossier : rien n'a été renommé. Voir la dernière étape.</value></data>
+  <data name="Apply_Failed" xml:space="preserve"><value>Renommage interrompu : {0} Tous les fichiers ont été remis en place.</value></data>
+  <data name="Apply_FailedPartial" xml:space="preserve"><value>Renommage interrompu : {0} Certains fichiers n'ont pas pu être remis en place ; journal : {1}</value></data>
+  <data name="Undo" xml:space="preserve"><value>Annuler ce renommage</value></data>
+  <data name="Undo_Done" xml:space="preserve"><value>Renommage annulé : chaque fichier a retrouvé son ancien nom.</value></data>
+  <data name="Undo_Partial" xml:space="preserve"><value>Certains fichiers n'ont pas pu être remis en place ; journal : {0}</value></data>
 
   <!-- Modules -->
   <data name="Module_Source" xml:space="preserve"><value>Source</value></data>

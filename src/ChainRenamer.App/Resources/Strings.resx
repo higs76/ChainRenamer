@@ -20,9 +20,34 @@
   <data name="Column_Original" xml:space="preserve"><value>Original</value></data>
   <data name="Column_Before" xml:space="preserve"><value>Before</value></data>
   <data name="Column_After" xml:space="preserve"><value>After</value></data>
-  <data name="Summary" xml:space="preserve"><value>{0} files · {1} changed · {2} excluded</value></data>
+  <data name="Summary" xml:space="preserve"><value>{0} files · {1} changed · {2} excluded · {3} conflicts</value></data>
   <data name="Banner_Disabled" xml:space="preserve"><value>Disabled step: its output is identical to its input.</value></data>
   <data name="Banner_Error" xml:space="preserve"><value>This step has an error and is skipped: {0}</value></data>
+
+  <!-- Conflicts -->
+  <data name="Conflict_EmptyName" xml:space="preserve"><value>Empty name</value></data>
+  <data name="Conflict_InvalidCharacter" xml:space="preserve"><value>Forbidden character (&lt; &gt; : " / \ | ? *)</value></data>
+  <data name="Conflict_ReservedName" xml:space="preserve"><value>Name reserved by Windows (CON, NUL, COM1…)</value></data>
+  <data name="Conflict_TrailingDotOrSpace" xml:space="preserve"><value>Ends with a dot or a space</value></data>
+  <data name="Conflict_PathTooLong" xml:space="preserve"><value>Path too long (over 259 characters)</value></data>
+  <data name="Conflict_Duplicate" xml:space="preserve"><value>Another file gets the same name</value></data>
+  <data name="Conflict_AlreadyExists" xml:space="preserve"><value>A file with this name already exists in the folder</value></data>
+
+  <!-- Applying -->
+  <data name="Apply" xml:space="preserve"><value>Apply renaming</value></data>
+  <data name="Apply_Confirm" xml:space="preserve"><value>Rename {0} file(s) in {1}?</value></data>
+  <data name="Apply_Yes" xml:space="preserve"><value>Rename</value></data>
+  <data name="Apply_No" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Apply_Checking" xml:space="preserve"><value>Checking the folder…</value></data>
+  <data name="Apply_Running" xml:space="preserve"><value>Renaming… {0:P0}</value></data>
+  <data name="Apply_Done" xml:space="preserve"><value>{0} file(s) renamed.</value></data>
+  <data name="Apply_Blocked" xml:space="preserve"><value>{0} conflict(s) in the final names: fix them before applying.</value></data>
+  <data name="Apply_DiskConflicts" xml:space="preserve"><value>{0} conflict(s) found in the folder: nothing was renamed. See the last step.</value></data>
+  <data name="Apply_Failed" xml:space="preserve"><value>Renaming stopped: {0} Every file was put back.</value></data>
+  <data name="Apply_FailedPartial" xml:space="preserve"><value>Renaming stopped: {0} Some files could not be put back; journal: {1}</value></data>
+  <data name="Undo" xml:space="preserve"><value>Undo this renaming</value></data>
+  <data name="Undo_Done" xml:space="preserve"><value>Renaming undone: every file has its former name.</value></data>
+  <data name="Undo_Partial" xml:space="preserve"><value>Some files could not be put back; journal: {0}</value></data>
 
   <!-- Modules -->
   <data name="Module_Source" xml:space="preserve"><value>Source</value></data>
