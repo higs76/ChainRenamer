@@ -3,7 +3,7 @@ namespace ChainRenamer.Engine.Tests;
 public class PipelineTests
 {
     /// <summary>Appends a suffix to every name and counts its calls.</summary>
-    private sealed class SuffixModule(string suffix) : IModule
+    private sealed class SuffixModule(string suffix) : INameModule
     {
         public int Calls { get; private set; }
 
@@ -212,6 +212,60 @@ public class PipelineTests
         pipeline.Update(stepB with { Module = new FailingModule(), IsEnabled = false });
 
         Assert.False(pipeline.GetResult(stepB.Id).Failed);
+    }
+
+    /// <summary>A name module that appends each file's position, like a numbering would.</summary>
+    private sealed class PositionModule : INameModule
+    {
+        public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) =>
+            [.. input.Select((item, index) => item with { Name = $"{item.Name}-{index + 1}" })];
+    }
+
+    /// <summary>A list module that reverses the order.</summary>
+    private sealed class ReverseModule : IModule
+    {
+        public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) => [.. input.Reverse()];
+    }
+
+    private Step Skipping(Step step, params int[] files) =>
+        step with { Skipped = [.. files.Select(f => pipeline.Files[f].Id)] };
+
+    [Fact]
+    public void A_name_step_leaves_its_skipped_files_unchanged()
+    {
+        pipeline.Update(Skipping(stepB, 0));
+
+        Assert.Equal(["x-a", "y-a-b"], Names(pipeline.GetOutput(stepB.Id)));
+        Assert.Equal(["x-a-c", "y-a-b-c"], Names(pipeline.Output));
+    }
+
+    [Fact]
+    public void A_name_module_only_sees_the_files_it_does_not_skip()
+    {
+        pipeline.SetFiles([.. "wxyz".Select(n => FileItem.FromPath($@"C:\photos\{n}"))]);
+        var step = pipeline.Add(new PositionModule());
+        pipeline.Update(Skipping(step, 1));
+
+        Assert.Equal(["w-a-b-c-1", "x-a-b-c", "y-a-b-c-2", "z-a-b-c-3"], Names(pipeline.Output));
+    }
+
+    [Fact]
+    public void Skipping_files_recomputes_from_the_step()
+    {
+        _ = pipeline.Output;
+        pipeline.Update(Skipping(stepB, 1));
+        _ = pipeline.Output;
+
+        Assert.Equal([1, 1, 2, 2], Calls());
+    }
+
+    [Fact]
+    public void A_list_step_ignores_skipped_files()
+    {
+        var step = pipeline.Add(new ReverseModule());
+        pipeline.Update(Skipping(step, 0));
+
+        Assert.Equal(["y-a-b-c", "x-a-b-c"], Names(pipeline.Output));
     }
 
     [Fact]

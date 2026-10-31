@@ -20,42 +20,37 @@ public class ReplaceModuleTests
     }
 
     [Fact]
-    public void Keeps_the_extension_by_default()
+    public void Can_replace_the_first_occurrence_only()
+    {
+        Assert.Equal("a_b c.txt", Replace(new(" ", "_", Occurrence: Occurrence.First), "a b c.txt"));
+        Assert.Equal("x-EP-ep.mkv", Replace(new("ep", "x", Occurrence: Occurrence.First), "EP-EP-ep.mkv"));
+    }
+
+    [Fact]
+    public void Can_replace_the_last_occurrence_only()
+    {
+        Assert.Equal("a b_c.txt", Replace(new(" ", "_", Occurrence: Occurrence.Last), "a b c.txt"));
+        Assert.Equal("EP-x-ep.mkv", Replace(new("EP", "x", MatchCase: true, Occurrence: Occurrence.Last), "EP-EP-ep.mkv"));
+    }
+
+    [Fact]
+    public void First_or_last_occurrence_not_found_changes_nothing()
+    {
+        Assert.Equal("abc.txt", Replace(new("z", "x", Occurrence: Occurrence.First), "abc.txt"));
+        Assert.Equal("abc.txt", Replace(new("z", "x", Occurrence: Occurrence.Last), "abc.txt"));
+    }
+
+    [Fact]
+    public void Never_touches_the_extension()
     {
         Assert.Equal("photo-mkv.mkv", Replace(new(".", "-"), "photo.mkv.mkv"));
+        Assert.Equal("jpg.jpeg", Replace(new("jpeg", "jpg", Occurrence: Occurrence.Last), "jpeg.jpeg"));
     }
 
     [Fact]
-    public void Can_work_on_the_extension_only()
+    public void Takes_regex_characters_literally()
     {
-        Assert.Equal("jpeg.jpg", Replace(new("jpeg", "jpg", Part: NamePart.Extension), "jpeg.jpeg"));
-    }
-
-    [Fact]
-    public void Can_work_on_the_whole_name()
-    {
-        Assert.Equal("photo-mkv-mkv", Replace(new(".", "-", Part: NamePart.Whole), "photo.mkv.mkv"));
-    }
-
-    [Fact]
-    public void Regex_replacement_can_use_groups()
-    {
-        var module = new ReplaceModule(@"(\d+)x(\d+)", "S$1E$2", UseRegex: true);
-
-        Assert.Equal("Speedy - S01E10 - Time Attack!.mkv", Replace(module, "Speedy - 01x10 - Time Attack!.mkv"));
-    }
-
-    [Fact]
-    public void Regex_ignores_case_unless_asked()
-    {
-        Assert.Equal("x-x.txt", Replace(new("[a-z]+", "x", UseRegex: true), "abc-ABC.txt"));
-        Assert.Equal("x-ABC.txt", Replace(new("[a-z]+", "x", UseRegex: true, MatchCase: true), "abc-ABC.txt"));
-    }
-
-    [Fact]
-    public void Text_mode_takes_regex_characters_literally()
-    {
-        Assert.Equal("a.b(1)", Replace(new("[1]", "(1)", Part: NamePart.Whole), "a.b[1]"));
+        Assert.Equal("a(1).txt", Replace(new("[1]", "(1)"), "a[1].txt"));
     }
 
     [Fact]
@@ -71,15 +66,9 @@ public class ReplaceModuleTests
     {
         var input = TestItems.Of("b.txt", "a.txt");
 
-        var output = new ReplaceModule("txt", "md", Part: NamePart.Extension).Apply(input);
+        var output = new ReplaceModule("a", "c").Apply(input);
 
-        Assert.Equal(["b.md", "a.md"], output.Names());
+        Assert.Equal(["b.txt", "c.txt"], output.Names());
         Assert.Equal(input.Select(i => i.FileId), output.Select(i => i.FileId));
-    }
-
-    [Fact]
-    public void Invalid_regex_is_rejected()
-    {
-        Assert.ThrowsAny<ArgumentException>(() => new ReplaceModule("(", "x", UseRegex: true).Apply(TestItems.Of("a")));
     }
 }

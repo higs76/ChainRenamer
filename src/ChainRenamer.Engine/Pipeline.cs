@@ -85,15 +85,24 @@ public sealed class Pipeline
 
         var input = index == 0 ? initial : Compute(index - 1).Items;
         var step = steps[index];
-        return results[index] = step.IsEnabled ? Apply(step.Module, input) : new(input);
+        return results[index] = step.IsEnabled ? Apply(step, input) : new(input);
     }
 
     // A failing module (e.g. a regex still being typed) must not break the whole preview:
     // the step keeps its input and reports the error.
-    private static StepResult Apply(IModule module, IReadOnlyList<Item> input)
+    private static StepResult Apply(Step step, IReadOnlyList<Item> input)
     {
-        try { return new(module.Apply(input)); }
+        try { return new(Run(step, input)); }
         catch (Exception ex) { return new(input, ex); }
+    }
+
+    // Skipped files are hidden from a name module, then put back unchanged, at their rank.
+    private static IReadOnlyList<Item> Run(Step step, IReadOnlyList<Item> input)
+    {
+        if (step.Skipped.IsEmpty || step.Module is not INameModule) return step.Module.Apply(input);
+
+        var renamed = step.Module.Apply([.. input.Where(i => !step.Skipped.Contains(i.FileId))]).ToDictionary(i => i.FileId);
+        return [.. input.Select(i => renamed.GetValueOrDefault(i.FileId, i))];
     }
 
     private void InvalidateFrom(int index)

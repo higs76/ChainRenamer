@@ -1,24 +1,33 @@
-using System.Text.RegularExpressions;
-
 namespace ChainRenamer.Engine.Modules;
 
-/// <summary>Replaces a text or a regular expression. Works on the name without its extension by default.</summary>
-/// <remarks>In regex mode, the replacement can use groups: <c>$1</c>, <c>${name}</c>.</remarks>
+/// <summary>Which occurrences of the searched text are replaced.</summary>
+public enum Occurrence
+{
+    All,
+    First,
+    Last,
+}
+
+/// <summary>
+/// Replaces a text by another, in the name without its extension (the extension has its own module).
+/// The searched text is taken literally: regular expressions are <see cref="RegexReplaceModule"/>'s job.
+/// </summary>
 public sealed record ReplaceModule(
     string Find,
     string ReplaceWith,
-    bool UseRegex = false,
     bool MatchCase = false,
-    NamePart Part = NamePart.Stem) : IModule
+    Occurrence Occurrence = Occurrence.All) : INameModule
 {
-    // Guards against a pathological pattern freezing the preview.
-    private static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(1);
+    private StringComparison Comparison => MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
-    /// <exception cref="ArgumentException">Invalid regular expression.</exception>
     public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) =>
-        Find.Length == 0 ? input : [.. input.Select(i => i.With(Part, Replace(i.Get(Part))))];
+        Find.Length == 0 ? input : [.. input.Select(i => i.With(NamePart.Stem, Replace(i.Stem)))];
 
-    private string Replace(string text) => UseRegex
-        ? Regex.Replace(text, Find, ReplaceWith, MatchCase ? RegexOptions.None : RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, RegexTimeout)
-        : text.Replace(Find, ReplaceWith, MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase);
+    private string Replace(string text)
+    {
+        if (Occurrence == Occurrence.All) return text.Replace(Find, ReplaceWith, Comparison);
+
+        int at = Occurrence == Occurrence.First ? text.IndexOf(Find, Comparison) : text.LastIndexOf(Find, Comparison);
+        return at < 0 ? text : string.Concat(text.AsSpan(0, at), ReplaceWith, text.AsSpan(at + Find.Length));
+    }
 }
