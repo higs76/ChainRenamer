@@ -40,6 +40,23 @@ public class ReplaceModuleTests
         Assert.Equal("abc.txt", Replace(new("z", "x", Occurrence: Occurrence.Last), "abc.txt"));
     }
 
+    [Theory]
+    [InlineData("The Office - The Pilot.mkv", "Office - The Pilot.mkv")]
+    [InlineData("the office.mkv", "office.mkv")]
+    [InlineData("Office - The Pilot.mkv", "Office - The Pilot.mkv")]
+    public void Can_replace_at_the_start_of_the_name_only(string name, string expected)
+    {
+        Assert.Equal(expected, Replace(new("The ", "", Occurrence: Occurrence.Start), name));
+    }
+
+    [Theory]
+    [InlineData("Copy - Copy.txt", "Copy.txt")]
+    [InlineData("Copy - Copy (2).txt", "Copy - Copy (2).txt")]
+    public void Can_replace_at_the_end_of_the_name_only(string name, string expected)
+    {
+        Assert.Equal(expected, Replace(new(" - copy", "", Occurrence: Occurrence.End), name));
+    }
+
     [Fact]
     public void Never_touches_the_extension()
     {

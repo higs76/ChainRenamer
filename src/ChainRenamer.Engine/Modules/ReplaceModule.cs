@@ -6,6 +6,12 @@ public enum Occurrence
     All,
     First,
     Last,
+
+    /// <summary>Only if the name starts with the searched text.</summary>
+    Start,
+
+    /// <summary>Only if the name ends with the searched text.</summary>
+    End,
 }
 
 /// <summary>
@@ -28,7 +34,13 @@ public sealed record ReplaceModule(
     {
         if (Occurrence == Occurrence.All) return text.Replace(Find, ReplaceWith, Comparison);
 
-        int at = Occurrence == Occurrence.First ? text.IndexOf(Find, Comparison) : text.LastIndexOf(Find, Comparison);
+        int at = Occurrence switch
+        {
+            Occurrence.First => text.IndexOf(Find, Comparison),
+            Occurrence.Last => text.LastIndexOf(Find, Comparison),
+            Occurrence.Start => text.StartsWith(Find, Comparison) ? 0 : -1,
+            _ => text.EndsWith(Find, Comparison) ? text.Length - Find.Length : -1,
+        };
         return at < 0 ? text : string.Concat(text.AsSpan(0, at), ReplaceWith, text.AsSpan(at + Find.Length));
     }
 }
