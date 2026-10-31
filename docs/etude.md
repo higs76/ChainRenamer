@@ -91,33 +91,68 @@ Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retir
 
 Principe : chaque module fait une seule chose simple, et la puissance vient de l'enchaînement.
 
+Le catalogue a été revu le 31/10/2026 en passant en revue les 14 panneaux de Bulk Rename Utility : chacun a été repris, découpé ou écarté (voir la fin de cette section).
+
+**Aide.** Chaque module aura une aide accessible depuis son panneau, qui explique ses options **par un exemple concret** (« `Episode 5` devient `Episode 05` »). C'est indispensable pour les options moins évidentes, comme la remise à zéro de la numérotation.
+
 **Modules « liste »**
-- **Source** (fixe) : dossier local ou UNC, sélection, sous-dossiers, fichiers et/ou dossiers.
-- **Filtrer** : extension, motif, regex, taille, date.
+- **Source** (fixe) : dossier local ou UNC, sélection, sous-dossiers (avec une profondeur, y compris « sans les fichiers du dossier racine »), fichiers et/ou dossiers, fichiers cachés.
+- **Filtrer** : extension, motif, regex, taille, date, longueur du nom.
 - **Trier** : tri naturel, date, taille, métadonnée, ordre manuel.
 
 **Modules « nom »**
-- **Remplacer** : un texte par un autre, dans le nom sans l'extension, en respectant ou non la casse ; occurrences : toutes (par défaut), la première ou la dernière.
+- **Remplacer** : un texte par un autre, dans le nom sans l'extension, en respectant ou non la casse ; occurrences : toutes (par défaut), la première, la dernière, au début du nom, à la fin du nom.
 - **Remplacer (avancé)** : la même chose avec une expression régulière et ses groupes (`$1`). Séparé de Remplacer, qui reste simple pour le cas courant (décision du 31/10/2026).
-- **Casse** : minuscules, MAJUSCULES, Titre (avec mots exclus), Phrase.
-- **Supprimer** : n premiers ou derniers caractères, entre deux positions, entre deux textes.
-- **Insérer** : à une position, avant ou après un texte, à un marqueur.
-- **Numérotation** : début, pas, remplissage (001), position.
-- **Extension** : changer l'extension, changer sa casse.
-- **Capturer** : regex à groupes nommés, qui crée des variables (`{saison}`, `{episode}`) réutilisables plus loin.
+- **Table de remplacement** : une liste de paires « texte → remplacement », appliquées dans l'ordre. Elle se saisit dans une vraie liste, se colle ou se charge depuis un fichier. Exemples : translittération (`ß` → `ss`, `œ` → `oe`), vocabulaire maison réutilisé d'une chaîne à l'autre (`VOSTFR` → `VOST`, `S01` → `Saison 1`).
+- **Casse** : minuscules, MAJUSCULES, Titre, Phrase.
+  - Les petits mots laissés en minuscules dans un titre dépendent de la langue (français : de, la, le, et, du, des… ; anglais : a, an, the, of…).
+  - Les exceptions (mots dont la casse est imposée, comme `TV` ou `iPhone`) se saisissent dans une liste.
+  - Deux cases : chiffres romains en majuscules (`Part iii` → `Part III`), sigles laissés tels quels.
+  - Option « espace avant les majuscules » (`MyHoliday` → `My Holiday`).
+- **Supprimer**, par la position : n premiers ou derniers caractères, entre deux positions (négatives : depuis la fin), avant ou après un texte, entre deux textes (`[1080p]`, `(VOSTFR)`).
+- **Nettoyer**, par des cases à cocher : espaces au début et à la fin, doubles espaces, accents (é → e), chiffres, symboles, emojis, points en tête. Le module qu'on met souvent en fin de chaîne.
+- **Insérer** : au début, à la fin, à une position, avant ou après un texte, à un marqueur. Le texte peut contenir des variables.
+- **Modèle** : le nom entier est remplacé par un modèle, par exemple `{nom} - {dossier} - {n}`.
+- **Formater les nombres** : complète un nombre du nom par des zéros (`Episode 5` → `Episode 05`).
+- **Dates** : trouve une date dans le nom et la réécrit dans un autre format (`01.04.2024` → `2024-04-01`).
+- **Numérotation** : début, pas, remplissage (`001`), séparateur, position (début, fin, position) ; chiffres, lettres ou chiffres romains. Remise à zéro **quand le dossier change** ou **quand une variable change** : avec `{saison}` capturée plus haut, les épisodes sont numérotés saison par saison.
+- **Extension** : garder, minuscules, majuscules, Titre ; extension imposée, extension ajoutée (`.holiday` → `.holiday.gif`), extension retirée.
+- **Capturer** : regex à groupes nommés, qui crée des variables (`{saison}`, `{episode}`) réutilisables plus loin. Déplacer un morceau du nom, c'est Capturer, Supprimer, puis Insérer la variable ailleurs.
+
+**Variables communes**
+Plutôt que des modules dédiés (Auto Date, Append Folder Name de BRU), le moteur fournit des variables utilisables dans tous les modules qui acceptent du texte (Insérer, Modèle, Remplacer…) :
+- `{dossier}`, `{dossier:2}` (le dossier parent, ou celui de niveau 2) ;
+- `{date:…}`, avec un sélecteur de source (création, modification, prise de vue, date du jour), de format et un décalage horaire ;
+- `{taille}` ;
+- les variables de Capturer ;
+- plus tard les métadonnées (`{exif.…}`, ID3, vidéo).
+
+**Segment de nom (option d'étape, à confirmer sur des cas concrets)**
+La portée dit *quels fichiers* une étape touche ; le segment dirait *quelle partie du nom* : « ne travailler qu'entre … et … » (des positions, ou des textes comme du premier `(` au premier `)`). Le pipeline découpe le nom, donne le morceau au module, puis recolle, comme il le fait pour la portée : les modules restent purs. Exemples :
+- `Serie - 01x01 - le titre de l'épisode` : une Casse Titre limitée à ce qui suit le dernier ` - ` ne touche pas au nom de la série ;
+- `Film (2019) [1080p]` : un Remplacer ou un Nettoyer limité à ce qui est avant ` (` ne risque pas d'abîmer l'année ni les étiquettes.
 
 **Listes de dépôt**
-On colle une liste de lignes, par exemple des titres copiés depuis TheTVDB. La ligne N va au fichier de rang N, d'où l'intérêt d'un module Trier juste avant.
-- **Liste – remplacer** : chaque ligne devient le nom ; l'extension est conservée.
+On colle une liste de lignes (presse-papiers), ou on dépose un fichier texte dans le module, par exemple des titres copiés depuis TheTVDB.
+- **Liste – remplacer** : chaque ligne devient le nom ; l'extension est conservée. La ligne N va au fichier de rang N, d'où l'intérêt d'un module Trier juste avant.
 - **Liste – insérer** : la ligne est insérée à une position, après un texte ou à un marqueur.
-- Un avertissement apparaît si le nombre de lignes diffère du nombre de fichiers.
+- Mode **paires** : chaque ligne donne « ancien nom → nouveau nom » ; le fichier est retrouvé par son nom et non par son rang (l'« Import Rename-Pairs » de BRU).
+- Un avertissement apparaît si le nombre de lignes diffère du nombre de fichiers, ou si une paire ne trouve pas son fichier.
+
+**Ce qu'on ne reprend pas de BRU**
+- Name → Reverse (nom à l'envers) et Remove (nom vidé : un Modèle vide le fait).
+- Move/Copy : couvert par Capturer + Supprimer + Insérer.
+- Les bases de numérotation exotiques (2 à 36, chiffres hébreux).
+- Special → Order : notre chaîne est libre. Attributs et horodatages des fichiers : ce n'est pas du renommage.
+- Special → JavaScript : pas pour l'instant (voir « Module script » plus bas).
+- New Location (copier ou déplacer vers un autre dossier) n'est pas un module : ce sera une option « copier vers… » de l'Applicateur, pour travailler sans risque sur une copie.
 
 **Marqueurs de placement**
 Un module pose un repère (par exemple `$$`) selon des conditions, à un endroit variable. Un module suivant insère à ce repère, un dernier le retire. Ce sont des modules ordinaires, sans fonctionnalité spéciale dans le moteur. Option de confort : avertir si un marqueur subsiste dans le nom final.
 
 **Plus tard**
 - Métadonnées : EXIF, ID3, vidéo.
-- Variables : `{dossier}`, `{date}`, `{compteur}`.
+- Applicateur : « copier vers… » un autre dossier, en gardant ou non l'arborescence.
 - Récupération de titres via une API de séries.
 - Module script.
 
@@ -161,7 +196,7 @@ Décisions :
 ## 8. Jalons
 
 1. **Fondations** : solution, moteur avec cache et recalcul, modules Source, Remplacer et Trier, Applicateur en deux phases, CLI minimale, App minimale.
-2. **Modules de base** : Casse, Supprimer, Insérer, Numérotation, Extension, Filtrer.
-3. **Puissance** : Capturer avec ses variables, Listes de dépôt, marqueurs.
+2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension, Filtrer, Formater les nombres ; aide par module.
+3. **Puissance** : variables communes, Capturer, Modèle, Dates, Table de remplacement, Listes de dépôt, segment de nom, marqueurs.
 4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur.
 5. **Métadonnées** : EXIF, ID3.

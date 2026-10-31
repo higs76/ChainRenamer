@@ -37,7 +37,8 @@ Correspondance avec l'étude (rédigée en français) :
 | Applicateur | `Applier` |
 | Chaîne (`.chaine`) | `Chain` (`.chain`) |
 | Source, Filtrer, Trier | `Source`, `Filter`, `Sort` |
-| Remplacer, Remplacer (avancé, regex), Casse, Supprimer, Insérer, Numérotation, Extension, Capturer | `Replace`, `RegexReplace`, `Case`, `Remove`, `Insert`, `Numbering`, `Extension`, `Capture` |
+| Remplacer, Remplacer (avancé, regex), Table de remplacement, Casse, Supprimer, Nettoyer, Insérer, Modèle, Formater les nombres, Dates, Numérotation, Extension, Capturer | `Replace`, `RegexReplace`, `ReplaceTable`, `Case`, `Remove`, `Clean`, `Insert`, `Template`, `PadNumbers`, `Dates`, `Numbering`, `Extension`, `Capture` |
+| Variables communes, segment de nom | `Variables`, `Step.Segment` |
 | Liste – remplacer / insérer | `ListReplace` / `ListInsert` |
 
 ## Environnement
