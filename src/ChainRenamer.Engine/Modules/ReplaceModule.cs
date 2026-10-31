@@ -12,6 +12,7 @@ public enum Occurrence
 /// Replaces a text by another, in the name without its extension (the extension has its own module).
 /// The searched text is taken literally: regular expressions are <see cref="RegexReplaceModule"/>'s job.
 /// </summary>
+[Module("Replace")]
 public sealed record ReplaceModule(
     string Find,
     string ReplaceWith,

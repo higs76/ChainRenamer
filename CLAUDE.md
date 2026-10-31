@@ -91,7 +91,7 @@ dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
    Les résultats des étapes antérieures restent en cache.
 7. **Une étape désactivée recopie son entrée** telle quelle.
 8. **La chaîne est sérialisée en JSON** (`.chain`) : liste ordonnée de { type, nom optionnel, actif, paramètres }. Le format doit être versionné (`"version": 1`).
-9. **Extensibilité.** Chaque module implémente une interface commune (`IModule`) et décrit ses paramètres. Ajouter un module ne doit pas modifier le moteur.
+9. **Extensibilité.** Chaque module implémente une interface commune (`IModule`) et porte un nom stable (`[Module("Replace")]`), écrit dans les `.chain` et servant de clé à son aide. Ajouter un module ne doit pas modifier le moteur.
 10. **Le moteur ne produit pas de texte affiché.** Il renvoie des codes (par exemple un `enum ConflictKind`) que la CLI et l'App traduisent. Cela garde la localisation hors du moteur.
 
 ## Renommage disque : pièges à couvrir (avec tests)

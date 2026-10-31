@@ -55,7 +55,27 @@ Ses limites :
 - Les réglages du module, sa case « actif » et son nom optionnel.
 
 **Barre du haut**
-- Ouvrir et enregistrer une chaîne, et « Appliquer le renommage ».
+- « Appliquer le renommage », bien visible.
+
+**Menu (décidé le 31/10/2026)**
+```
+Fichier   Nouvelle chaîne · Enregistrer · Enregistrer sous… · Importer… · Exporter… · Tout exporter… · Quitter
+Chaînes   ★ favorites · Toutes les chaînes ▸ · Gérer la bibliothèque…
+Aide      Aide des modules · Rechercher les mises à jour · À propos
+```
+- **Bibliothèque** : un dossier contenant un fichier `.chain` par chaîne (le nom de la chaîne est le nom du fichier), par défaut `%APPDATA%\ChainRenamer\chains\`. Son emplacement est **réglable** : sur un NAS ou un dossier synchronisé, l'utilisateur la sauvegarde et la partage entre ses PC sans rien exporter.
+- Un clic dans le menu Chaînes charge la chaîne ; les favorites (étoile) sont en tête. Enregistrer écrase la chaîne ouverte, Enregistrer sous en crée une autre (pour partir d'une chaîne existante). Une marque dans le titre signale les changements non enregistrés.
+- Exporter / Importer une chaîne (son fichier `.chain`, à envoyer à quelqu'un) ; Tout exporter : un `.zip` des chaînes et des préférences, pour une réinstallation.
+- Charger une chaîne remplace les étapes et garde la Source : **le dossier source n'est pas enregistré dans la chaîne**. Une chaîne est une recette qu'on rejoue sur n'importe quel dossier ; les dossiers récurrents relèvent de l'historique et des favoris de la Source.
+
+**Aide (décidée le 31/10/2026)**
+- Une fenêtre construite comme l'App : la liste des modules à gauche, la page du module choisi à droite (à quoi il sert, ses options, des exemples concrets). Le **?** du panneau d'un module ouvre l'aide sur ce module.
+- Les exemples sont **calculés par le moteur** : la page décrit des noms d'entrée et des réglages, le vrai module produit le résultat. Ils restent justes quand un module évolue, et un test le vérifie. Les textes sont dans les `.resx`.
+- La clé d'une page est le type du module tel qu'il est écrit dans le `.chain` (`Replace`). Elle servira d'ancre au site d'aide, prévu quand le dépôt sera public (GitHub Pages est payant sur un dépôt privé). L'aide intégrée marche aussi hors connexion.
+
+**Mises à jour (décidées le 31/10/2026)**
+1. D'abord prévenir : au démarrage, l'App demande à GitHub la dernière version publiée et propose le lien de téléchargement ; désactivable dans les préférences. L'API de GitHub ne répond pas sur un dépôt privé : à faire quand le dépôt sera public.
+2. Plus tard, installer seul (par exemple avec Velopack, licence à vérifier), ce qui suppose un vrai installateur.
 
 ## 4. Modèle de données du moteur
 
@@ -85,6 +105,21 @@ Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retir
 
 **Lisibilité de l'aperçu (retours d'un testeur, 31/10/2026).** Les en-têtes nomment l'étape choisie : « Original (source) », « Avant l'étape 2 · Remplacer », « Après l'étape 2 · Remplacer », avec une infobulle chacun. La colonne Original peut être masquée (petits écrans). Chaque module a une description d'une phrase, affichée à côté du nom de l'étape. Le menu d'ajout suit un ordre logique : modules « liste » d'abord, puis modules « nom » du plus simple au plus avancé ; Remplacer (regex) s'appelle « Remplacer (avancé) ».
 
+**Format `.chain`** (JSON, versionné). Les étapes qui suivent la Source, chacune avec son type, son nom éventuel, son état actif et les réglages de son module :
+```json
+{
+  "version": 1,
+  "steps": [
+    { "type": "Replace", "name": "Points", "enabled": true,
+      "settings": { "find": ".", "replaceWith": " ", "matchCase": false, "occurrence": "all" } }
+  ]
+}
+```
+- Le type est un nom stable, déclaré par l'attribut `[Module("Replace")]` de chaque module : renommer la classe ne casse pas les fichiers. Ajouter un module ne touche pas au moteur.
+- Un réglage absent prend sa valeur par défaut : une nouvelle option ne rend pas les anciens fichiers illisibles.
+- Ne sont pas enregistrés : la Source (dossier, sous-dossiers, fichiers décochés), la portée des étapes et l'ordre manuel de Trier, qui dépendent des fichiers chargés. Les `StepId` sont recréés au chargement.
+- Une erreur de lecture est un code (`ChainError` : fichier invalide, version non prise en charge, module inconnu, réglages invalides), que la CLI et l'App traduisent.
+
 **Renommage disque** : deux phases. Chaque fichier passe d'abord par un nom temporaire unique dérivé de son `FichierId`, puis reçoit son nom final. Cela couvre les échanges, les cycles et les changements de casse seule sur NTFS et SMB. Les conflits sont détectés avant l'application, et un journal permet l'annulation.
 
 ## 5. Catalogue des modules
@@ -103,7 +138,7 @@ Le catalogue a été revu le 31/10/2026 en passant en revue les 14 panneaux de B
 **Modules « nom »**
 - **Remplacer** : un texte par un autre, dans le nom sans l'extension, en respectant ou non la casse ; occurrences : toutes (par défaut), la première, la dernière, au début du nom, à la fin du nom.
 - **Remplacer (avancé)** : la même chose avec une expression régulière et ses groupes (`$1`). Séparé de Remplacer, qui reste simple pour le cas courant (décision du 31/10/2026).
-- **Table de remplacement** : une liste de paires « texte → remplacement », appliquées dans l'ordre. Elle se saisit dans une vraie liste, se colle ou se charge depuis un fichier. Exemples : translittération (`ß` → `ss`, `œ` → `oe`), vocabulaire maison réutilisé d'une chaîne à l'autre (`VOSTFR` → `VOST`, `S01` → `Saison 1`).
+- **Table de remplacement** : une liste de paires « texte → remplacement », appliquées dans l'ordre ; chaque ligne a sa case active, pour garder une paire sans l'appliquer. Elle se saisit dans une vraie liste, se colle ou se charge depuis un fichier. Exemples : translittération (`ß` → `ss`, `œ` → `oe`), vocabulaire maison réutilisé d'une chaîne à l'autre (`VOSTFR` → `VOST`, `S01` → `Saison 1`).
 - **Casse** : minuscules, MAJUSCULES, Titre, Phrase.
   - Les petits mots laissés en minuscules dans un titre dépendent de la langue (français : de, la, le, et, du, des… ; anglais : a, an, the, of…).
   - Les exceptions (mots dont la casse est imposée, comme `TV` ou `iPhone`) se saisissent dans une liste.

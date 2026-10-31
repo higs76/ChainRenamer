@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace ChainRenamer.Engine.Modules;
 
@@ -6,12 +7,14 @@ namespace ChainRenamer.Engine.Modules;
 /// Sorts the files by their current name, in natural order. Equal names keep their order.
 /// The user can then move files by hand: <see cref="ManualOrder"/> overrides the natural order.
 /// </summary>
+[Module("Sort")]
 public sealed record SortModule(bool Descending = false) : IModule
 {
     /// <summary>
     /// The order set by hand, or empty. Files missing from it (e.g. loaded afterwards) follow, in natural order.
     /// Session only: not saved with the chain.
     /// </summary>
+    [JsonIgnore]
     public ImmutableArray<FileId> ManualOrder { get; init; } = [];
 
     public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input)

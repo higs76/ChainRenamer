@@ -6,6 +6,7 @@ namespace ChainRenamer.Engine.Modules;
 /// Replaces what a regular expression matches, in the name without its extension.
 /// The replacement can use groups: <c>$1</c>, <c>${name}</c>.
 /// </summary>
+[Module("RegexReplace")]
 public sealed record RegexReplaceModule(string Pattern, string ReplaceWith, bool MatchCase = false) : INameModule
 {
     // Guards against a pathological pattern freezing the preview.
