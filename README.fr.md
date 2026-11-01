@@ -28,7 +28,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 ## Ce qu'il sait faire
 
 **Choisir les fichiers**
-- **Source** : un dossier local ou un partage réseau (`\\nas\video`), avec ou sans ses sous-dossiers ; on décoche les fichiers à laisser de côté.
+- **Source** : un dossier local ou un partage réseau (`\\nas\video`), avec ou sans ses sous-dossiers ; on décoche les fichiers à laisser de côté. On ouvre un dossier par un clic droit dans l'Explorateur (« Renommer avec ChainRenamer »), en le déposant sur la fenêtre, ou parmi les récents.
 - **Filtrer** : garder ou retirer des fichiers selon leur nom (texte, motif `*.mkv`, expression régulière), leur extension, leur taille, leur date de modification ou la longueur du nom.
 - **Trier** : ordre naturel (`Episode 2` avant `Episode 10`), ou son propre ordre par glisser-déposer.
 
@@ -53,6 +53,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - Les échanges (A↔B), les cycles, les renumérotations et les changements de casse seule (`photo.jpg` → `Photo.jpg`) fonctionnent, y compris sur les partages réseau qui ignorent la casse.
 - Chaque déplacement est écrit dans un journal : **Annuler ce renommage** remet tous les noms, même après une erreur au milieu.
 - Juste avant de renommer, le disque est vérifié à nouveau : un fichier a pu apparaître depuis le chargement du dossier.
+- **Exporter l'aperçu** dans un fichier CSV : un essai à blanc à lire dans un tableur.
 
 **Réutiliser son travail**
 - **Bibliothèque** de chaînes enregistrées, **favoris** en dossiers comme dans un navigateur, import et export.

@@ -188,7 +188,7 @@ On colle une liste de lignes (presse-papiers), ou on dépose un fichier texte da
 - Mode **paires** : chaque ligne donne « ancien nom → nouveau nom » ; le fichier est retrouvé par son nom et non par son rang (l'« Import Rename-Pairs » de BRU).
 - Un avertissement apparaît si le nombre de lignes diffère du nombre de fichiers, ou si une paire ne trouve pas son fichier.
 
-Fait (0.12.0) : un seul module **Liste** avec trois modes (remplacer le nom, insérer, paires) plutôt que deux modules. Une ligne vide garde le nom de son fichier ; les lignes acceptent les variables ; en mode paires, un ancien nom écrit avec son extension donne tout le nouveau nom, sans extension il garde celle du fichier. Le panneau affiche le nombre de lignes, à comparer au nombre de fichiers ; l'avertissement des paires sans fichier (`ListModule.Unmatched`) reste à afficher.
+Fait (0.12.0) : un seul module **Liste** avec trois modes (remplacer le nom, insérer, paires) plutôt que deux modules. Une ligne vide garde le nom de son fichier ; les lignes acceptent les variables ; en mode paires, un ancien nom écrit avec son extension donne tout le nouveau nom, sans extension il garde celle du fichier. Le panneau affiche le nombre de lignes, à comparer au nombre de fichiers ; un bandeau avertit quand le nombre de lignes diffère du nombre de fichiers, ou quand des paires ne trouvent pas leur fichier (0.13.0).
 
 **Ce qu'on ne reprend pas de BRU**
 - Name → Reverse (nom à l'envers) et Remove (nom vidé : un Modèle vide le fait).
@@ -241,7 +241,7 @@ Décisions :
 - Source : historique des dossiers récemment choisis, et dossiers mis en favoris (idée de Higs76, 31/10/2026). Fait en 0.13.0 : les 10 derniers dossiers (menu « Récents ») ; les favoris de dossiers restent à faire.
 - Glisser-déposer de fichiers et de dossiers dans la Source. Fait en 0.13.0 : un dossier déposé sur la fenêtre est chargé (un fichier : son dossier).
 - Menu contextuel de l'Explorateur : « Renommer avec ChainRenamer ». Fait en 0.13.0 : inscrit pour l'utilisateur (sans droits d'administrateur) depuis Outils > Paramètres, sur un dossier et dans le fond d'un dossier ouvert.
-- Export de l'aperçu en CSV, pour un essai à blanc.
+- Export de l'aperçu en CSV, pour un essai à blanc. Fait en 0.13.0 (Fichier > Exporter l'aperçu ; séparateur de Windows, UTF-8 avec signature pour Excel).
 - Affichage de toutes les étapes côte à côte sur grand écran (4K).
 
 ## 8. Jalons

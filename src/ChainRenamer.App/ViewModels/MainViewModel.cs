@@ -4,6 +4,7 @@ using Avalonia.Threading;
 using ChainRenamer.App.Resources;
 using ChainRenamer.App.ViewModels.Modules;
 using ChainRenamer.Engine;
+using ChainRenamer.Engine.Modules;
 using ChainRenamer.Engine.Renaming;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -445,8 +446,19 @@ public partial class MainViewModel : ViewModelBase
         {
             (false, _) => (Strings.Banner_Disabled, false),
             (_, { } error) => (string.Format(Strings.Banner_Error, error), true),
-            _ => (null, false),
+            _ => (ListWarning(step, input), false),
         };
+    }
+
+    /// <summary>A list that does not fit its files: not as many lines as files, or pairs that find no file.</summary>
+    private static string? ListWarning(StepViewModel step, IReadOnlyList<Item> input)
+    {
+        if (step.Settings.ToModule() is not ListModule { Lines.Length: > 0 } list) return null;
+        if (list.Mode == ListMode.Pairs)
+            return list.Unmatched(input) is { Count: > 0 } missing ? string.Format(Strings.List_Unmatched, missing.Count, string.Join(", ", missing.Take(3))) : null;
+
+        int lines = list.Items().Count, files = input.Count(i => !step.Skipped.Contains(i.FileId));
+        return lines == files ? null : string.Format(Strings.List_Mismatch, lines, files);
     }
 
     private static string Describe(ConflictKind kind) => kind switch

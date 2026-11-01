@@ -150,6 +150,15 @@ public partial class MainWindow : Window
         if (await SavePath(Strings.Picker_Export, vm.ChainName ?? Strings.Chain_Untitled, ChainFiles) is { } path) await vm.ExportAsync(path);
     }
 
+    private static readonly FilePickerFileType CsvFiles = new(Strings.Picker_Csv) { Patterns = ["*.csv"] };
+
+    private async void OnExportPreview(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel is not { } vm) return;
+        if (await SavePath(Strings.Picker_ExportPreview, $"{vm.ChainName ?? Strings.Chain_Untitled} {DateTime.Now:yyyy-MM-dd}", CsvFiles) is { } path)
+            await vm.ExportPreviewAsync(path);
+    }
+
     private async void OnExportAll(object? sender, RoutedEventArgs e)
     {
         if (ViewModel is not { } vm) return;

@@ -121,6 +121,7 @@
             <MenuItem Header="{x:Static res:Strings.Menu_Import}" Click="OnImport" />
             <MenuItem Header="{x:Static res:Strings.Menu_Export}" Click="OnExport" />
             <MenuItem Header="{x:Static res:Strings.Menu_ExportAll}" Click="OnExportAll" />
+            <MenuItem Header="{x:Static res:Strings.Menu_ExportPreview}" Click="OnExportPreview" />
             <Separator />
             <MenuItem Header="{x:Static res:Strings.Menu_Quit}" Click="OnQuit" />
         </MenuItem>

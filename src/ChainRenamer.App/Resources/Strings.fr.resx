@@ -367,4 +367,13 @@
   <data name="ExplorerMenu_Repair" xml:space="preserve"><value>Utiliser cette copie</value></data>
   <data name="ExplorerMenu_Failed" xml:space="preserve"><value>Le menu de l'Explorateur n'a pas pu être modifié : {0}</value></data>
   <data name="Chain_Collapse" xml:space="preserve"><value>Réduire ou déplier la chaîne</value></data>
+  <data name="List_Mismatch" xml:space="preserve"><value>La liste a {0} lignes pour {1} fichiers : la ligne N va au fichier N, vérifiez l'ordre et le nombre.</value></data>
+  <data name="List_Unmatched" xml:space="preserve"><value>{0} paire(s) ne trouvent aucun fichier : {1}</value></data>
+  <data name="Menu_ExportPreview" xml:space="preserve"><value>Exporter l'aperçu (CSV)…</value></data>
+  <data name="Picker_ExportPreview" xml:space="preserve"><value>Exporter l'aperçu</value></data>
+  <data name="Picker_Csv" xml:space="preserve"><value>Fichiers CSV</value></data>
+  <data name="Csv_Folder" xml:space="preserve"><value>Dossier</value></data>
+  <data name="Csv_Original" xml:space="preserve"><value>Nom actuel</value></data>
+  <data name="Csv_New" xml:space="preserve"><value>Nouveau nom</value></data>
+  <data name="Csv_Conflict" xml:space="preserve"><value>Conflit</value></data>
 </root>

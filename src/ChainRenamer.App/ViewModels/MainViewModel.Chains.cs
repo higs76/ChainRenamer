@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Text;
 using ChainRenamer.App.Resources;
 using ChainRenamer.App.ViewModels.Modules;
 using ChainRenamer.Engine;
@@ -204,6 +206,25 @@ public partial class MainViewModel
     public async Task ExportAsync(string file)
     {
         if (await Try(() => CurrentChain().SaveAsync(file))) SetStatus(string.Format(Strings.Export_Done, file));
+    }
+
+    /// <summary>
+    /// The renaming as it would be applied, one line per file: a dry run to read or keep in a spreadsheet.
+    /// The separator is the one of Windows (";" in French), so that a double click opens it in columns.
+    /// </summary>
+    public async Task ExportPreviewAsync(string file)
+    {
+        var separator = CultureInfo.CurrentCulture.TextInfo.ListSeparator;
+        string Field(string text) => text.Contains(separator) || text.Contains('"') || text.Contains('\n') ? $"\"{text.Replace("\"", "\"\"")}\"" : text;
+        string Line(params string[] fields) => string.Join(separator, fields.Select(Field));
+
+        var newNames = pipeline.Output.ToDictionary(i => i.FileId, i => i.Name);
+        var conflicts = finalPlan.Conflicts.ToDictionary(c => c.FileId, c => c.Kind);
+        var lines = pipeline.Files.Select(f => Line(f.Directory, f.Name, newNames.GetValueOrDefault(f.Id, f.Name),
+            conflicts.TryGetValue(f.Id, out var kind) ? Describe(kind) : ""));
+        // UTF-8 with its signature: Excel then reads the accents right.
+        if (await Try(() => File.WriteAllLinesAsync(file, [Line(Strings.Csv_Folder, Strings.Csv_Original, Strings.Csv_New, Strings.Csv_Conflict), .. lines], new UTF8Encoding(true))))
+            SetStatus(string.Format(Strings.Export_Done, file));
     }
 
     public async Task ExportAllAsync(string zip)

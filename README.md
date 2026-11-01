@@ -28,7 +28,7 @@ ChainRenamer replaces the panels with an assembly line:
 ## What it can do
 
 **Choose the files**
-- **Source**: a local folder or a network share (`\\nas\video`), with or without its subfolders; uncheck the files to leave out.
+- **Source**: a local folder or a network share (`\\nas\video`), with or without its subfolders; uncheck the files to leave out. Open a folder by a right click in the Explorer ("Rename with ChainRenamer"), by dropping it on the window, or from the recent ones.
 - **Filter**: keep or remove files by name (text, `*.mkv` pattern, regular expression), extension, size, modification date or name length.
 - **Sort**: natural order (`Episode 2` before `Episode 10`), or your own order by drag and drop.
 
@@ -53,6 +53,7 @@ ChainRenamer replaces the panels with an assembly line:
 - Swaps (A↔B), cycles, renumbering and case-only changes (`photo.jpg` → `Photo.jpg`) work, including on network shares that ignore case.
 - Every move is written to a journal: **Undo this renaming** puts every name back, even after an error in the middle.
 - Just before renaming, the disk is checked again: a file may have appeared since the folder was loaded.
+- **Export the preview** to a CSV file: a dry run to read in a spreadsheet.
 
 **Reuse your work**
 - **Library** of saved chains, **favorites** in folders as in a browser, import and export.
