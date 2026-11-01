@@ -366,4 +366,5 @@
   <data name="ExplorerMenu_Elsewhere" xml:space="preserve"><value>L'entrée lance une autre copie de ChainRenamer (déplacée, ou une autre version).</value></data>
   <data name="ExplorerMenu_Repair" xml:space="preserve"><value>Utiliser cette copie</value></data>
   <data name="ExplorerMenu_Failed" xml:space="preserve"><value>Le menu de l'Explorateur n'a pas pu être modifié : {0}</value></data>
+  <data name="Chain_Collapse" xml:space="preserve"><value>Réduire ou déplier la chaîne</value></data>
 </root>

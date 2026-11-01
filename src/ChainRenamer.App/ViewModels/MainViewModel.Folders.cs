@@ -37,6 +37,33 @@ public partial class MainViewModel
         OnPropertyChanged(nameof(HasRecentFolders));
     }
 
+    /// <summary>The chain column shows only the number and icon of each step, to leave room for the preview.</summary>
+    public bool ChainCollapsed
+    {
+        get => preferences.ChainCollapsed;
+        set
+        {
+            if (value == preferences.ChainCollapsed) return;
+            preferences = preferences with { ChainCollapsed = value };
+            preferences.Save();
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ChainToggle));
+            OnPropertyChanged(nameof(AddLabel));
+            OnPropertyChanged(nameof(ShowChainHint));
+        }
+    }
+
+    /// <summary>The arrow of the button that collapses or expands the chain column.</summary>
+    public string ChainToggle => ChainCollapsed ? "›" : "‹";
+
+    public string AddLabel => ChainCollapsed ? "+" : Strings.AddModule;
+
+    /// <summary>The reminder that steps can be dragged: as soon as there are two, and not in the collapsed column.</summary>
+    public bool ShowChainHint => CanReorder && !ChainCollapsed;
+
+    [RelayCommand]
+    private void ToggleChain() => ChainCollapsed = !ChainCollapsed;
+
     // ───────────── Explorer menu ─────────────
 
     public bool CanUseExplorerMenu => OperatingSystem.IsWindows();

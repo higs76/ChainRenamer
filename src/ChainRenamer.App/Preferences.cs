@@ -7,7 +7,8 @@ namespace ChainRenamer.App;
 /// <summary>The user's settings, kept in %APPDATA%\ChainRenamer\settings.json.</summary>
 /// <param name="Language">The interface language ("en", "fr"), or null for the language of Windows.</param>
 /// <param name="RecentFolders">The folders loaded last, most recent first.</param>
-public sealed record Preferences(string? LibraryFolder = null, bool ShowOriginal = true, string? Language = null, IReadOnlyList<string>? RecentFolders = null)
+/// <param name="ChainCollapsed">The chain column shows only the number and icon of each step.</param>
+public sealed record Preferences(string? LibraryFolder = null, bool ShowOriginal = true, string? Language = null, IReadOnlyList<string>? RecentFolders = null, bool ChainCollapsed = false)
 {
     /// <summary>Where the settings are kept; changed only by test harnesses, to leave the user's settings alone.</summary>
     public static string FilePath { get; set; } =

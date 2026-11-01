@@ -27,7 +27,11 @@ public partial class MainViewModel : ViewModelBase
         library = new ChainLibrary(preferences.Library);
         ShowOriginal = preferences.ShowOriginal;
         pipeline = new Pipeline(source.ToModule());
-        Steps.CollectionChanged += (_, _) => OnPropertyChanged(nameof(CanReorder));
+        Steps.CollectionChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(CanReorder));
+            OnPropertyChanged(nameof(ShowChainHint));
+        };
         source.FilesLoaded += files =>
         {
             originals = files.ToDictionary(f => f.Id, f => f.Name);

@@ -50,6 +50,8 @@ public partial class MainWindow : Window
         e.Handled = true;
     }
 
+    private const double CollapsedWidth = 96;
+
     // A DataGrid column is not in the visual tree and has no DataContext: its visibility is set from here.
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -58,9 +60,19 @@ public partial class MainWindow : Window
 
         var original = PreviewGrid.Columns[1];
         original.IsVisible = vm.ShowOriginal;
+        // The width of the chain column: narrow once collapsed, back to the width it had (the splitter may have changed it).
+        var chain = MainGrid.ColumnDefinitions[0];
+        var expandedWidth = chain.Width;
+        void SizeChain()
+        {
+            if (vm.ChainCollapsed) (expandedWidth, chain.Width) = (chain.Width.Value > CollapsedWidth ? chain.Width : expandedWidth, new GridLength(CollapsedWidth));
+            else chain.Width = expandedWidth;
+        }
+        SizeChain();
         vm.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(MainViewModel.ShowOriginal)) original.IsVisible = vm.ShowOriginal;
+            if (args.PropertyName == nameof(MainViewModel.ChainCollapsed)) SizeChain();
 
             // Save as: the name box takes the focus, its text selected.
             if (args.PropertyName == nameof(MainViewModel.IsNaming) && vm.IsNaming)

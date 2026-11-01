@@ -249,5 +249,5 @@ Décisions :
 1. **Fondations** : solution, moteur avec cache et recalcul, modules Source, Remplacer et Trier, Applicateur en deux phases, CLI minimale, App minimale. ✅
 2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension (faits en 0.9.0), Filtrer, Formater les nombres (faits en 0.10.0) ; aide par module. ✅
 3. **Puissance** : variables communes, Capturer, Modèle, Dates, Table de remplacement, Listes de dépôt, segment de nom, marqueurs. ✅ (0.11.0 et 0.12.0)
-4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur.
+4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur. ✅ (0.13.0)
 5. **Métadonnées** : EXIF, ID3.

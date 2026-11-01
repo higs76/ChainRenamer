@@ -26,6 +26,9 @@ public partial class StepViewModel : ViewModelBase
     public string Description => Settings.Description;
     public bool IsSource => Settings is SourceSettingsViewModel;
 
+    /// <summary>What the step shows once the chain column is collapsed: its icon, and the rest on hover.</summary>
+    public string Icon => ModuleCatalog.IconOf(Settings.ToModule());
+
     /// <summary>A step that only changes names: the user can make it skip some files.</summary>
     public bool IsNameStep { get; }
 
