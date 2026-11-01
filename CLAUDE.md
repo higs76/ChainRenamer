@@ -63,6 +63,7 @@ tests/
   ChainRenamer.App.Tests/     tests de l'App sans écran : aide, favoris, textes en et fr
 docs/
   etude.md
+  images/                     captures du README, faites sur des fichiers fictifs (jamais ceux du NAS)
 README.md                     anglais
 README.fr.md                  français
 LICENSE                       MIT, © Higs76
@@ -114,7 +115,7 @@ Mise en œuvre (`Engine/Renaming`) :
 - Petites étapes livrables, un commit par étape cohérente.
 - Avant d'ajouter une dépendance NuGet, vérifier sa licence et le dire.
 - Garder `docs/etude.md` et le catalogue des modules à jour quand une décision change.
-- Garder les deux README synchronisés.
+- Garder les deux README synchronisés. Le README est la porte d'entrée de qui cherche un outil de renommage (et des IA qui le résument sans lire le code) : il dit d'abord ce que fait l'outil, pour qui, ce qu'il ne fait pas encore, et précise que c'est une application Windows en C#/.NET.
 
 ## L'App (Avalonia)
 

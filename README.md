@@ -2,64 +2,74 @@
 
 # ChainRenamer
 
-A batch file renamer built on a **chain of modules**.
+**A free, open-source batch file renamer for Windows, where every rule is a step you can see.**
 
-> **Status:** active development (0.x), Windows. Preview, renaming with undo, saved chains and the built-in help work; many modules are still to come.
+Rename hundreds of files at once: TV episodes, photos, music, scans, downloads. You build a **chain** of simple steps (sort, replace, change the case, number…), each step works on the result of the previous one, and a grid shows every name **before and after each step**. Nothing is renamed until you click **Apply renaming**, and a renaming can be undone.
 
-## The idea
+![The chain on the left, each name before and after the selected step on the right, the settings of the step at the bottom](docs/images/chain-en.png)
 
-Classic batch renamers show all their rules at once, in panels applied **in a fixed order**, each **only once**, and they only show **the final result**. When the result is wrong, you have to guess which rule caused it, and you cannot, say, replace a text *after* changing the case.
+*Twelve downloaded episodes named `speedy.1x01.the.first.lap!.[1080p].mkv` become `Speedy S01E01 The First Lap.mkv`. Step 8 is selected: the grid shows what that step alone does.*
 
-ChainRenamer replaces the panels with a **chain**:
+**[Download the latest version](../../releases)**: a single `ChainRenamer.exe`, Windows 10 or 11 (x64), nothing to install.
 
-- **Each module does one simple thing**: sort, replace a text, change the case… The power comes from chaining them.
-- **Each module works on the result of the previous one**, like an assembly line. Stack them in any order, reorder them by drag and drop, and use the same module several times.
-- **You see the result of every step.** Click a step to see each name before and after it. A rule that goes wrong is spotted at once.
-- **Nothing touches the disk before "Apply renaming".** Conflicts (duplicates, forbidden characters, Windows reserved names, paths too long) are flagged at every step, and an applied renaming can be undone.
-- **A chain is a recipe.** Save it in a library and replay it on another folder: the same clean-up for every new season of a series, for example.
+## Why ChainRenamer?
 
-### An example
+Classic batch renamers, such as Bulk Rename Utility, put all their rules on one screen: a dozen panels, applied in a fixed order, each one once, and you only see the final name. When the result is wrong, you have to guess which panel caused it, and some sequences are impossible: you cannot, say, replace a text *after* changing the case.
 
-Downloaded episodes are named `speedy.01x03.my.first.time.on.the.circuit!.mkv`. The chain:
+ChainRenamer replaces the panels with an assembly line:
 
-| # | Module | Setting | Name after the step |
-|---|---|---|---|
-| 1 | Source | `\\nas\video\Speedy` | `speedy.01x03.my.first.time.on.the.circuit!.mkv` |
-| 2 | Sort | natural order (`1x2` before `1x10`) | *(same name, files in the right order)* |
-| 3 | Replace | `.` → space | `speedy 01x03 my first time on the circuit!.mkv` |
-| 4 | Replace | `!` → nothing, at the end of the name | `speedy 01x03 my first time on the circuit.mkv` |
-| 5 | Replace (advanced) | `(\d+)x(\d+)` → `S$1E$2` | `speedy S01E03 my first time on the circuit.mkv` |
+- **Each step does one simple thing.** The power comes from chaining them, in any order, as many times as needed.
+- **You see every step.** Click a step: the grid shows each name before and after it. A rule that goes wrong is spotted at once, and you fix that step only.
+- **Nothing touches the disk before you apply.** Problems (two files with the same name, characters Windows refuses, reserved names such as `CON`, paths too long) are shown in red at every step.
+- **A rule can spare a few files.** If a step suits every file but three, uncheck those three in its grid: that step leaves them alone, the others still apply.
+- **A chain is a recipe.** Save it, then replay it on another folder: the same clean-up for every new season of a series, every card of photos, every album.
 
-Replace never touches the extension: only an Extension module will. If a rule suits every file but a few, uncheck those files in the step's grid: the step leaves them as they are.
+## What it can do
 
-## What works today
+**Choose the files**
+- **Source**: a local folder or a network share (`\\nas\video`), with or without its subfolders; uncheck the files to leave out.
+- **Filter**: keep or remove files by name (text, `*.mkv` pattern, regular expression), extension, size, modification date or name length.
+- **Sort**: natural order (`Episode 2` before `Episode 10`), or your own order by drag and drop.
 
-- **Source**: local folder or UNC network share, subfolders; unchecking files removes them from the whole chain. Fast selection: header check box, Shift+click, mouse rectangle, Space, right click.
-- **Sort**: natural order, ascending or descending, or a manual order by drag and drop.
-- **Filter**: keep or remove files by name (text, `*.mkv` pattern, regular expression), extension, size, modification date or name length; the following steps only see the files kept.
-- **Replace**: a text by another, matching case or not; all occurrences, the first, the last, at the start or at the end of the name.
-- **Replace (advanced)**: regular expressions with groups (`$1`, `$2`…).
-- **Case**: lowercase, UPPERCASE, Title or Sentence; small words of English or French titles stay in lowercase; exceptions (`iPhone`, `TV`), Roman numerals, acronyms, glued words.
-- **Remove**: the first or last characters, a range of positions, before or after a text, every part between two texts (`[1080p]`).
+**Change the names**
+- **Replace**: a text by another; all occurrences, the first, the last, at the start or at the end of the name.
+- **Replace (advanced)**: regular expressions with groups: `(\d+)x(\d+)` → `S$1E$2`.
+- **Remove**: the first or last characters, a range of positions, what comes before or after a text, every part between two texts (`[1080p]`).
 - **Insert**: a text at the start, at the end, at a position, before or after a text.
-- **Numbering**: digits (`001`), letters or Roman numerals, anywhere in the name, starting again in each folder if wanted.
-- **Pad numbers**: `Episode 5` → `Episode 05`, every number, the first or the last, to a set number of digits or as many as the longest number.
-- **Clean**: extra spaces, accents, digits, symbols, emojis, leading dots.
-- **Extension**: case, replace, add, remove: the only module that touches the extension.
-- **Preview**: Original | Before the step | After the step columns, conflicts in red.
-- **Safe renaming**: two phases (handles A↔B swaps, cycles and case-only changes on NTFS and SMB), undoable thanks to a journal.
-- **Chain library**: save, save as, import and export of one chain or the whole library, configurable location (a NAS or a synced folder, for example).
-- **Favorites**, as in a browser: sorted into folders that become submenus of the Chains menu (Series ▸ Anime); Ctrl+D adds the open chain.
-- **Built-in help** (F1, or the **?** of a step): how a chain works, then a page per module with its settings and examples computed by the module itself. Searchable, in English and French.
-- **Interface** in English and French, following the Windows language or chosen in **Tools > Settings**.
-- **Command line**: `ChainRenamer.Cli` replays a saved chain on a folder, for scripts and scheduled tasks. Preview by default, renaming with `--apply`, undo with `--undo`.
+- **Case**: lowercase, UPPERCASE, Title Case or Sentence case, with the small words of English or French titles (`The Lord of the Rings`), exceptions (`iPhone`, `TV`), Roman numerals and acronyms.
+- **Numbering**: `001`, letters or Roman numerals, anywhere in the name, starting again in each folder if you want.
+- **Pad numbers**: `Episode 5` → `Episode 05`, `S1E5` → `S01E05`.
+- **Clean**: extra spaces, accents, digits, symbols, emojis.
+- **Extension**: lowercase, uppercase, replace, add, remove. The other steps never touch the extension.
 
-## Planned
+**Rename safely**
+- Swaps (A↔B), cycles, renumbering and case-only changes (`photo.jpg` → `Photo.jpg`) work, including on network shares that ignore case.
+- Every move is written to a journal: **Undo this renaming** puts every name back, even after an error in the middle.
+- Just before renaming, the disk is checked again: a file may have appeared since the folder was loaded.
 
-- **Modules**: Dates, Template, Replacement table, Capture (named groups reused as variables).
-- **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
-- **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
-- **Name segment**: limit a step to part of the name ("after the last ` - `").
+**Reuse your work**
+- **Library** of saved chains, **favorites** in folders as in a browser, import and export.
+- **Command line**: `ChainRenamer.Cli` replays a saved chain on a folder, for scripts and scheduled tasks.
+- **Built-in help** (F1): a page per module, with examples computed by the module itself.
+- Interface in **English and French**.
+
+## Is it for me?
+
+ChainRenamer suits you if you rename files by batches, on Windows, and want to understand what each rule does before anything changes on the disk. It is at ease with series and anime episodes, photo folders, music albums, and folders on a NAS.
+
+Not there yet:
+- **Metadata**: names built from photo EXIF dates, music tags (ID3) or video properties are planned, not available.
+- **Other systems**: the app is built with Avalonia, which also runs on macOS and Linux, but only Windows is published and tested. Its checks follow the Windows naming rules.
+- **Scripting**: there is no script module; regular expressions and the chain cover most needs.
+
+The project is young (version 0.x): it works and is tested, but the list of modules keeps growing.
+
+## Coming next
+
+- **Modules**: Replacement table, Template, Dates, Capture (parts of the name reused as variables).
+- **Variables** in every module: `{folder}`, `{date}`, then photo EXIF and music tags.
+- **Drop lists**: paste a list of episode titles, line N goes to file N.
+- **Name segment**: limit a step to a part of the name, such as "after the last ` - `".
 
 ## Command line
 
@@ -68,26 +78,17 @@ ChainRenamer.Cli --chain <chain> [--subfolders] [--apply] [--library <folder>] <
 ChainRenamer.Cli --undo <journal>
 ```
 
-`<chain>` is a `.chain` file or the name of a chain of the library (the one chosen in the App by default). Without `--apply`, the command only lists what would be renamed, with the conflicts. With it, the files are renamed and the command prints the journal to give to `--undo`. Exit code: 0 done, 1 conflicts or renaming error, 2 wrong arguments, chain or folder.
+`<chain>` is a `.chain` file or the name of a chain of the library (the one chosen in the app by default). Without `--apply`, the command only lists what would be renamed, with the conflicts. With it, the files are renamed and the command prints the journal to give to `--undo`. Exit code: 0 done, 1 conflicts or renaming error, 2 wrong arguments, chain or folder.
 
 ```
 ChainRenamer.Cli --chain Anime --subfolders "\\nas\video\Speedy"
 ```
 
-## Download
+The command line comes in its own zip in the [Releases](../../releases), `ChainRenamer.Cli-X.Y.Z-win-x64.zip`.
 
-Versions are published in the [Releases](../../releases): a single `ChainRenamer.exe` for Windows x64, .NET included, nothing to install. The command line comes in its own zip, `ChainRenamer.Cli-X.Y.Z-win-x64.zip`.
+## For developers
 
-## Built with
-
-- C# / .NET 10
-- [Avalonia UI](https://avaloniaui.net/) 12 with the Fluent theme
-- [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
-- xUnit
-
-## Build and run
-
-Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+ChainRenamer is written in **C# / .NET 10**, with [Avalonia UI](https://avaloniaui.net/) 12 (Fluent theme), [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) and xUnit. Building requires the [.NET 10 SDK](https://dotnet.microsoft.com/download):
 
 ```
 dotnet build
@@ -95,17 +96,17 @@ dotnet test
 dotnet run --project src/ChainRenamer.App
 ```
 
-## Project layout
-
 ```
-src/ChainRenamer.Engine/       the engine: pipeline, modules, chains, renaming (no UI dependency)
-src/ChainRenamer.Cli/          command line
-src/ChainRenamer.App/          desktop app (Avalonia)
+src/ChainRenamer.Engine/          the engine: pipeline, modules, chains, renaming (no UI dependency)
+src/ChainRenamer.Cli/             command line
+src/ChainRenamer.App/             desktop app (Avalonia, MVVM)
 tests/ChainRenamer.Engine.Tests/  engine tests
 tests/ChainRenamer.App.Tests/     app tests that need no screen (help, favorites, translations)
-docs/etude.md                  the design study (in French)
+docs/etude.md                     the design study (in French)
 ```
+
+The engine is a pipeline of pure modules: each one takes a list of names and returns a new one, and only the renaming step touches the disk. Each step's result is cached, and a change only recomputes from the step that changed. A new module is a class with a `[Module("Name")]` attribute: the engine does not change.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE): free, including for commercial use.

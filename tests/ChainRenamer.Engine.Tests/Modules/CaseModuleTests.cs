@@ -32,6 +32,19 @@ public class CaseModuleTests
     }
 
     [Fact]
+    public void A_title_within_the_name_starts_with_a_capital()
+    {
+        var english = new CaseModule(SmallWords: SmallWords.English);
+        Assert.Equal("Speedy 1x01 The First Lap.mkv", Change(english, "speedy 1x01 the first lap.mkv"));
+        Assert.Equal("Speedy S01E03 A New Rival.mkv", Change(english, "speedy S01E03 a new rival.mkv"));
+        Assert.Equal("Queen - The Show Must Go On.mp3", Change(english, "queen - the show must go on.mp3"));
+        Assert.Equal("Alien (The Director's Cut).mkv", Change(english, "alien (the director's cut).mkv"));
+        Assert.Equal("Speedy - L'Épisode de la Course.mkv", Change(new(SmallWords: SmallWords.French), "speedy - l'épisode de la course.mkv"));
+        // A plain number is not an episode code: the small word after it stays in lowercase.
+        Assert.Equal("Top 10 of the Year.mkv", Change(english, "top 10 of the year.mkv"));
+    }
+
+    [Fact]
     public void French_elision_capitalizes_the_word_after_the_apostrophe()
     {
         Assert.Equal("Le Retour de l'Épisode.mkv", Change(new(SmallWords: SmallWords.French), "le retour de l'épisode.mkv"));

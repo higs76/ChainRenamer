@@ -88,6 +88,10 @@ public sealed partial record CaseModule(
         {
             var word = match.Value;
             bool first = index == 0, last = index == words.Count - 1;
+            // A title within the name starts after " - ", ":", "(" or "[", or after an episode code (1x01, S01E01).
+            bool starts = first || words[index - 1] is var previous
+                && (name[(previous.Index + previous.Length)..match.Index].IndexOfAny(['-', '–', ':', '(', '[']) >= 0
+                    || previous.Value.Any(char.IsDigit) && previous.Value.Any(char.IsLetter));
             index++;
 
             if (exceptions.TryGetValue(word, out var imposed)) return imposed;
@@ -98,7 +102,7 @@ public sealed partial record CaseModule(
 
             var lower = word.ToLower(Culture);
             if (Case == TextCase.Sentence) return first ? Capitalize(lower, first) : lower;
-            return !first && !last && IsSmall(lower) ? lower : Capitalize(lower, first);
+            return !starts && !last && IsSmall(lower) ? lower : Capitalize(lower, starts);
         });
     }
 
