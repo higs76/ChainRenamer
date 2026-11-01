@@ -280,4 +280,12 @@ To move a part of the name, capture it, remove it, then insert its variable else
   <data name="Capture_Example_Template" xml:space="preserve"><value>Capture `(?&lt;season&gt;\d+)x(?&lt;episode&gt;\d+)`, then a Template `S{season}E{episode}`</value></data>
   <data name="Numbering_ResetOn_Text" xml:space="preserve"><value>A counter for each value of a variable: `season` (or `{season}`), captured earlier, numbers the episodes season by season. A template works too: `{date:yyyy}` starts again each year. The files of a value are numbered in the order of the list, even when other files come between them.</value></data>
   <data name="Numbering_Example_ResetOn" xml:space="preserve"><value>A counter per season: Capture `S(?&lt;season&gt;\d+)`, then For each value of `season`</value></data>
+  <data name="Dates_Intro" xml:space="preserve"><value>Finds the dates of the name and writes them in another format. Written year first, `2024-05-17`, dates sort in the order of time, which `17.05.2024` does not.
+
+A date is three numbers separated by the same character (`.`, `-`, `_` or a space), or eight digits in a row (`20240517`). The year has two or four digits: `24` is 2024, `85` is 1985. What is not a real date, such as `31.02.2024` or a version number `1.2.3`, is left as it is. The extension is never touched.</value></data>
+  <data name="Dates_Order_Text" xml:space="preserve"><value>How the dates are written in the names: day first in most of Europe, month first in the United States, year first for cameras and phones (`IMG_20240517`). `05.04.2024` is the 5th of April or the 4th of May depending on this choice.</value></data>
+  <data name="Dates_Format_Text" xml:space="preserve"><value>The new format, as in .NET: `yyyy` the year, `MM` the month, `dd` the day, `MMMM` the name of the month, `dddd` that of the day, in the language of Windows. The panel shows what the format gives for May 17th, 2024.</value></data>
+  <data name="Dates_Example_Iso" xml:space="preserve"><value>Day first, written year first</value></data>
+  <data name="Dates_Example_Camera" xml:space="preserve"><value>A camera's date, `yyyyMMdd`, to `yyyy-MM-dd`</value></data>
+  <data name="Dates_Example_Year" xml:space="preserve"><value>Only the year: format `yyyy`</value></data>
 </root>

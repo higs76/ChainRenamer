@@ -330,4 +330,14 @@
   <data name="Capture_NoVariable" xml:space="preserve"><value>Aucune variable pour l'instant : nommez un groupe avec (?&lt;nom&gt;…)</value></data>
   <data name="Capture_Hint" xml:space="preserve"><value>(?&lt;saison&gt;\d+)x(?&lt;episode&gt;\d+) trouve 1x03 et crée {saison} = 1 et {episode} = 03. Dans la grille de cette étape, la colonne « après » montre ce que donne chaque nom. Un nom que l'expression ne trouve pas ne reçoit aucune variable.</value></data>
   <data name="Numbering_ResetOn" xml:space="preserve"><value>ou pour chaque valeur de</value></data>
+  <data name="Module_Dates" xml:space="preserve"><value>Dates</value></data>
+  <data name="Dates_Description" xml:space="preserve"><value>Trouve les dates du nom et les réécrit dans un autre format : 17.05.2024 → 2024-05-17, qui se trie bien.</value></data>
+  <data name="Dates_Order" xml:space="preserve"><value>Les dates écrites</value></data>
+  <data name="DateOrder_DayMonthYear" xml:space="preserve"><value>jour, mois, année (17.05.2024)</value></data>
+  <data name="DateOrder_MonthDayYear" xml:space="preserve"><value>mois, jour, année (05.17.2024)</value></data>
+  <data name="DateOrder_YearMonthDay" xml:space="preserve"><value>année, mois, jour (2024.05.17)</value></data>
+  <data name="Dates_Format" xml:space="preserve"><value>deviennent</value></data>
+  <data name="Dates_Example" xml:space="preserve"><value>→ {0}</value></data>
+  <data name="Dates_InvalidFormat" xml:space="preserve"><value>format non valide</value></data>
+  <data name="Dates_Hint" xml:space="preserve"><value>Une date, ce sont trois nombres avec le même séparateur (. - _ ou un espace), ou huit chiffres d'affilée (20240517) ; l'année a 2 ou 4 chiffres. Format : yyyy année, MM mois, dd jour, MMMM nom du mois, dddd nom du jour.</value></data>
 </root>

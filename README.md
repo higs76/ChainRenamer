@@ -43,6 +43,7 @@ ChainRenamer replaces the panels with an assembly line:
 - **Case**: lowercase, UPPERCASE, Title Case or Sentence case, with the small words of English or French titles (`The Lord of the Rings`), exceptions (`iPhone`, `TV`), Roman numerals and acronyms.
 - **Numbering**: `001`, letters or Roman numerals, anywhere in the name, starting again in each folder if you want.
 - **Pad numbers**: `Episode 5` → `Episode 05`, `S1E5` → `S01E05`.
+- **Dates**: `17.05.2024` → `2024-05-17`, day, month or year first, any format.
 - **Clean**: extra spaces, accents, digits, symbols, emojis.
 - **Extension**: lowercase, uppercase, replace, add, remove. The other steps never touch the extension.
 
@@ -70,7 +71,6 @@ The project is young (version 0.x): it works and is tested, but the list of modu
 
 ## Coming next
 
-- **Dates**: find a date in the name and write it in another format.
 - **Metadata variables**: photo EXIF dates, music tags.
 - **Drop lists**: paste a list of episode titles, line N goes to file N.
 - **Name segment**: limit a step to a part of the name, such as "after the last ` - `".

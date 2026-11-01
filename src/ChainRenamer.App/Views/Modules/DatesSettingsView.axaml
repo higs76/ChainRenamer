@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.DatesSettingsView"
+             x:DataType="vm:DatesSettingsViewModel">
+    <!-- Reads as a sentence: Dates written [day.month.year] become [yyyy-MM-dd] -->
+    <StackPanel Spacing="8">
+        <WrapPanel>
+            <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" Text="{x:Static res:Strings.Dates_Order}" />
+            <ComboBox ItemsSource="{Binding Orders}" SelectedValue="{Binding Order}" MinWidth="260" Margin="0,0,16,0"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Dates_Format}" />
+                <TextBox Text="{Binding Format}" Width="180" FontFamily="Consolas,monospace" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding Example}" FontWeight="SemiBold" />
+            </StackPanel>
+        </WrapPanel>
+        <TextBlock Text="{x:Static res:Strings.Dates_Hint}" Opacity="0.7" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

@@ -282,4 +282,12 @@ Pour déplacer une partie du nom, on la capture, on la supprime, puis on insère
   <data name="Capture_Example_Template" xml:space="preserve"><value>Capturer `(?&lt;saison&gt;\d+)x(?&lt;episode&gt;\d+)`, puis un Modèle `S{saison}E{episode}`</value></data>
   <data name="Numbering_ResetOn_Text" xml:space="preserve"><value>Un compteur pour chaque valeur d'une variable : `saison` (ou `{saison}`), capturée plus haut, numérote les épisodes saison par saison. Un modèle marche aussi : `{date:yyyy}` recommence chaque année. Les fichiers d'une même valeur sont numérotés dans l'ordre de la liste, même si d'autres fichiers s'intercalent.</value></data>
   <data name="Numbering_Example_ResetOn" xml:space="preserve"><value>Un compteur par saison : Capturer `S(?&lt;saison&gt;\d+)`, puis Pour chaque valeur de `saison`</value></data>
+  <data name="Dates_Intro" xml:space="preserve"><value>Trouve les dates du nom et les réécrit dans un autre format. Écrites l'année d'abord, `2024-05-17`, les dates se trient dans l'ordre du temps, ce que ne fait pas `17.05.2024`.
+
+Une date, ce sont trois nombres séparés par le même caractère (`.`, `-`, `_` ou un espace), ou huit chiffres d'affilée (`20240517`). L'année a deux ou quatre chiffres : `24` est 2024, `85` est 1985. Ce qui n'est pas une vraie date, comme `31.02.2024` ou un numéro de version `1.2.3`, reste tel quel. L'extension n'est jamais touchée.</value></data>
+  <data name="Dates_Order_Text" xml:space="preserve"><value>Comment les dates sont écrites dans les noms : le jour d'abord dans la plupart de l'Europe, le mois d'abord aux États-Unis, l'année d'abord pour les appareils photo et les téléphones (`IMG_20240517`). `05.04.2024` est le 5 avril ou le 4 mai selon ce choix.</value></data>
+  <data name="Dates_Format_Text" xml:space="preserve"><value>Le nouveau format, comme en .NET : `yyyy` l'année, `MM` le mois, `dd` le jour, `MMMM` le nom du mois, `dddd` celui du jour, dans la langue de Windows. Le panneau montre ce que donne le format pour le 17 mai 2024.</value></data>
+  <data name="Dates_Example_Iso" xml:space="preserve"><value>Jour d'abord, réécrit l'année d'abord</value></data>
+  <data name="Dates_Example_Camera" xml:space="preserve"><value>La date d'un appareil photo, `yyyyMMdd`, en `yyyy-MM-dd`</value></data>
+  <data name="Dates_Example_Year" xml:space="preserve"><value>Seulement l'année : format `yyyy`</value></data>
 </root>

@@ -330,4 +330,14 @@
   <data name="Capture_NoVariable" xml:space="preserve"><value>No variable yet: name a group with (?&lt;name&gt;…)</value></data>
   <data name="Capture_Hint" xml:space="preserve"><value>(?&lt;season&gt;\d+)x(?&lt;episode&gt;\d+) finds 1x03 and creates {season} = 1 and {episode} = 03. In the grid of this step, the "after" column shows what each name gives. A name the expression does not match gets no variable.</value></data>
   <data name="Numbering_ResetOn" xml:space="preserve"><value>or for each value of</value></data>
+  <data name="Module_Dates" xml:space="preserve"><value>Dates</value></data>
+  <data name="Dates_Description" xml:space="preserve"><value>Finds the dates of the name and writes them in another format: 17.05.2024 → 2024-05-17, which sorts well.</value></data>
+  <data name="Dates_Order" xml:space="preserve"><value>Dates written</value></data>
+  <data name="DateOrder_DayMonthYear" xml:space="preserve"><value>day, month, year (17.05.2024)</value></data>
+  <data name="DateOrder_MonthDayYear" xml:space="preserve"><value>month, day, year (05.17.2024)</value></data>
+  <data name="DateOrder_YearMonthDay" xml:space="preserve"><value>year, month, day (2024.05.17)</value></data>
+  <data name="Dates_Format" xml:space="preserve"><value>become</value></data>
+  <data name="Dates_Example" xml:space="preserve"><value>→ {0}</value></data>
+  <data name="Dates_InvalidFormat" xml:space="preserve"><value>format not valid</value></data>
+  <data name="Dates_Hint" xml:space="preserve"><value>A date is three numbers with the same separator (. - _ or a space), or eight digits in a row (20240517); the year has 2 or 4 digits. Format: yyyy year, MM month, dd day, MMMM month name, dddd day name.</value></data>
 </root>

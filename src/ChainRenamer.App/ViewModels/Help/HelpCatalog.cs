@@ -285,6 +285,17 @@ public static class HelpCatalog
                 new(H.PadNumbers_Example_Trim, new PadNumbersModule(TrimZeros: true), "Episode 007.mkv", "Episode 0012.mkv"),
             ],
         },
+        new("Dates", H.Group_Modules, Strings.Module_Dates, H.Dates_Intro)
+        {
+            Module = typeof(DatesModule),
+            Options = [new(Strings.Dates_Order, H.Dates_Order_Text), new(Strings.Dates_Format, H.Dates_Format_Text)],
+            Examples =
+            [
+                new(H.Dates_Example_Iso, new DatesModule(), "Holiday 17.05.2024.jpg", "Birthday 3-1-85.jpg"),
+                new(H.Dates_Example_Camera, new DatesModule(DateOrder.YearMonthDay), "IMG_20240517_183200.jpg"),
+                new(H.Dates_Example_Year, new DatesModule(Format: "yyyy"), "Report 31.12.2023.pdf"),
+            ],
+        },
         new("Clean", H.Group_Modules, Strings.Module_Clean, H.Clean_Intro)
         {
             Module = typeof(CleanModule),

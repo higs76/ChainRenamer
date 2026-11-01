@@ -43,6 +43,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - **Casse** : minuscules, MAJUSCULES, Titre ou Phrase, avec les petits mots des titres français ou anglais (`Le Seigneur des Anneaux`), des exceptions (`iPhone`, `TV`), les chiffres romains et les sigles.
 - **Numérotation** : `001`, lettres ou chiffres romains, n'importe où dans le nom, en recommençant dans chaque dossier si on le souhaite.
 - **Formater les nombres** : `Episode 5` → `Episode 05`, `S1E5` → `S01E05`.
+- **Dates** : `17.05.2024` → `2024-05-17`, jour, mois ou année d'abord, n'importe quel format.
 - **Nettoyer** : espaces en trop, accents, chiffres, symboles, emojis.
 - **Extension** : minuscules, majuscules, remplacer, ajouter, supprimer. Les autres étapes ne touchent jamais à l'extension.
 
@@ -70,7 +71,6 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 
 ## À venir
 
-- **Dates** : trouver une date dans le nom et la réécrire dans un autre format.
 - **Variables de métadonnées** : dates EXIF des photos, tags de musique.
 - **Listes à déposer** : coller une liste de titres d'épisodes, la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom, comme « après le dernier ` - ` ».

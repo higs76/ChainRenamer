@@ -32,6 +32,7 @@ public static class ModuleCatalog
         ModuleType.Of<InsertModule>(Strings.Module_Insert, m => new InsertSettingsViewModel(m)),
         ModuleType.Of<NumberingModule>(Strings.Module_Numbering, m => new NumberingSettingsViewModel(m)),
         ModuleType.Of<PadNumbersModule>(Strings.Module_PadNumbers, m => new PadNumbersSettingsViewModel(m)),
+        ModuleType.Of<DatesModule>(Strings.Module_Dates, m => new DatesSettingsViewModel(m)),
         ModuleType.Of<CleanModule>(Strings.Module_Clean, m => new CleanSettingsViewModel(m)),
         ModuleType.Of<ExtensionModule>(Strings.Module_Extension, m => new ExtensionSettingsViewModel(m)),
     ];
