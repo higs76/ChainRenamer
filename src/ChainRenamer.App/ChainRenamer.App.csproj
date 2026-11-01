@@ -9,13 +9,21 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
-  <!-- Interface texts: the build generates the Strings class (no Visual Studio designer needed). -->
+  <!-- Interface texts: the build generates the Strings and HelpTexts classes (no Visual Studio designer needed). -->
   <ItemGroup>
     <EmbeddedResource Update="Resources\Strings.resx">
       <StronglyTypedFileName>$(IntermediateOutputPath)Strings.Designer.cs</StronglyTypedFileName>
       <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
       <StronglyTypedNamespace>ChainRenamer.App.Resources</StronglyTypedNamespace>
       <StronglyTypedClassName>Strings</StronglyTypedClassName>
+      <PublicClass>true</PublicClass>
+    </EmbeddedResource>
+    <!-- The help pages: long texts, kept apart from the interface texts. -->
+    <EmbeddedResource Update="Resources\HelpTexts.resx">
+      <StronglyTypedFileName>$(IntermediateOutputPath)HelpTexts.Designer.cs</StronglyTypedFileName>
+      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedNamespace>ChainRenamer.App.Resources</StronglyTypedNamespace>
+      <StronglyTypedClassName>HelpTexts</StronglyTypedClassName>
       <PublicClass>true</PublicClass>
     </EmbeddedResource>
   </ItemGroup>

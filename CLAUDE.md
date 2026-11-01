@@ -60,6 +60,7 @@ src/
   ChainRenamer.App/           interface Avalonia (MVVM)
 tests/
   ChainRenamer.Engine.Tests/  tests unitaires du moteur
+  ChainRenamer.App.Tests/     tests de l'App sans écran : aide, favoris, textes en et fr
 docs/
   etude.md
 README.md                     anglais
@@ -117,7 +118,9 @@ Mise en œuvre (`Engine/Renaming`) :
 
 ## L'App (Avalonia)
 
-- **Un module dans l'App** = `ViewModels/Modules/XxxSettingsViewModel` (hérite de `ModuleSettingsViewModel`, fabrique le module avec `ToModule()`, et se remplit depuis un module chargé par son constructeur `XxxSettingsViewModel(XxxModule? module = null)`) + `Views/Modules/XxxSettingsView.axaml` (trouvée par le `ViewLocator` grâce au nom) + ses textes dans les deux `.resx` + une ligne `ModuleType.Of<XxxModule>(…)` dans `ModuleCatalog`. Côté moteur, le module porte `[Module("Xxx")]`.
+- **Un module dans l'App** = `ViewModels/Modules/XxxSettingsViewModel` (hérite de `ModuleSettingsViewModel`, fabrique le module avec `ToModule()`, et se remplit depuis un module chargé par son constructeur `XxxSettingsViewModel(XxxModule? module = null)`) + `Views/Modules/XxxSettingsView.axaml` (trouvée par le `ViewLocator` grâce au nom) + ses textes dans les deux `.resx` + une ligne `ModuleType.Of<XxxModule>(…)` dans `ModuleCatalog` + **sa page d'aide** dans `HelpCatalog` (clé = nom `[Module]`, réglages avec les libellés de `Strings`, exemples `HelpExample` calculés par le vrai module) et ses textes dans `HelpTexts.resx` / `HelpTexts.fr.resx`. Côté moteur, le module porte `[Module("Xxx")]`. Les tests de `ChainRenamer.App.Tests` refusent un module sans page ou un exemple qui ne change rien.
+- **Aide** : `HelpWindow` (une seule, à côté de la fenêtre principale), ouverte par F1, le menu Aide ou le **?** du panneau, à la page de l'étape sélectionnée. Balisage des textes : `` `code` ``, `**gras**`, ligne vide entre paragraphes (`Views/RichText.cs`).
+- **Favoris** : arbre `Favorite` (moteur, `favorites.json`), sous-menus du menu Chaînes, fenêtre `FavoritesWindow` / `FavoritesViewModel` (chaque changement est enregistré aussitôt). Ctrl+D ajoute ou retire la chaîne ouverte.
 - **Chaînes et bibliothèque** : `MainViewModel.Chains.cs` (partie de `MainViewModel`). Une chaîne est « modifiée » quand son JSON diffère du dernier enregistré. Les questions (renommer ? abandonner les modifications ? supprimer ?) passent par `Confirm(texte, oui, action)`, affichée dans la barre du haut ; « Enregistrer sous » y saisit le nom. Les sélecteurs de fichiers et le menu Chaînes (reconstruit à chaque ouverture) sont dans `MainWindow.axaml.cs`.
 - **Préférences** : `Preferences` (record), dans `%APPDATA%\ChainRenamer\settings.json` : emplacement de la bibliothèque, colonne Original. Un harnais d'essai change `Preferences.FilePath` pour ne pas toucher aux réglages de Higs76.
 - **Textes** : `Resources/Strings.resx` (anglais) et `Strings.fr.resx`. La classe `Strings` est générée par MSBuild (métadonnées `StronglyTyped*` dans le `.csproj`). En XAML : `{x:Static res:Strings.Cle}`.
@@ -149,4 +152,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
    - Consolidation (retours de Higs76, 31/10/2026) : portée des étapes « nom » (`Step.Skipped`) ; Replace classique (casse, occurrences toutes, première ou dernière ; nom sans extension) et regex sortie dans `RegexReplace` ; sélection rapide dans la grille (case d'en-tête, Maj + clic, Espace, clic droit : cocher, décocher, inverser).
    - 0.6.0 (retours d'un testeur) : sélection par rectangle (`Views/MarqueeSelect.cs`, Ctrl pour ajouter) ; en-têtes « Avant / Après l'étape n · nom » ; colonne Original masquable ; description de chaque module (`ModuleSettingsViewModel.Description`) à côté du nom de l'étape ; menu d'ajout ordonné (Trier, Remplacer, Remplacer (avancé)).
    - 0.7.0 : format `.chain` (`Chain`, JSON versionné, types `[Module("…")]`, erreurs `ChainError`) ; bibliothèque (`ChainLibrary` : dossier de `.chain` + `favorites.json`, import, export, zip de sauvegarde, déplacement) ; menus Fichier et Chaînes ; préférences ; Remplacer « au début / à la fin du nom » ; README qui explique le principe.
+   - 0.8.0 : favoris en dossiers comme dans un navigateur ; aide intégrée (pages générales et une page par module, exemples calculés, recherche) ; projet `ChainRenamer.App.Tests`.
 8. CLI minimale : charger une `.chain` (chemin ou nom dans la bibliothèque), afficher l'aperçu, appliquer avec `--apply`.

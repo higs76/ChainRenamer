@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Chain column -->
+  <data name="Group_Start" xml:space="preserve"><value>Bien démarrer</value></data>
+  <data name="Group_Modules" xml:space="preserve"><value>Modules</value></data>
+  <data name="Choice" xml:space="preserve"><value>{0} : {1}</value></data>
+  <data name="Chain_Title" xml:space="preserve"><value>Le principe de la chaîne</value></data>
+  <data name="Chain_Intro" xml:space="preserve"><value>ChainRenamer renomme les fichiers avec une **chaîne** de petites étapes. Chaque étape fait une seule chose simple (trier, remplacer un texte…) et travaille sur le résultat de l'étape au-dessus d'elle, comme une chaîne de montage.
+
+La première étape est toujours la **Source** : le dossier et les fichiers à renommer. Les étapes suivantes s'ajoutent avec **+ Ajouter un module**, et un même module peut servir plusieurs fois. Faites glisser une étape par sa poignée ≡ pour changer l'ordre : le résultat change avec lui, puisque chaque étape part de ce qu'a produit la précédente.
+
+**Cliquez sur une étape pour voir ce qu'elle fait.** La grille montre alors chaque nom avant et après cette étape, et les noms qu'elle change sont mis en valeur. La dernière étape montre les noms définitifs. Une règle qui se trompe se repère tout de suite, à l'étape où elle se trompe.
+
+**Rien ne touche au disque** avant un clic sur **Appliquer le renommage**. D'ici là, essayez ce que vous voulez.
+
+Une étape peut être désactivée : elle transmet alors son entrée sans rien changer, ce qui permet de comparer avec et sans elle. Une étape dont les réglages ne sont pas valides (une expression régulière en cours de saisie, par exemple) est marquée ⚠ et transmet aussi son entrée.
+
+Donnez un nom à une étape (« Points en espaces ») pour vous repérer dans une longue chaîne : il s'affiche sous son module dans la chaîne.</value></data>
+  <data name="Selection_Title" xml:space="preserve"><value>Cases à cocher et sélection</value></data>
+  <data name="Selection_Intro" xml:space="preserve"><value>La première colonne de la grille contient des cases à cocher. Elles veulent dire deux choses différentes selon l'étape sélectionnée :
+
+• Dans l'étape **Source**, un fichier décoché **sort de toute la chaîne**. Aucune étape ne le voit, et il n'est jamais renommé.
+• Dans une étape qui change les noms (Remplacer…), un fichier décoché est **sauté par cette étape seulement**. Elle laisse son nom tel quel, affiché en gris et en italique, et les autres étapes continuent de le traiter. Pratique quand une règle convient à tous les fichiers sauf quelques-uns.
+
+Une étape Trier n'a pas de cases : sa colonne porte les poignées ≡ qui déplacent les fichiers à la main.
+
+**Sélection rapide**
+• La case de l'en-tête coche ou décoche tous les fichiers.
+• Maj + clic sur une case : toute la plage depuis la dernière cliquée.
+• Appuyer sur une ligne et glisser : un rectangle sélectionne les lignes, comme dans l'Explorateur. Avec Ctrl, elles s'ajoutent à la sélection.
+• Espace coche ou décoche les lignes sélectionnées. Le clic droit propose de cocher, décocher ou inverser.</value></data>
+  <data name="Apply_Title" xml:space="preserve"><value>Appliquer et annuler</value></data>
+  <data name="Apply_Intro" xml:space="preserve"><value>**Appliquer le renommage** renomme les fichiers sur le disque, une seule fois, avec les noms définitifs de la chaîne. Une question dans la barre du haut demande d'abord de confirmer.
+
+**Conflits.** Chaque étape montre en rouge les noms impossibles, pour les corriger avant d'appliquer :
+• deux fichiers reçoivent le même nom ;
+• un caractère interdit : `&lt; &gt; : " / \ | ? *` ;
+• un nom réservé par Windows : `CON`, `PRN`, `AUX`, `NUL`, `COM1` à `COM9`, `LPT1` à `LPT9` ;
+• un nom qui finit par un point ou une espace, ou un nom vide ;
+• un chemin de plus de 259 caractères.
+Juste avant de renommer, le disque est vérifié à nouveau : un fichier a pu apparaître dans le dossier depuis le chargement.
+
+**Renommage sûr.** Chaque fichier prend d'abord un nom temporaire, puis son nom définitif. C'est ce qui permet les échanges (A devient B et B devient A), les cycles et les changements de casse seule (`photo.jpg` → `Photo.jpg`, que Windows ne verrait pas autrement). Si quelque chose échoue en cours de route, tout ce qui a été fait est défait.
+
+**Annuler.** Après un renommage, **Annuler ce renommage** redonne à chaque fichier son nom précédent. Chaque renommage est consigné au fur et à mesure dans un journal, dans `%LOCALAPPDATA%\ChainRenamer\journals`.</value></data>
+  <data name="Library_Title" xml:space="preserve"><value>Chaînes enregistrées et favoris</value></data>
+  <data name="Library_Intro" xml:space="preserve"><value>Une chaîne est une recette : **Fichier &gt; Enregistrer** garde ses étapes et leurs réglages dans la bibliothèque, pour les rejouer plus tard sur un autre dossier. Le dossier source n'est pas enregistré avec elle : chargez le dossier, puis ouvrez la chaîne depuis le menu **Chaînes**.
+
+• **Enregistrer** (Ctrl+S) remplace la chaîne ouverte. **Enregistrer sous…** (Ctrl+Maj+S) en crée une nouvelle, pour partir d'une chaîne existante. Le nom se saisit dans la barre du haut.
+• Un **•** dans le titre de la fenêtre signale des modifications pas encore enregistrées. Ouvrir une autre chaîne ou fermer la fenêtre pose d'abord la question.
+• Les fichiers décochés dans une étape et un ordre ajusté à la main dépendent des fichiers chargés : ils ne sont pas enregistrés.
+
+**Les favoris**, comme dans un navigateur : **Chaînes &gt; Dans les favoris** (Ctrl+D) place la chaîne ouverte en tête du menu Chaînes. **Organiser les favoris…** les range dans des dossiers, qui deviennent des sous-menus (Séries ▸ Anime). Un favori n'est qu'un raccourci : le retirer ne supprime jamais la chaîne.
+
+**La bibliothèque** est un dossier qui contient un fichier `.chain` par chaîne, par défaut `%APPDATA%\ChainRenamer\chains`. **Changer l'emplacement de la bibliothèque…** la déplace, sur un NAS ou dans un dossier synchronisé par exemple : vos chaînes vous suivent alors d'un PC à l'autre.
+
+**Importer et exporter.** **Exporter cette chaîne…** crée un fichier à envoyer à quelqu'un. **Exporter toute la bibliothèque…** crée un zip, pour une sauvegarde ou un nouveau PC. **Importer…** accepte les fichiers `.chain` et ces zips ; un nom déjà pris reçoit un numéro : « Séries (2) ».</value></data>
+  <data name="Shortcuts_Title" xml:space="preserve"><value>Raccourcis clavier</value></data>
+  <data name="Shortcuts_Intro" xml:space="preserve"><value>Les raccourcis de la fenêtre principale. Les menus les indiquent aussi.</value></data>
+  <data name="Key_F1" xml:space="preserve"><value>F1</value></data>
+  <data name="Key_F1_Text" xml:space="preserve"><value>Cette aide, ouverte à la page de l'étape sélectionnée.</value></data>
+  <data name="Key_New" xml:space="preserve"><value>Ctrl+N</value></data>
+  <data name="Key_New_Text" xml:space="preserve"><value>Nouvelle chaîne.</value></data>
+  <data name="Key_Save" xml:space="preserve"><value>Ctrl+S</value></data>
+  <data name="Key_Save_Text" xml:space="preserve"><value>Enregistrer la chaîne.</value></data>
+  <data name="Key_SaveAs" xml:space="preserve"><value>Ctrl+Maj+S</value></data>
+  <data name="Key_SaveAs_Text" xml:space="preserve"><value>Enregistrer la chaîne sous un autre nom.</value></data>
+  <data name="Key_Favorite" xml:space="preserve"><value>Ctrl+D</value></data>
+  <data name="Key_Favorite_Text" xml:space="preserve"><value>Ajouter la chaîne aux favoris, ou l'en retirer.</value></data>
+  <data name="Key_Space" xml:space="preserve"><value>Espace</value></data>
+  <data name="Key_Space_Text" xml:space="preserve"><value>Cocher ou décocher les lignes sélectionnées de la grille.</value></data>
+  <data name="Key_Range" xml:space="preserve"><value>Maj + clic</value></data>
+  <data name="Key_Range_Text" xml:space="preserve"><value>Sur une case : cocher ou décocher toute la plage depuis la dernière cliquée.</value></data>
+  <data name="Key_Rectangle" xml:space="preserve"><value>Ctrl + glisser</value></data>
+  <data name="Key_Rectangle_Text" xml:space="preserve"><value>Ajouter des lignes à la sélection avec un rectangle.</value></data>
+  <data name="Source_Intro" xml:space="preserve"><value>La première étape, fixe : elle choisit les fichiers à renommer. On ne peut ni la déplacer ni la supprimer.
+
+Tapez un dossier ou cliquez sur **Parcourir…**, puis sur **Charger**. Les dossiers locaux comme les partages réseau conviennent, et un réseau lent ne bloque pas la fenêtre.
+
+Décochez ensuite les fichiers à laisser de côté : ils sortent de toute la chaîne (voir « Cases à cocher et sélection »). Le dossier n'est pas enregistré avec la chaîne : une chaîne se rejoue sur n'importe quel dossier.</value></data>
+  <data name="Source_Folder_Text" xml:space="preserve"><value>Un dossier local (`D:\Vidéos`) ou un partage réseau (`\\nas\video\Séries`).</value></data>
+  <data name="Source_Subfolders_Text" xml:space="preserve"><value>Prend aussi les fichiers de tous les sous-dossiers. Chaque fichier reste dans son propre dossier quand il est renommé.</value></data>
+  <data name="Sort_Intro" xml:space="preserve"><value>Met les fichiers dans l'ordre. L'ordre compte pour les modules qui numérotent les fichiers ou leur donnent les lignes d'une liste : le premier fichier reçoit le numéro 1, ou la première ligne.
+
+**Ordre naturel** : les nombres des noms sont comparés comme des nombres, donc `Épisode 2` vient avant `Épisode 10`. Un tri alphabétique simple mettrait `Épisode 10` en premier.
+
+**À la main** : faites glisser un fichier par sa poignée ≡ dans la grille. L'ordre ajusté à la main dure tant que les fichiers restent chargés ; il n'est pas enregistré avec la chaîne. **Revenir à l'ordre naturel** l'annule.</value></data>
+  <data name="Sort_Descending_Text" xml:space="preserve"><value>Du dernier au premier : de Z à A, de 10 à 1.</value></data>
+  <data name="Sort_Example_Natural" xml:space="preserve"><value>Ordre naturel : 2 avant 10</value></data>
+  <data name="Sort_Example_Descending" xml:space="preserve"><value>Ordre décroissant</value></data>
+  <data name="Replace_Intro" xml:space="preserve"><value>Remplace un texte par un autre dans le nom. Le texte est cherché exactement tel qu'il est tapé : `.` est un point. Pour trouver un motif (n'importe quel nombre, n'importe quel mot…), utilisez **Remplacer (avancé)**.
+
+L'extension n'est jamais touchée : remplacer `.` par une espace garde `.mkv`.</value></data>
+  <data name="Replace_Find_Text" xml:space="preserve"><value>Le texte à trouver.</value></data>
+  <data name="Replace_With_Label" xml:space="preserve"><value>par</value></data>
+  <data name="Replace_With_Text" xml:space="preserve"><value>Le nouveau texte. Laissez-le vide pour supprimer le texte trouvé.</value></data>
+  <data name="Replace_MatchCase_Text" xml:space="preserve"><value>Cochée, `EP` ne trouve que `EP`. Décochée, il trouve aussi `ep` et `Ep`.</value></data>
+  <data name="Occurrence_All_Text" xml:space="preserve"><value>Partout où le texte se trouve.</value></data>
+  <data name="Occurrence_First_Text" xml:space="preserve"><value>La première seulement, en partant de la gauche.</value></data>
+  <data name="Occurrence_Last_Text" xml:space="preserve"><value>La dernière seulement : pratique pour le dernier séparateur d'un nom.</value></data>
+  <data name="Occurrence_Start_Text" xml:space="preserve"><value>Seulement si le nom commence par le texte : supprime ou change un préfixe.</value></data>
+  <data name="Occurrence_End_Text" xml:space="preserve"><value>Seulement si le nom finit par le texte : supprime ou change un suffixe.</value></data>
+  <data name="Replace_Example_Dots" xml:space="preserve"><value>`.` par une espace : l'extension reste</value></data>
+  <data name="Replace_Example_Last" xml:space="preserve"><value>Le dernier ` - ` seulement, par `. `</value></data>
+  <data name="Replace_Example_Start" xml:space="preserve"><value>`[HD] ` par rien, au début du nom seulement</value></data>
+  <data name="Replace_Example_Case" xml:space="preserve"><value>`EP` par `Episode `, en respectant la casse : le `ep` de « Step » reste</value></data>
+  <data name="Regex_Intro" xml:space="preserve"><value>Remplace ce que trouve une **expression régulière** : un motif plutôt qu'un texte fixe. Les parenthèses capturent des parties du nom, que le remplacement remet avec `$1`, `$2`…, dans l'ordre voulu.
+
+Comme Remplacer, il ne touche jamais à l'extension. Tant qu'un motif en cours de saisie n'est pas valide, l'étape est marquée ⚠ et ne change rien.</value></data>
+  <data name="Regex_Pattern_Text" xml:space="preserve"><value>Le motif. L'essentiel :
+• `\d` un chiffre, `\s` une espace, `.` n'importe quel caractère, `\.` un vrai point ;
+• `+` une fois ou plus, `*` autant de fois qu'on veut, `?` facultatif ;
+• `( )` un groupe, remis par `$1`, `$2`… ;
+• `^` le début du nom, `$` sa fin ;
+• `[abc]` un de ces caractères, `a|b` a ou b.</value></data>
+  <data name="Regex_With_Text" xml:space="preserve"><value>Le nouveau texte. `$1` remet le premier groupe, `$2` le deuxième… Vide, il supprime ce que trouve le motif.</value></data>
+  <data name="Regex_MatchCase_Text" xml:space="preserve"><value>Cochée, `[a-z]` ne trouve que les minuscules. Décochée, la casse est ignorée.</value></data>
+  <data name="Regex_Example_Season" xml:space="preserve"><value>`(\d+)x(\d+)` par `S$1E$2` : saison et épisode</value></data>
+  <data name="Regex_Example_Swap" xml:space="preserve"><value>`^(.+) - (.+)$` par `$2 - $1` : échange les deux parties</value></data>
+  <data name="Regex_Example_Brackets" xml:space="preserve"><value>`\s*\[.*?\]` par rien : supprime ce qui est entre crochets</value></data>
+  <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` par une espace : plusieurs espaces n'en font plus qu'une</value></data>
+</root>

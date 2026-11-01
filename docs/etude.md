@@ -60,11 +60,12 @@ Ses limites :
 **Menu (décidé le 31/10/2026)**
 ```
 Fichier   Nouvelle chaîne · Enregistrer · Enregistrer sous… · Importer… · Exporter… · Tout exporter… · Quitter
-Chaînes   ★ favorites · Toutes les chaînes ▸ · Gérer la bibliothèque…
-Aide      Aide des modules · Rechercher les mises à jour · À propos
+Chaînes   ★ favoris (dossiers en sous-menus) · Toutes les chaînes ▸ · Dans les favoris · Organiser les favoris… · Supprimer · Gérer la bibliothèque…
+Aide      Aide de ChainRenamer (F1) · Rechercher les mises à jour · À propos
 ```
 - **Bibliothèque** : un dossier contenant un fichier `.chain` par chaîne (le nom de la chaîne est le nom du fichier), par défaut `%APPDATA%\ChainRenamer\chains\`. Son emplacement est **réglable** : sur un NAS ou un dossier synchronisé, l'utilisateur la sauvegarde et la partage entre ses PC sans rien exporter.
-- Un clic dans le menu Chaînes charge la chaîne ; les favorites (étoile) sont en tête. Enregistrer écrase la chaîne ouverte, Enregistrer sous en crée une autre (pour partir d'une chaîne existante). Une marque dans le titre signale les changements non enregistrés.
+- Un clic dans le menu Chaînes charge la chaîne ; les favoris (étoile) sont en tête. Enregistrer écrase la chaîne ouverte, Enregistrer sous en crée une autre (pour partir d'une chaîne existante). Une marque dans le titre signale les changements non enregistrés.
+- **Favoris (décidé le 01/11/2026)**, comme ceux d'un navigateur : un arbre de dossiers (Séries ▸ Anime), dans l'ordre choisi par l'utilisateur, enregistré dans `favorites.json` à côté des chaînes. Les dossiers deviennent des sous-menus du menu Chaînes. Ctrl+D ajoute ou retire la chaîne ouverte ; la fenêtre « Organiser les favoris » crée, renomme, monte, descend et déplace. Un favori n'est qu'un raccourci : le retirer ne supprime pas la chaîne, supprimer la chaîne retire ses favoris. À l'import d'une sauvegarde et au déplacement de la bibliothèque, les dossiers de même nom fusionnent. Les favoris de la 0.7 (simple liste de noms) sont relus.
 - Exporter / Importer une chaîne (son fichier `.chain`, à envoyer à quelqu'un) ; Tout exporter : un `.zip` des chaînes et des préférences, pour une réinstallation.
 - Charger une chaîne remplace les étapes et garde la Source : **le dossier source n'est pas enregistré dans la chaîne**. Une chaîne est une recette qu'on rejoue sur n'importe quel dossier ; les dossiers récurrents relèvent de l'historique et des favoris de la Source.
 
@@ -72,6 +73,7 @@ Aide      Aide des modules · Rechercher les mises à jour · À propos
 - Une fenêtre construite comme l'App : la liste des modules à gauche, la page du module choisi à droite (à quoi il sert, ses options, des exemples concrets). Le **?** du panneau d'un module ouvre l'aide sur ce module.
 - Les exemples sont **calculés par le moteur** : la page décrit des noms d'entrée et des réglages, le vrai module produit le résultat. Ils restent justes quand un module évolue, et un test le vérifie. Les textes sont dans les `.resx`.
 - La clé d'une page est le type du module tel qu'il est écrit dans le `.chain` (`Replace`). Elle servira d'ancre au site d'aide, prévu quand le dépôt sera public (GitHub Pages est payant sur un dépôt privé). L'aide intégrée marche aussi hors connexion.
+- **Réalisée en 0.8.0.** Pages générales (« Bien démarrer » : le principe de la chaîne, les cases à cocher, appliquer et annuler, chaînes et favoris, raccourcis) puis une page par module : présentation, réglages (avec les libellés de l'écran), exemples. F1 ou le **?** du panneau ouvrent la page de l'étape sélectionnée ; une recherche ignore la casse et les accents. Les textes sont dans `HelpTexts.resx`, avec un balisage minimal (`` `code` ``, `**gras**`, paragraphes séparés par une ligne vide, puces « • »). Des tests vérifient que chaque module a sa page, que chaque exemple change quelque chose, et que l'anglais et le français ont les mêmes textes.
 
 **Mises à jour (décidées le 31/10/2026)**
 1. D'abord prévenir : au démarrage, l'App demande à GitHub la dernière version publiée et propose le lien de téléchargement ; désactivable dans les préférences. L'API de GitHub ne répond pas sur un dépôt privé : à faire quand le dépôt sera public.
@@ -101,7 +103,7 @@ Les modules « nom » n'ont donc jamais à ignorer les fichiers exclus. Les modu
 
 **Portée d'une étape (31/10/2026, demande de Higs76).** On cherche souvent une règle qui convient à tous les fichiers, et quelques-uns en sont les « dommages collatéraux ». Une étape de module « nom » peut donc ignorer certains fichiers (`Step.Skipped`, décochés dans la grille de l'étape) : le pipeline ne donne au module que les autres, puis remet les fichiers ignorés à leur rang, inchangés. Le module n'en sait rien et reste pur. Une Numérotation numérote ainsi les seuls fichiers concernés, de 1 à k. Les modules « liste » ignorent la portée. Elle est propre à la session, comme les exclusions de Source et l'ordre manuel de Trier ; une portée par condition (« seulement si le nom contient… »), enregistrable, viendra plus tard.
 
-Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retire le fichier de toute la chaîne ; décocher dans une étape la fait seulement sauter pour ce fichier. Une infobulle les distingue ; des zones d'aide restent à concevoir. Sélection rapide dans la grille : case d'en-tête (tout, rien, état partiel), Maj + clic pour une plage, Espace sur les lignes sélectionnées, clic droit pour cocher, décocher ou inverser. Sélection par rectangle comme dans l'Explorateur : appuyer sur une ligne et glisser ; avec Ctrl, les lignes s'ajoutent à la sélection.
+Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retire le fichier de toute la chaîne ; décocher dans une étape la fait seulement sauter pour ce fichier. Une infobulle les distingue, et la page d'aide « Cases à cocher et sélection » l'explique. Sélection rapide dans la grille : case d'en-tête (tout, rien, état partiel), Maj + clic pour une plage, Espace sur les lignes sélectionnées, clic droit pour cocher, décocher ou inverser. Sélection par rectangle comme dans l'Explorateur : appuyer sur une ligne et glisser ; avec Ctrl, les lignes s'ajoutent à la sélection.
 
 **Lisibilité de l'aperçu (retours d'un testeur, 31/10/2026).** Les en-têtes nomment l'étape choisie : « Original (source) », « Avant l'étape 2 · Remplacer », « Après l'étape 2 · Remplacer », avec une infobulle chacun. La colonne Original peut être masquée (petits écrans). Chaque module a une description d'une phrase, affichée à côté du nom de l'étape. Le menu d'ajout suit un ordre logique : modules « liste » d'abord, puis modules « nom » du plus simple au plus avancé ; Remplacer (regex) s'appelle « Remplacer (avancé) ».
 
@@ -211,7 +213,8 @@ Décisions :
   - `ChainRenamer.Engine` : bibliothèque sans interface ;
   - `ChainRenamer.Cli` : rejoue une chaîne, utilisable dans des scripts et des tâches planifiées ;
   - `ChainRenamer.App` : l'interface Avalonia ;
-  - `ChainRenamer.Engine.Tests` : les tests.
+  - `ChainRenamer.Engine.Tests` : les tests du moteur ;
+  - `ChainRenamer.App.Tests` : les tests de l'App qui n'ont pas besoin d'écran (aide, favoris, textes traduits).
 
 **Projet international** (décision du 30 octobre 2026). Le nom de travail « Renommeur » devient **ChainRenamer**, avec un dépôt GitHub public.
 - Le code est en anglais : `Step`, `FileItem`, `StepResult`, `Applier`, modules `Replace`, `Sort`… La correspondance complète avec les termes de cette étude se trouve dans le `CLAUDE.md`.
@@ -221,7 +224,6 @@ Décisions :
 
 ## 7. Idées de confort (à prioriser plus tard)
 
-- Bibliothèque de chaînes enregistrées.
 - Source : historique des dossiers récemment choisis, et dossiers mis en favoris (idée de Higs76, 31/10/2026).
 - Glisser-déposer de fichiers et de dossiers dans la Source.
 - Menu contextuel de l'Explorateur : « Renommer avec ChainRenamer ».

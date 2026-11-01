@@ -6,6 +6,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ChainRenamer.App.Resources;
 using ChainRenamer.App.ViewModels;
+using ChainRenamer.App.ViewModels.Help;
 using ChainRenamer.Engine;
 
 namespace ChainRenamer.App.Views;
@@ -158,6 +159,42 @@ public partial class MainWindow : Window
     }
 
     private void OnQuit(object? sender, RoutedEventArgs e) => Close();
+
+    // ───────────── Help: a window beside this one, opened at the page of the selected step ─────────────
+
+    private HelpWindow? help;
+
+    private void OnHelp(object? sender, RoutedEventArgs e) => ShowHelp();
+
+    private void ShowHelp()
+    {
+        var key = HelpCatalog.KeyOf(ViewModel?.SelectedStep?.Settings.ToModule().GetType());
+        if (help is { DataContext: HelpViewModel shown })
+        {
+            shown.Show(key);
+            help.Activate();
+            return;
+        }
+        help = new HelpWindow { DataContext = new HelpViewModel(key) };
+        help.Closed += (_, _) => help = null;
+        help.Show();
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (e.Key == Key.F1)
+        {
+            e.Handled = true;
+            ShowHelp();
+        }
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        help?.Close();
+        base.OnClosed(e);
+    }
 
     // Closing with unsaved changes asks first, in the top bar.
     private bool closeConfirmed;

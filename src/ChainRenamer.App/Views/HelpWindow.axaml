@@ -1,0 +1,126 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ChainRenamer.App.ViewModels.Help"
+        xmlns:views="using:ChainRenamer.App.Views"
+        xmlns:res="using:ChainRenamer.App.Resources"
+        x:Class="ChainRenamer.App.Views.HelpWindow"
+        x:DataType="vm:HelpViewModel"
+        Title="{x:Static res:Strings.Help_Title}"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="1040" Height="740" MinWidth="640" MinHeight="400">
+
+    <Window.Styles>
+        <Style Selector="TextBlock.text">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="LineHeight" Value="21" />
+        </Style>
+        <Style Selector="TextBlock.heading">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,14,0,0" />
+        </Style>
+        <Style Selector="TextBlock.group">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="Margin" Value="0,10,0,4" />
+        </Style>
+        <Style Selector="TextBlock.changed">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="250,*">
+        <!-- Left: search and pages -->
+        <DockPanel Margin="10">
+            <TextBox DockPanel.Dock="Top" Text="{Binding Search}" PlaceholderText="{x:Static res:Strings.Help_Search}" Margin="0,0,0,8" />
+            <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Strings.Help_NoResult}" Opacity="0.7" IsVisible="{Binding IsEmpty}" Margin="4" />
+            <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}" Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HelpListItem">
+                        <StackPanel>
+                            <TextBlock Classes="group" Text="{Binding GroupHeader}"
+                                       IsVisible="{Binding GroupHeader, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <TextBlock Text="{Binding Page.Title}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <!-- Right: the page -->
+        <ScrollViewer x:Name="PageScroll" Grid.Column="1" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+            <StackPanel DataContext="{Binding Page}" x:DataType="vm:HelpPage" Margin="32,24" MaxWidth="780"
+                        HorizontalAlignment="Left" Spacing="10">
+                <TextBlock Text="{Binding Title}" FontSize="26" FontWeight="SemiBold" />
+
+                <ItemsControl ItemsSource="{Binding Paragraphs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><StackPanel Spacing="10" /></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock Classes="text" views:RichText.Markup="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Settings (or shortcuts): label on the left, explanation on the right -->
+                <TextBlock Classes="heading" Text="{Binding OptionsHeading}"
+                           IsVisible="{Binding OptionsHeading, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                <ItemsControl ItemsSource="{Binding Options}" IsVisible="{Binding HasOptions}" Grid.IsSharedSizeScope="True">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><StackPanel Spacing="8" /></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:HelpOption">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="label" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Classes="text" Text="{Binding Label}" FontWeight="SemiBold" MaxWidth="240" Margin="0,0,20,0" />
+                                <TextBlock Grid.Column="1" Classes="text" views:RichText.Markup="{Binding Text}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Examples, computed by the module itself -->
+                <TextBlock Classes="heading" Text="{x:Static res:Strings.Help_Examples}" IsVisible="{Binding HasExamples}" />
+                <TextBlock Classes="text" Text="{x:Static res:Strings.Help_ExamplesNote}" Opacity="0.7" FontSize="12" IsVisible="{Binding HasExamples}" />
+                <ItemsControl ItemsSource="{Binding Examples}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><StackPanel Spacing="10" /></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:HelpExample">
+                            <Border Padding="14,10" CornerRadius="4" Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Classes="text" views:RichText.Markup="{Binding Caption}" FontWeight="SemiBold" />
+                                    <ItemsControl ItemsSource="{Binding Rows}" Grid.IsSharedSizeScope="True">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:HelpRow">
+                                                <Grid Margin="0,2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="before" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Before}" Opacity="0.8" />
+                                                    <TextBlock Grid.Column="1" Text="→" Margin="14,0" Opacity="0.6" />
+                                                    <TextBlock Grid.Column="2" Text="{Binding After}" Classes.changed="{Binding IsChanged}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

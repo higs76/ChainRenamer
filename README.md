@@ -4,7 +4,7 @@
 
 A batch file renamer built on a **chain of modules**.
 
-> **Status:** active development (0.x), Windows. Preview, renaming with undo and saved chains work; many modules are still to come.
+> **Status:** active development (0.x), Windows. Preview, renaming with undo, saved chains and the built-in help work; many modules are still to come.
 
 ## The idea
 
@@ -40,7 +40,9 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Replace (advanced)**: regular expressions with groups (`$1`, `$2`…).
 - **Preview**: Original | Before the step | After the step columns, conflicts in red.
 - **Safe renaming**: two phases (handles A↔B swaps, cycles and case-only changes on NTFS and SMB), undoable thanks to a journal.
-- **Chain library**: save, save as, favorites, import and export of one chain or the whole library, configurable location (a NAS or a synced folder, for example).
+- **Chain library**: save, save as, import and export of one chain or the whole library, configurable location (a NAS or a synced folder, for example).
+- **Favorites**, as in a browser: sorted into folders that become submenus of the Chains menu (Series ▸ Anime); Ctrl+D adds the open chain.
+- **Built-in help** (F1, or the **?** of a step): how a chain works, then a page per module with its settings and examples computed by the module itself. Searchable, in English and French.
 - **Interface** in English and French, following the Windows language.
 
 ## Planned
@@ -49,7 +51,6 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
 - **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
 - **Name segment**: limit a step to part of the name ("after the last ` - `").
-- **Built-in help**, module by module, with examples computed by the engine.
 - **Command line**: replay a `.chain` file on a folder, for scripts and scheduled tasks.
 
 ## Download
@@ -79,7 +80,8 @@ dotnet run --project src/ChainRenamer.App
 src/ChainRenamer.Engine/       the engine: pipeline, modules, chains, renaming (no UI dependency)
 src/ChainRenamer.Cli/          command line (coming)
 src/ChainRenamer.App/          desktop app (Avalonia)
-tests/ChainRenamer.Engine.Tests/
+tests/ChainRenamer.Engine.Tests/  engine tests
+tests/ChainRenamer.App.Tests/     app tests that need no screen (help, favorites, translations)
 docs/etude.md                  the design study (in French)
 ```
 

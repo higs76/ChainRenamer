@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Chain column -->
+  <data name="Group_Start" xml:space="preserve"><value>Getting started</value></data>
+  <data name="Group_Modules" xml:space="preserve"><value>Modules</value></data>
+  <data name="Choice" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Chain_Title" xml:space="preserve"><value>How a chain works</value></data>
+  <data name="Chain_Intro" xml:space="preserve"><value>ChainRenamer renames files with a **chain** of small steps. Each step does one simple thing (sort, replace a text…) and works on the result of the step above it, like an assembly line.
+
+The first step is always the **Source**: the folder and the files to rename. Add the next steps with **+ Add a module**; the same module can be used several times. Drag a step by its handle ≡ to change the order: the result changes with it, since each step starts from what the previous one produced.
+
+**Click a step to see what it does.** The grid then shows each name before and after this step, and the names it changes are highlighted. The last step shows the final names. A rule that goes wrong is spotted at once, at the step where it happens.
+
+**Nothing touches the disk** until you click **Apply renaming**. Until then, try anything.
+
+A step can be switched off: it then passes its input on unchanged, which lets you compare with and without it. A step whose settings are not valid (a regular expression being typed, for instance) is marked ⚠ and also passes its input on.
+
+Give a step a name (“Dots to spaces”) to find your way in a long chain: it is shown under its module in the chain.</value></data>
+  <data name="Selection_Title" xml:space="preserve"><value>Check boxes and selection</value></data>
+  <data name="Selection_Intro" xml:space="preserve"><value>The first column of the grid holds check boxes. They mean two different things, depending on the selected step:
+
+• In the **Source** step, a file left unchecked is **out of the whole chain**. No step sees it, and it is never renamed.
+• In a step that changes names (Replace…), a file left unchecked is **skipped by this step only**. The step leaves its name as it is, shown in grey italics, and the other steps still work on it. Handy when a rule suits every file but a few.
+
+A Sort step has no check boxes: its column holds the handles ≡ that move the files by hand.
+
+**Fast selection**
+• The check box in the header checks or unchecks every file.
+• Shift + click on a check box: the whole range since the last one clicked.
+• Press on a row and drag: a rectangle selects the rows, as in the Explorer. With Ctrl, they are added to the selection.
+• Space checks or unchecks the selected rows. A right click offers check, uncheck and invert.</value></data>
+  <data name="Apply_Title" xml:space="preserve"><value>Applying and undoing</value></data>
+  <data name="Apply_Intro" xml:space="preserve"><value>**Apply renaming** renames the files on disk, once, with the final names of the chain. A question in the top bar asks you to confirm first.
+
+**Conflicts.** Every step shows in red the names that cannot be used, so that they are fixed before applying:
+• two files get the same name;
+• a forbidden character: `&lt; &gt; : " / \ | ? *`;
+• a name reserved by Windows: `CON`, `PRN`, `AUX`, `NUL`, `COM1` to `COM9`, `LPT1` to `LPT9`;
+• a name ending with a dot or a space, or an empty name;
+• a path longer than 259 characters.
+Just before renaming, the disk is checked again: a file may have appeared in the folder since it was loaded.
+
+**Safe renaming.** Each file first takes a temporary name, then its final name. That is how swaps (A becomes B and B becomes A), cycles and case-only changes (`photo.jpg` → `Photo.jpg`, which Windows would not see otherwise) work. If anything fails half way, everything done so far is undone.
+
+**Undo.** After a renaming, **Undo this renaming** gives every file its previous name back. Each renaming is written in a journal as it goes, in `%LOCALAPPDATA%\ChainRenamer\journals`.</value></data>
+  <data name="Library_Title" xml:space="preserve"><value>Saved chains and favorites</value></data>
+  <data name="Library_Intro" xml:space="preserve"><value>A chain is a recipe: **File &gt; Save** keeps its steps and their settings in the library, to replay them later on another folder. The source folder is not saved with it: load the folder, then open the chain from the **Chains** menu.
+
+• **Save** (Ctrl+S) replaces the open chain. **Save as…** (Ctrl+Shift+S) makes a new one, to start from an existing chain. The name is typed in the top bar.
+• A **•** in the window title means changes not saved yet. Opening another chain or closing the window asks first.
+• The files unchecked in a step and an order set by hand depend on the loaded files: they are not saved.
+
+**Favorites**, as in a browser: **Chains &gt; In favorites** (Ctrl+D) puts the open chain at the top of the Chains menu. **Organize favorites…** sorts them into folders, which become submenus (Series ▸ Anime). A favorite is only a shortcut: removing it never deletes the chain.
+
+**The library** is a folder holding one `.chain` file per chain, by default `%APPDATA%\ChainRenamer\chains`. **Change the library location…** moves it, to a NAS or a synced folder for example: your chains then follow you from one PC to another.
+
+**Import and export.** **Export this chain…** makes a file to send to someone. **Export the whole library…** makes a zip, for a backup or a new PC. **Import…** takes `.chain` files and these zips; a name already taken gets a number: “Series (2)”.</value></data>
+  <data name="Shortcuts_Title" xml:space="preserve"><value>Keyboard shortcuts</value></data>
+  <data name="Shortcuts_Intro" xml:space="preserve"><value>The shortcuts of the main window. The menus show them too.</value></data>
+  <data name="Key_F1" xml:space="preserve"><value>F1</value></data>
+  <data name="Key_F1_Text" xml:space="preserve"><value>This help, open at the page of the selected step.</value></data>
+  <data name="Key_New" xml:space="preserve"><value>Ctrl+N</value></data>
+  <data name="Key_New_Text" xml:space="preserve"><value>New chain.</value></data>
+  <data name="Key_Save" xml:space="preserve"><value>Ctrl+S</value></data>
+  <data name="Key_Save_Text" xml:space="preserve"><value>Save the chain.</value></data>
+  <data name="Key_SaveAs" xml:space="preserve"><value>Ctrl+Shift+S</value></data>
+  <data name="Key_SaveAs_Text" xml:space="preserve"><value>Save the chain under another name.</value></data>
+  <data name="Key_Favorite" xml:space="preserve"><value>Ctrl+D</value></data>
+  <data name="Key_Favorite_Text" xml:space="preserve"><value>Add the chain to the favorites, or remove it.</value></data>
+  <data name="Key_Space" xml:space="preserve"><value>Space</value></data>
+  <data name="Key_Space_Text" xml:space="preserve"><value>Check or uncheck the selected rows of the grid.</value></data>
+  <data name="Key_Range" xml:space="preserve"><value>Shift + click</value></data>
+  <data name="Key_Range_Text" xml:space="preserve"><value>On a check box: check or uncheck the whole range since the last one clicked.</value></data>
+  <data name="Key_Rectangle" xml:space="preserve"><value>Ctrl + drag</value></data>
+  <data name="Key_Rectangle_Text" xml:space="preserve"><value>Add rows to the selection with a rectangle.</value></data>
+  <data name="Source_Intro" xml:space="preserve"><value>The fixed first step: it chooses the files to rename. It cannot be moved nor removed.
+
+Type a folder or click **Browse…**, then **Load**. Local folders and network shares both work, and a slow network does not freeze the window.
+
+Then uncheck the files to leave out: they leave the whole chain (see “Check boxes and selection”). The folder is not saved with the chain: a chain can be replayed on any folder.</value></data>
+  <data name="Source_Folder_Text" xml:space="preserve"><value>A local folder (`D:\Videos`) or a network share (`\\nas\video\Series`).</value></data>
+  <data name="Source_Subfolders_Text" xml:space="preserve"><value>Also lists the files of every subfolder. Each file stays in its own folder when it is renamed.</value></data>
+  <data name="Sort_Intro" xml:space="preserve"><value>Puts the files in order. The order matters for the modules that number the files or give them the lines of a list: the first file gets number 1, or the first line.
+
+**Natural order**: the numbers in the names are compared as numbers, so `Episode 2` comes before `Episode 10`. A plain alphabetical sort would put `Episode 10` first.
+
+**By hand**: drag a file by its handle ≡ in the grid. The order set by hand lasts as long as the files stay loaded; it is not saved with the chain. **Back to natural order** cancels it.</value></data>
+  <data name="Sort_Descending_Text" xml:space="preserve"><value>From the last to the first: Z to A, 10 to 1.</value></data>
+  <data name="Sort_Example_Natural" xml:space="preserve"><value>Natural order: 2 before 10</value></data>
+  <data name="Sort_Example_Descending" xml:space="preserve"><value>Descending order</value></data>
+  <data name="Replace_Intro" xml:space="preserve"><value>Replaces a text by another in the name. The text is searched exactly as it is typed: `.` is a dot. To find a pattern (any number, any word…), use **Replace (advanced)**.
+
+The extension is never touched: replacing `.` by a space keeps `.mkv`.</value></data>
+  <data name="Replace_Find_Text" xml:space="preserve"><value>The text to find.</value></data>
+  <data name="Replace_With_Label" xml:space="preserve"><value>by</value></data>
+  <data name="Replace_With_Text" xml:space="preserve"><value>The new text. Leave it empty to delete the text found.</value></data>
+  <data name="Replace_MatchCase_Text" xml:space="preserve"><value>Checked, `EP` finds `EP` only. Unchecked, it also finds `ep` and `Ep`.</value></data>
+  <data name="Occurrence_All_Text" xml:space="preserve"><value>Every place the text is found.</value></data>
+  <data name="Occurrence_First_Text" xml:space="preserve"><value>The first one only, from the left.</value></data>
+  <data name="Occurrence_Last_Text" xml:space="preserve"><value>The last one only: handy for the last separator of a name.</value></data>
+  <data name="Occurrence_Start_Text" xml:space="preserve"><value>Only if the name starts with the text: removes or changes a prefix.</value></data>
+  <data name="Occurrence_End_Text" xml:space="preserve"><value>Only if the name ends with the text: removes or changes a suffix.</value></data>
+  <data name="Replace_Example_Dots" xml:space="preserve"><value>`.` by a space: the extension stays</value></data>
+  <data name="Replace_Example_Last" xml:space="preserve"><value>The last ` - ` only, by `. `</value></data>
+  <data name="Replace_Example_Start" xml:space="preserve"><value>`[HD] ` by nothing, at the start of the name only</value></data>
+  <data name="Replace_Example_Case" xml:space="preserve"><value>`EP` by `Episode `, matching case: the `ep` of “Step” stays</value></data>
+  <data name="Regex_Intro" xml:space="preserve"><value>Replaces what a **regular expression** finds: a pattern rather than a fixed text. Parentheses capture parts of the name, which the replacement puts back with `$1`, `$2`…, in any order.
+
+Like Replace, it never touches the extension. While a pattern is being typed and is not valid yet, the step is marked ⚠ and changes nothing.</value></data>
+  <data name="Regex_Pattern_Text" xml:space="preserve"><value>The pattern. The essentials:
+• `\d` a digit, `\s` a space, `.` any character, `\.` a real dot;
+• `+` once or more, `*` any number of times, `?` optional;
+• `( )` a group, put back by `$1`, `$2`…;
+• `^` the start of the name, `$` its end;
+• `[abc]` one of these characters, `a|b` a or b.</value></data>
+  <data name="Regex_With_Text" xml:space="preserve"><value>The new text. `$1` puts back the first group, `$2` the second… Empty, it deletes what the pattern finds.</value></data>
+  <data name="Regex_MatchCase_Text" xml:space="preserve"><value>Checked, `[a-z]` finds lowercase letters only. Unchecked, case is ignored.</value></data>
+  <data name="Regex_Example_Season" xml:space="preserve"><value>`(\d+)x(\d+)` by `S$1E$2`: season and episode</value></data>
+  <data name="Regex_Example_Swap" xml:space="preserve"><value>`^(.+) - (.+)$` by `$2 - $1`: swaps the two parts</value></data>
+  <data name="Regex_Example_Brackets" xml:space="preserve"><value>`\s*\[.*?\]` by nothing: removes what is between brackets</value></data>
+  <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` by a space: several spaces become one</value></data>
+</root>

@@ -4,7 +4,7 @@
 
 Un logiciel de renommage de fichiers par lot, construit sur une **chaîne de modules**.
 
-> **État :** développement actif (0.x), Windows. L'aperçu, le renommage avec annulation et les chaînes enregistrées fonctionnent ; de nombreux modules restent à écrire.
+> **État :** développement actif (0.x), Windows. L'aperçu, le renommage avec annulation, les chaînes enregistrées et l'aide intégrée fonctionnent ; de nombreux modules restent à écrire.
 
 ## Le principe
 
@@ -40,7 +40,9 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Remplacer (avancé)** : expressions régulières avec groupes (`$1`, `$2`…).
 - **Aperçu** : colonnes Original | Avant l'étape | Après l'étape, conflits en rouge.
 - **Renommage sûr** : en deux phases (gère les échanges A↔B, les cycles et les changements de casse seule sur NTFS et SMB), annulable grâce à un journal.
-- **Bibliothèque de chaînes** : enregistrer, enregistrer sous, favorites, import et export d'une chaîne ou de toute la bibliothèque, emplacement réglable (un NAS ou un dossier synchronisé, par exemple).
+- **Bibliothèque de chaînes** : enregistrer, enregistrer sous, import et export d'une chaîne ou de toute la bibliothèque, emplacement réglable (un NAS ou un dossier synchronisé, par exemple).
+- **Favoris**, comme dans un navigateur : rangés dans des dossiers qui deviennent des sous-menus du menu Chaînes (Séries ▸ Anime) ; Ctrl+D ajoute la chaîne ouverte.
+- **Aide intégrée** (F1, ou le **?** d'une étape) : le principe de la chaîne, puis une page par module avec ses réglages et des exemples calculés par le module lui-même. Avec une recherche, en français et en anglais.
 - **Interface** en anglais et en français, selon la langue de Windows.
 
 ## Prévu
@@ -49,7 +51,6 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Variables** utilisables dans tous les modules : `{dossier}`, `{date}`, plus tard l'EXIF et les tags audio.
 - **Listes de dépôt** : coller ou déposer une liste de lignes (titres d'épisodes…), la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom (« après le dernier ` - ` »).
-- **Aide** intégrée, module par module, avec des exemples calculés par le moteur.
 - **Ligne de commande** : rejouer un fichier `.chain` sur un dossier, dans des scripts ou des tâches planifiées.
 
 ## Télécharger
@@ -79,7 +80,8 @@ dotnet run --project src/ChainRenamer.App
 src/ChainRenamer.Engine/       le moteur : pipeline, modules, chaînes, renommage (aucune dépendance graphique)
 src/ChainRenamer.Cli/          ligne de commande (à venir)
 src/ChainRenamer.App/          application de bureau (Avalonia)
-tests/ChainRenamer.Engine.Tests/
+tests/ChainRenamer.Engine.Tests/  tests du moteur
+tests/ChainRenamer.App.Tests/     tests de l'App sans écran (aide, favoris, traductions)
 docs/etude.md                  l'étude de conception (en français)
 ```
 

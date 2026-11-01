@@ -161,4 +161,13 @@
   <data name="Favorites_Remove_Tip" xml:space="preserve"><value>La chaîne reste dans la bibliothèque. Un dossier retiré emporte ses favoris.</value></data>
   <data name="Favorites_FolderName" xml:space="preserve"><value>Nom du dossier</value></data>
   <data name="Favorites_Close" xml:space="preserve"><value>Fermer</value></data>
+  <data name="Menu_Help" xml:space="preserve"><value>Aide</value></data>
+  <data name="Menu_HelpContents" xml:space="preserve"><value>Aide de ChainRenamer</value></data>
+  <data name="Help_Title" xml:space="preserve"><value>Aide de ChainRenamer</value></data>
+  <data name="Help_Search" xml:space="preserve"><value>Rechercher dans l'aide</value></data>
+  <data name="Help_NoResult" xml:space="preserve"><value>Rien trouvé.</value></data>
+  <data name="Help_Settings" xml:space="preserve"><value>Réglages</value></data>
+  <data name="Help_Examples" xml:space="preserve"><value>Exemples</value></data>
+  <data name="Help_ExamplesNote" xml:space="preserve"><value>Calculés par le module lui-même : c'est exactement ce qu'il fait.</value></data>
+  <data name="Help_ModuleTip" xml:space="preserve"><value>Aide sur ce module (F1)</value></data>
 </root>
