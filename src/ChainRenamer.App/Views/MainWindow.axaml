@@ -182,7 +182,7 @@
                     <MenuFlyout ItemsSource="{Binding AddEntries}">
                         <MenuFlyout.ItemContainerTheme>
                             <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}"
-                                          x:DataType="vm:AddModuleEntry">
+                                          x:DataType="vm:MenuEntry">
                                 <Setter Property="Header" Value="{Binding Title}" />
                                 <Setter Property="Command" Value="{Binding Command}" />
                             </ControlTheme>

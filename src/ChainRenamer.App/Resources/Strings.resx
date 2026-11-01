@@ -358,4 +358,12 @@
   <data name="Segment_SummaryAfter" xml:space="preserve"><value>after “{0}”</value></data>
   <data name="Segment_SummaryLastAfter" xml:space="preserve"><value>after the last “{0}”</value></data>
   <data name="Segment_SummaryBefore" xml:space="preserve"><value>before “{0}”</value></data>
+  <data name="Source_Recent" xml:space="preserve"><value>Recent ▾</value></data>
+  <data name="Settings_Windows" xml:space="preserve"><value>Windows</value></data>
+  <data name="ExplorerMenu_Option" xml:space="preserve"><value>"Rename with ChainRenamer" in the Explorer menu of folders</value></data>
+  <data name="ExplorerMenu_Entry" xml:space="preserve"><value>Rename with ChainRenamer</value></data>
+  <data name="ExplorerMenu_Note" xml:space="preserve"><value>Right click on a folder, or on the background of an open folder, opens it in ChainRenamer. On Windows 11, the entry is under "Show more options". Written for your account only: no administrator rights.</value></data>
+  <data name="ExplorerMenu_Elsewhere" xml:space="preserve"><value>The entry starts another copy of ChainRenamer (moved, or another version).</value></data>
+  <data name="ExplorerMenu_Repair" xml:space="preserve"><value>Use this copy</value></data>
+  <data name="ExplorerMenu_Failed" xml:space="preserve"><value>The Explorer menu could not be changed: {0}</value></data>
 </root>

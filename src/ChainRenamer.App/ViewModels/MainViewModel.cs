@@ -10,7 +10,8 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ChainRenamer.App.ViewModels;
 
-public sealed record AddModuleEntry(string Title, IRelayCommand Command);
+/// <summary>An entry of a menu built from data: its text and what it does.</summary>
+public sealed record MenuEntry(string Title, IRelayCommand Command);
 
 public partial class MainViewModel : ViewModelBase
 {
@@ -31,10 +32,11 @@ public partial class MainViewModel : ViewModelBase
         {
             originals = files.ToDictionary(f => f.Id, f => f.Name);
             pipeline.SetFiles(files);
+            Remember(source.Folder.Trim());
             Refresh();
         };
         Attach(new StepViewModel(pipeline.Steps[0].Id, source));
-        AddEntries = [.. ModuleCatalog.Addable.Select(t => new AddModuleEntry(t.Title, new RelayCommand(() => AddStep(t.Create(null)))))];
+        AddEntries = [.. ModuleCatalog.Addable.Select(t => new MenuEntry(t.Title, new RelayCommand(() => AddStep(t.Create(null)))))];
         SelectedStep = Steps[0];
         Refresh();
     }
@@ -46,7 +48,7 @@ public partial class MainViewModel : ViewModelBase
 
     public ObservableCollection<StepViewModel> Steps { get; } = [];
     public RowCollection<PreviewRow> Rows { get; } = [];
-    public IReadOnlyList<AddModuleEntry> AddEntries { get; }
+    public IReadOnlyList<MenuEntry> AddEntries { get; }
 
     /// <summary>At least two steps besides the fixed source: their order can be changed.</summary>
     public bool CanReorder => Steps.Count > 2;

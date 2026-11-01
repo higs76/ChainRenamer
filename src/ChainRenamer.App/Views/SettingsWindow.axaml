@@ -37,6 +37,17 @@
             <Button Content="{x:Static res:Strings.Settings_MoveLibrary}" Click="OnMoveLibrary" />
         </StackPanel>
 
+        <!-- Explorer menu: written for the current user, no administrator rights -->
+        <StackPanel Spacing="6" IsVisible="{Binding CanUseExplorerMenu}">
+            <TextBlock Classes="section" Text="{x:Static res:Strings.Settings_Windows}" />
+            <CheckBox IsChecked="{Binding ExplorerMenuInstalled}" Content="{x:Static res:Strings.ExplorerMenu_Option}" />
+            <TextBlock Text="{x:Static res:Strings.ExplorerMenu_Note}" TextWrapping="Wrap" Opacity="0.7" FontSize="12" />
+            <StackPanel Spacing="6" IsVisible="{Binding ExplorerMenuElsewhere}">
+                <TextBlock Text="{x:Static res:Strings.ExplorerMenu_Elsewhere}" TextWrapping="Wrap" Foreground="#C42B1C" />
+                <Button Content="{x:Static res:Strings.ExplorerMenu_Repair}" Command="{Binding RepairExplorerMenuCommand}" />
+            </StackPanel>
+        </StackPanel>
+
         <Button Content="{x:Static res:Strings.Settings_Close}" Click="OnClose" IsCancel="True"
                 HorizontalAlignment="Right" Margin="0,12,0,0" />
     </StackPanel>

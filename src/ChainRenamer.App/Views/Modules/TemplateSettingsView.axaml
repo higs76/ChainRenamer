@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:main="using:ChainRenamer.App.ViewModels"
              xmlns:res="using:ChainRenamer.App.Resources"
              x:Class="ChainRenamer.App.Views.Modules.TemplateSettingsView"
              x:DataType="vm:TemplateSettingsViewModel">
@@ -11,12 +12,11 @@
             <!-- Each menu entry adds its variable at the end of the template -->
             <Button Grid.Column="1" Margin="8,0,0,0" Content="{x:Static res:Strings.Template_AddVariable}">
                 <Button.Flyout>
-                    <MenuFlyout ItemsSource="{Binding Variables}">
+                    <MenuFlyout ItemsSource="{Binding VariableEntries}">
                         <MenuFlyout.ItemContainerTheme>
-                            <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="vm:Choice">
-                                <Setter Property="Header" Value="{Binding Label}" />
-                                <Setter Property="Command" Value="{Binding $parent[UserControl].((vm:TemplateSettingsViewModel)DataContext).AddVariableCommand}" />
-                                <Setter Property="CommandParameter" Value="{Binding Value}" />
+                            <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="main:MenuEntry">
+                                <Setter Property="Header" Value="{Binding Title}" />
+                                <Setter Property="Command" Value="{Binding Command}" />
                             </ControlTheme>
                         </MenuFlyout.ItemContainerTheme>
                     </MenuFlyout>

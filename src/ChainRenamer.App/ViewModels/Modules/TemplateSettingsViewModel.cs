@@ -20,8 +20,10 @@ public partial class TemplateSettingsViewModel : ModuleSettingsViewModel
         [.. new[] { Strings.Variable_Name, Strings.Variable_Folder, Strings.Variable_Number, Strings.Variable_Date, Strings.Variable_Size, Strings.Variable_Ext, Strings.Variable_Today }
             .Select(label => new Choice(label[..(label.IndexOf('}') + 1)], label))];
 
-    [RelayCommand]
-    private void AddVariable(string variable) => Template += variable;
+    /// <summary>The menu entries: each one adds its variable at the end of the template.</summary>
+    public IReadOnlyList<MenuEntry> VariableEntries => [.. Variables.Select(v => new MenuEntry(v.Label, new RelayCommand(() => AddVariable((string)v.Value))))];
+
+    public void AddVariable(string variable) => Template += variable;
 
     public override string Title => Strings.Module_Template;
     public override string Description => Strings.Template_Description;

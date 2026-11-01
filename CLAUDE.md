@@ -178,4 +178,8 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ Module **Liste** (`List` : remplacer le nom, insérer, paires ancien → nouveau ; collage, fichier texte chargé ou déposé sur le panneau).
 - ✅ **Segment de nom** (`Segment` : après un texte, première ou dernière occurrence, et/ou avant un texte) : option d'une étape « nom », enregistrée dans le `.chain`. La découpe se fait dans `Step.Apply` (avec la portée), que le pipeline appelle ; bloc repliable « Partie du nom » sous les réglages.
 - ✅ **Marqueurs** : pas de module dédié, les modules existants suffisent (Remplacer avancé pose `@@`, Insérer ou Liste insère avant, Remplacer le retire) ; page d'aide « Marqueurs ».
-- Version 0.12.0 : jalon 3 terminé. Prochain : jalon 4 (confort) de l'étude.
+- Version 0.12.0 : jalon 3 terminé.
+
+## Jalon 4 (en cours)
+
+- ✅ Dossier en argument (`ChainRenamer.exe <dossier>`), menu de l'Explorateur (`ExplorerMenu`, HKCU\Software\Classes\Directory\shell et Directory\Background\shell, case dans Outils > Paramètres, bouton « Utiliser cette copie » si l'entrée lance un autre exe ; les tests écrivent sous `HKCU\Software\ChainRenamerTests`, jamais dans le vrai menu, et le harnais ne coche jamais la case), dossiers récents (`Preferences.RecentFolders`, menu « Récents » de la Source), dossier déposé sur la fenêtre. Les menus construits depuis des données utilisent `MenuEntry(Title, Command)` : chaque entrée porte sa commande, sans chercher la fenêtre depuis la fenêtre surgissante.

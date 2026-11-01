@@ -1,19 +1,34 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:main="using:ChainRenamer.App.ViewModels"
              xmlns:res="using:ChainRenamer.App.Resources"
              x:Class="ChainRenamer.App.Views.Modules.SourceSettingsView"
              x:DataType="vm:SourceSettingsViewModel">
     <StackPanel Spacing="8">
         <TextBlock Text="{x:Static res:Strings.Source_Folder}" />
-        <Grid ColumnDefinitions="*,Auto,Auto">
+        <Grid ColumnDefinitions="*,Auto,Auto,Auto">
             <TextBox Text="{Binding Folder}" PlaceholderText="{x:Static res:Strings.Source_FolderWatermark}">
                 <TextBox.KeyBindings>
                     <KeyBinding Gesture="Enter" Command="{Binding LoadCommand}" />
                 </TextBox.KeyBindings>
             </TextBox>
-            <Button Grid.Column="1" Margin="8,0,0,0" Content="{x:Static res:Strings.Source_Browse}" Click="Browse_Click" />
-            <Button Grid.Column="2" Margin="8,0,0,0" Classes="accent" Content="{x:Static res:Strings.Source_Load}"
+            <!-- The folders loaded last, kept in the settings by the main view model -->
+            <Button Grid.Column="1" Margin="8,0,0,0" Content="{x:Static res:Strings.Source_Recent}"
+                    IsEnabled="{Binding $parent[Window].((main:MainViewModel)DataContext).HasRecentFolders, FallbackValue=False}">
+                <Button.Flyout>
+                    <MenuFlyout ItemsSource="{Binding $parent[Window].((main:MainViewModel)DataContext).RecentFolderEntries, FallbackValue={x:Null}}">
+                        <MenuFlyout.ItemContainerTheme>
+                            <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="main:MenuEntry">
+                                <Setter Property="Header" Value="{Binding Title}" />
+                                <Setter Property="Command" Value="{Binding Command}" />
+                            </ControlTheme>
+                        </MenuFlyout.ItemContainerTheme>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+            <Button Grid.Column="2" Margin="8,0,0,0" Content="{x:Static res:Strings.Source_Browse}" Click="Browse_Click" />
+            <Button Grid.Column="3" Margin="8,0,0,0" Classes="accent" Content="{x:Static res:Strings.Source_Load}"
                     Command="{Binding LoadCommand}" />
         </Grid>
         <CheckBox IsChecked="{Binding IncludeSubfolders}" Content="{x:Static res:Strings.Source_Subfolders}" />

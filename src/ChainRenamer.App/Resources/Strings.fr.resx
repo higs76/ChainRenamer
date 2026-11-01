@@ -358,4 +358,12 @@
   <data name="Segment_SummaryAfter" xml:space="preserve"><value>après « {0} »</value></data>
   <data name="Segment_SummaryLastAfter" xml:space="preserve"><value>après le dernier « {0} »</value></data>
   <data name="Segment_SummaryBefore" xml:space="preserve"><value>avant « {0} »</value></data>
+  <data name="Source_Recent" xml:space="preserve"><value>Récents ▾</value></data>
+  <data name="Settings_Windows" xml:space="preserve"><value>Windows</value></data>
+  <data name="ExplorerMenu_Option" xml:space="preserve"><value>« Renommer avec ChainRenamer » dans le menu des dossiers de l'Explorateur</value></data>
+  <data name="ExplorerMenu_Entry" xml:space="preserve"><value>Renommer avec ChainRenamer</value></data>
+  <data name="ExplorerMenu_Note" xml:space="preserve"><value>Un clic droit sur un dossier, ou dans le fond d'un dossier ouvert, l'ouvre dans ChainRenamer. Sous Windows 11, l'entrée est dans « Afficher plus d'options ». Inscrit pour votre compte seulement : aucun droit d'administrateur.</value></data>
+  <data name="ExplorerMenu_Elsewhere" xml:space="preserve"><value>L'entrée lance une autre copie de ChainRenamer (déplacée, ou une autre version).</value></data>
+  <data name="ExplorerMenu_Repair" xml:space="preserve"><value>Utiliser cette copie</value></data>
+  <data name="ExplorerMenu_Failed" xml:space="preserve"><value>Le menu de l'Explorateur n'a pas pu être modifié : {0}</value></data>
 </root>

@@ -34,9 +34,21 @@ public partial class MainWindow : Window
         MarqueeSelect.Attach(PreviewGrid);
 
         ChainsMenu.SubmenuOpened += OnChainsMenuOpened;
+
+        // A folder dropped on the window is loaded; a file, its folder. Bubble: the List panel takes its text files first.
+        DragDrop.SetAllowDrop(this, true);
+        AddHandler(DragDrop.DropEvent, OnDrop, RoutingStrategies.Bubble);
     }
 
     private MainViewModel? ViewModel => DataContext as MainViewModel;
+
+    private void OnDrop(object? sender, DragEventArgs e)
+    {
+        if (e.DataTransfer.TryGetFile()?.TryGetLocalPath() is not { } path || ViewModel is not { } vm) return;
+        if (Directory.Exists(path)) vm.OpenFolder(path);
+        else if (Path.GetDirectoryName(path) is { Length: > 0 } folder) vm.OpenFolder(folder);
+        e.Handled = true;
+    }
 
     // A DataGrid column is not in the visual tree and has no DataContext: its visibility is set from here.
     protected override void OnDataContextChanged(EventArgs e)

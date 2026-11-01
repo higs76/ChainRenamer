@@ -27,7 +27,7 @@ public class TemplateSettingsViewModelTests
     {
         var vm = new TemplateSettingsViewModel(new("{folder} - "));
 
-        vm.AddVariableCommand.Execute("{n:2}");
+        vm.VariableEntries.Single(e => e.Title.StartsWith("{n:2}")).Command.Execute(null);
 
         Assert.Equal("{folder} - {n:2}", vm.Template);
     }

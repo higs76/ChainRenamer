@@ -238,9 +238,9 @@ Décisions :
 
 ## 7. Idées de confort (à prioriser plus tard)
 
-- Source : historique des dossiers récemment choisis, et dossiers mis en favoris (idée de Higs76, 31/10/2026).
-- Glisser-déposer de fichiers et de dossiers dans la Source.
-- Menu contextuel de l'Explorateur : « Renommer avec ChainRenamer ».
+- Source : historique des dossiers récemment choisis, et dossiers mis en favoris (idée de Higs76, 31/10/2026). Fait en 0.13.0 : les 10 derniers dossiers (menu « Récents ») ; les favoris de dossiers restent à faire.
+- Glisser-déposer de fichiers et de dossiers dans la Source. Fait en 0.13.0 : un dossier déposé sur la fenêtre est chargé (un fichier : son dossier).
+- Menu contextuel de l'Explorateur : « Renommer avec ChainRenamer ». Fait en 0.13.0 : inscrit pour l'utilisateur (sans droits d'administrateur) depuis Outils > Paramètres, sur un dossier et dans le fond d'un dossier ouvert.
 - Export de l'aperçu en CSV, pour un essai à blanc.
 - Affichage de toutes les étapes côte à côte sur grand écran (4K).
 

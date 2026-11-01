@@ -17,10 +17,10 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel(),
-            };
+            var vm = new MainViewModel();
+            desktop.MainWindow = new MainWindow { DataContext = vm };
+            // A folder given on the command line, or by the Explorer menu ("Rename with ChainRenamer"), is loaded at once.
+            if (desktop.Args?.FirstOrDefault(Directory.Exists) is { } folder) vm.OpenFolder(folder);
         }
 
         base.OnFrameworkInitializationCompleted();
