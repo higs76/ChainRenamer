@@ -209,4 +209,23 @@ Avec **remplacer par** et **ajouter après elle**, l'extension s'écrit avec ou 
   <data name="Extension_Example_Set" xml:space="preserve"><value>Remplacer par `jpg`</value></data>
   <data name="Extension_Example_Add" xml:space="preserve"><value>Ajouter `gif` après elle</value></data>
   <data name="Extension_Example_Remove" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="Filter_Intro" xml:space="preserve"><value>Garde les fichiers qui remplissent un critère, ou les retire. Les fichiers retirés restent tels quels sur le disque, et les étapes suivantes ne les voient plus : une Numérotation placée après un Filtrer ne numérote que les fichiers gardés, à partir de 1.
+
+Une étape teste un seul critère. Pour en combiner plusieurs (les `.mkv` de plus de 1 Go), on enchaîne plusieurs étapes Filtrer : chacune travaille sur ce que les précédentes ont gardé.
+
+Un filtre qui n'a rien à tester (pas de texte, pas de limite) garde tous les fichiers. Dans la grille de l'étape, les fichiers retirés sont barrés.</value></data>
+  <data name="FilterMode_Keep_Text" xml:space="preserve"><value>Ne garde que les fichiers qui remplissent le critère.</value></data>
+  <data name="FilterMode_Remove_Text" xml:space="preserve"><value>Retire les fichiers qui remplissent le critère, et garde les autres.</value></data>
+  <data name="FilterOn_Name_Text" xml:space="preserve"><value>Le nom actuel, extension comprise, tel que l'ont fait les étapes précédentes : **contient**, **commence par**, **se termine par** un texte, ou correspond à un motif ou à une expression régulière.</value></data>
+  <data name="TextTest_Wildcard_Text" xml:space="preserve"><value>Le motif couvre tout le nom : `*` remplace n'importe quel texte, `?` un caractère. `*.mkv` garde `a.mkv` mais pas `a.mkv.part`. Plusieurs motifs se séparent par `;` : `*.mkv;*.mp4`.</value></data>
+  <data name="TextTest_Regex_Text" xml:space="preserve"><value>Une expression régulière .NET, cherchée dans le nom : `S\d+E\d+` garde les noms qui ont un numéro d'épisode. Une expression fausse s'affiche en rouge sur l'étape, qui garde alors tous les fichiers.</value></data>
+  <data name="FilterOn_Extension_Text" xml:space="preserve"><value>Une liste d'extensions séparées par des virgules, avec ou sans leur point, sans tenir compte de la casse : `mkv, mp4`.</value></data>
+  <data name="FilterOn_Size_Text" xml:space="preserve"><value>La taille du fichier, entre deux limites, en octets, Ko, Mo ou Go (1 Ko = 1024 octets). Une case vide ne fixe pas de limite de ce côté.</value></data>
+  <data name="FilterOn_Modified_Text" xml:space="preserve"><value>Le jour de la dernière modification du fichier, celui qu'affiche l'Explorateur, d'un jour à un autre, tous deux compris. Une case vide ne fixe pas de limite de ce côté.</value></data>
+  <data name="FilterOn_Length_Text" xml:space="preserve"><value>Le nombre de caractères du nom actuel, extension comprise. Utile pour trouver les noms trop longs pour un appareil.</value></data>
+  <data name="Filter_MatchCase_Text" xml:space="preserve"><value>Pour le nom seulement. Cochée, `VOSTFR` ne trouve pas `vostfr`.</value></data>
+  <data name="Filter_Example_Contains" xml:space="preserve"><value>Garder les fichiers dont le nom contient `VOSTFR`</value></data>
+  <data name="Filter_Example_Wildcard" xml:space="preserve"><value>Garder les vidéos : motif `*.mkv;*.mp4`</value></data>
+  <data name="Filter_Example_Remove" xml:space="preserve"><value>Retirer les extensions `nfo, txt`</value></data>
+  <data name="Filter_Example_Regex" xml:space="preserve"><value>Garder les épisodes : expression régulière `\bS\d+E\d+\b`</value></data>
 </root>

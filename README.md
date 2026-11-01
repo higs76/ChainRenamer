@@ -36,6 +36,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 
 - **Source**: local folder or UNC network share, subfolders; unchecking files removes them from the whole chain. Fast selection: header check box, Shift+click, mouse rectangle, Space, right click.
 - **Sort**: natural order, ascending or descending, or a manual order by drag and drop.
+- **Filter**: keep or remove files by name (text, `*.mkv` pattern, regular expression), extension, size, modification date or name length; the following steps only see the files kept.
 - **Replace**: a text by another, matching case or not; all occurrences, the first, the last, at the start or at the end of the name.
 - **Replace (advanced)**: regular expressions with groups (`$1`, `$2`…).
 - **Case**: lowercase, UPPERCASE, Title or Sentence; small words of English or French titles stay in lowercase; exceptions (`iPhone`, `TV`), Roman numerals, acronyms, glued words.
@@ -54,7 +55,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 
 ## Planned
 
-- **Modules**: Filter, Pad numbers, Dates, Template, Replacement table, Capture (named groups reused as variables).
+- **Modules**: Pad numbers, Dates, Template, Replacement table, Capture (named groups reused as variables).
 - **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
 - **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
 - **Name segment**: limit a step to part of the name ("after the last ` - `").

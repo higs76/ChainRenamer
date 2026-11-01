@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.FilterSettingsView"
+             x:DataType="vm:FilterSettingsViewModel">
+    <!-- Reads as a sentence: [Keep] the files whose [name] [contains] [text] -->
+    <StackPanel Spacing="8">
+        <WrapPanel>
+            <ComboBox ItemsSource="{Binding Modes}" SelectedValue="{Binding Exclude}" MinWidth="110" Margin="0,0,8,0"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" Text="{x:Static res:Strings.Filter_Files}" />
+            <ComboBox ItemsSource="{Binding Criteria}" SelectedValue="{Binding On}" MinWidth="200" Margin="0,0,8,0"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsName}">
+                <ComboBox ItemsSource="{Binding Tests}" SelectedValue="{Binding Test}" MinWidth="200"
+                          SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+                <TextBox Text="{Binding Text}" Width="220" FontFamily="Consolas,monospace" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsExtension}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_InList}" />
+                <TextBox Text="{Binding Text}" Width="220" FontFamily="Consolas,monospace" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsBounds}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_Min}" />
+                <NumericUpDown Value="{Binding Min}" Minimum="0" Increment="1" Width="130" />
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_Max}" />
+                <NumericUpDown Value="{Binding Max}" Minimum="0" Increment="1" Width="130" />
+                <ComboBox ItemsSource="{Binding Units}" SelectedValue="{Binding Unit}" MinWidth="100" IsVisible="{Binding IsSize}"
+                          SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_Characters}" IsVisible="{Binding IsLength}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsDate}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_From}" />
+                <CalendarDatePicker SelectedDate="{Binding FromDate}" Width="150" />
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Filter_To}" />
+                <CalendarDatePicker SelectedDate="{Binding ToDate}" Width="150" />
+            </StackPanel>
+        </WrapPanel>
+
+        <TextBlock Text="{x:Static res:Strings.Filter_PatternHint}" Opacity="0.7" IsVisible="{Binding IsWildcard}" />
+        <TextBlock Text="{x:Static res:Strings.Filter_ExtensionHint}" Opacity="0.7" IsVisible="{Binding IsExtension}" />
+        <TextBlock Text="{x:Static res:Strings.Filter_EmptyHint}" Opacity="0.7" IsVisible="{Binding IsRange}" />
+        <CheckBox IsChecked="{Binding MatchCase}" Content="{x:Static res:Strings.Replace_MatchCase}" IsVisible="{Binding IsName}" />
+    </StackPanel>
+</UserControl>

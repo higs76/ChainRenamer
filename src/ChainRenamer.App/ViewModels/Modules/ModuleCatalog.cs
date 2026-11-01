@@ -21,6 +21,7 @@ public static class ModuleCatalog
     [
         // In a logical order: list modules first, then name modules from the simplest.
         ModuleType.Of<SortModule>(Strings.Module_Sort, m => new SortSettingsViewModel(m)),
+        ModuleType.Of<FilterModule>(Strings.Module_Filter, m => new FilterSettingsViewModel(m)),
         ModuleType.Of<ReplaceModule>(Strings.Module_Replace, m => new ReplaceSettingsViewModel(m)),
         ModuleType.Of<RegexReplaceModule>(Strings.Module_RegexReplace, m => new RegexReplaceSettingsViewModel(m)),
         ModuleType.Of<CaseModule>(Strings.Module_Case, m => new CaseSettingsViewModel(m)),

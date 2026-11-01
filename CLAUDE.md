@@ -158,4 +158,6 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 ## Jalon 2 (en cours)
 
 - ✅ 0.9.0 : fenêtre Outils > Paramètres (langue de l'interface, appliquée au redémarrage) ; modules **Casse**, **Supprimer**, **Nettoyer**, **Insérer**, **Numérotation** (remise à zéro par dossier via `Item.Folder`), **Extension**, chacun avec ses tests, son panneau et sa page d'aide. Les listes déroulantes des réglages utilisent `Choice(Value, Label)`.
-- Reste : Filtrer, Formater les nombres.
+- ✅ CLI (étape 8 du jalon 1).
+- ✅ Module **Filtrer** (un critère par étape : nom, extension, taille, date de modification, longueur ; garder ou retirer). `FileItem` et `Item` portent la taille et la date, lues par `FileScanner` pendant l'énumération (aucun accès de plus par fichier sur un partage). L'aide montre les fichiers retirés, barrés.
+- Reste : Formater les nombres.

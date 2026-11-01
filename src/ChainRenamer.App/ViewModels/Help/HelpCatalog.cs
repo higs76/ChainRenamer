@@ -50,6 +50,30 @@ public static class HelpCatalog
                 new(H.Sort_Example_Descending, new SortModule(Descending: true), "Photo 1.jpg", "Photo 2.jpg", "Photo 10.jpg"),
             ],
         },
+        new("Filter", H.Group_Modules, Strings.Module_Filter, H.Filter_Intro)
+        {
+            Module = typeof(FilterModule),
+            Options =
+            [
+                new(Strings.FilterMode_Keep, H.FilterMode_Keep_Text),
+                new(Strings.FilterMode_Remove, H.FilterMode_Remove_Text),
+                new(Strings.FilterOn_Name, H.FilterOn_Name_Text),
+                new(Strings.TextTest_Wildcard, H.TextTest_Wildcard_Text),
+                new(Strings.TextTest_Regex, H.TextTest_Regex_Text),
+                new(Strings.FilterOn_Extension, H.FilterOn_Extension_Text),
+                new(Strings.FilterOn_Size, H.FilterOn_Size_Text),
+                new(Strings.FilterOn_Modified, H.FilterOn_Modified_Text),
+                new(Strings.FilterOn_Length, H.FilterOn_Length_Text),
+                new(Strings.Replace_MatchCase, H.Filter_MatchCase_Text),
+            ],
+            Examples =
+            [
+                new(H.Filter_Example_Contains, new FilterModule(Text: "VOSTFR"), "Speedy 01 VOSTFR.mkv", "Speedy 01 VF.mkv", "Speedy 02 vostfr.mkv"),
+                new(H.Filter_Example_Wildcard, new FilterModule(Test: TextTest.Wildcard, Text: "*.mkv;*.mp4"), "Speedy 01.mkv", "Speedy 01.srt", "Trailer.mp4", "cover.jpg"),
+                new(H.Filter_Example_Remove, new FilterModule(FilterOn.Extension, Text: "nfo, txt", Exclude: true), "Speedy 01.mkv", "Speedy.nfo", "readme.txt"),
+                new(H.Filter_Example_Regex, new FilterModule(Test: TextTest.Regex, Text: @"\bS\d+E\d+\b"), "Speedy S01E01.mkv", "Speedy - Making of.mkv"),
+            ],
+        },
         new("Replace", H.Group_Modules, Strings.Module_Replace, H.Replace_Intro)
         {
             Module = typeof(ReplaceModule),

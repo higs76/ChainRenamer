@@ -13,9 +13,10 @@ public static class FileScanner
             // Defaults skip hidden and system files (Thumbs.db, desktop.ini) and inaccessible subfolders.
             var options = new EnumerationOptions { RecurseSubdirectories = source.IncludeSubfolders };
 
-            return [.. Directory.EnumerateFiles(source.Folder, "*", options)
-                .Select(path => { cancellationToken.ThrowIfCancellationRequested(); return path; })
-                .Order(NaturalOrder.Comparer)
-                .Select(FileItem.FromPath)];
+            // FileInfo from an enumeration already holds the size and dates: no extra request per file on a share.
+            return [.. new DirectoryInfo(source.Folder).EnumerateFiles("*", options)
+                .Select(file => { cancellationToken.ThrowIfCancellationRequested(); return file; })
+                .OrderBy(file => file.FullName, NaturalOrder.Comparer)
+                .Select(file => new FileItem(FileId.New(), file.FullName) { Size = file.Length, Modified = file.LastWriteTime })];
         }, cancellationToken);
 }

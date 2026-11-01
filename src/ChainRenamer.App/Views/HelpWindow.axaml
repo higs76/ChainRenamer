@@ -25,6 +25,10 @@
             <Setter Property="Opacity" Value="0.6" />
             <Setter Property="Margin" Value="0,10,0,4" />
         </Style>
+        <Style Selector="TextBlock.excluded">
+            <Setter Property="Opacity" Value="0.45" />
+            <Setter Property="TextDecorations" Value="Strikethrough" />
+        </Style>
         <Style Selector="TextBlock.changed">
             <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
             <Setter Property="FontWeight" Value="SemiBold" />
@@ -108,8 +112,8 @@
                                                         <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="{Binding Before}" Opacity="0.8" />
-                                                    <TextBlock Grid.Column="1" Text="→" Margin="14,0" Opacity="0.6" />
+                                                    <TextBlock Text="{Binding Before}" Opacity="0.8" Classes.excluded="{Binding IsExcluded}" />
+                                                    <TextBlock Grid.Column="1" Text="→" Margin="14,0" Opacity="0.6" IsVisible="{Binding !IsExcluded}" />
                                                     <TextBlock Grid.Column="2" Text="{Binding After}" Classes.changed="{Binding IsChanged}" />
                                                 </Grid>
                                             </DataTemplate>

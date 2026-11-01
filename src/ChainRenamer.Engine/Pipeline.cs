@@ -28,7 +28,7 @@ public sealed class Pipeline
     public void SetFiles(IEnumerable<FileItem> files)
     {
         Files = [.. files];
-        initial = [.. Files.Select(f => new Item(f.Id, f.Name) { Folder = f.Directory })];
+        initial = [.. Files.Select(f => new Item(f.Id, f.Name) { Folder = f.Directory, Size = f.Size, Modified = f.Modified })];
         InvalidateFrom(0);
     }
 

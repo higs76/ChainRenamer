@@ -49,6 +49,15 @@ public class HelpTests
         Assert.Equal("speedy 01x03 my first race.mkv", PagesIn("en").Single(p => p.Key == "Replace").Examples[0].Rows[0].After);
     }
 
+    [Fact]
+    public void A_filter_example_shows_the_files_left_out_last()
+    {
+        var rows = PagesIn("en").Single(p => p.Key == "Filter").Examples[0].Rows;
+
+        Assert.Equal(["Speedy 01 VOSTFR.mkv", "Speedy 02 vostfr.mkv", "Speedy 01 VF.mkv"], rows.Select(r => r.Before));
+        Assert.Equal([false, false, true], rows.Select(r => r.IsExcluded));
+    }
+
     [Theory]
     [MemberData(nameof(Languages))]
     public void Every_page_has_its_texts(string language)

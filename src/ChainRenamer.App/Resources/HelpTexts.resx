@@ -209,4 +209,23 @@ With **replace by** and **add after it**, the extension can be typed with or wit
   <data name="Extension_Example_Set" xml:space="preserve"><value>Replace by `jpg`</value></data>
   <data name="Extension_Example_Add" xml:space="preserve"><value>Add `gif` after it</value></data>
   <data name="Extension_Example_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Filter_Intro" xml:space="preserve"><value>Keeps the files that meet one criterion, or removes them. The files left out stay as they are on the disk, and the following steps no longer see them: a Numbering after a Filter numbers the files kept only, from 1.
+
+One step tests one criterion. To combine several (the `.mkv` files of more than 1 GB), put several Filter steps one after the other: each one works on what the previous ones kept.
+
+A filter with nothing to test (no text, no limit) keeps every file. In the grid of the step, the files left out are struck through.</value></data>
+  <data name="FilterMode_Keep_Text" xml:space="preserve"><value>Keeps only the files that meet the criterion.</value></data>
+  <data name="FilterMode_Remove_Text" xml:space="preserve"><value>Removes the files that meet the criterion, and keeps the others.</value></data>
+  <data name="FilterOn_Name_Text" xml:space="preserve"><value>The current name, extension included, as the previous steps made it: **contains**, **starts with**, **ends with** a text, or matches a pattern or a regular expression.</value></data>
+  <data name="TextTest_Wildcard_Text" xml:space="preserve"><value>The pattern covers the whole name: `*` stands for any text, `?` for one character. `*.mkv` keeps `a.mkv` but not `a.mkv.part`. Several patterns are separated by `;`: `*.mkv;*.mp4`.</value></data>
+  <data name="TextTest_Regex_Text" xml:space="preserve"><value>A .NET regular expression, searched in the name: `S\d+E\d+` keeps the names with an episode number. A wrong expression shows in red on the step, which then keeps every file.</value></data>
+  <data name="FilterOn_Extension_Text" xml:space="preserve"><value>A list of extensions separated by commas, with or without their dot, case ignored: `mkv, mp4`.</value></data>
+  <data name="FilterOn_Size_Text" xml:space="preserve"><value>The size of the file, between two limits, in bytes, KB, MB or GB (1 KB = 1024 bytes). An empty box sets no limit on that side.</value></data>
+  <data name="FilterOn_Modified_Text" xml:space="preserve"><value>The day the file was last modified, as shown by Explorer, from a day to another, both included. An empty box sets no limit on that side.</value></data>
+  <data name="FilterOn_Length_Text" xml:space="preserve"><value>The number of characters of the current name, extension included. Useful to find the names too long for a device.</value></data>
+  <data name="Filter_MatchCase_Text" xml:space="preserve"><value>For the name only. Checked, `VOSTFR` does not find `vostfr`.</value></data>
+  <data name="Filter_Example_Contains" xml:space="preserve"><value>Keep the files whose name contains `VOSTFR`</value></data>
+  <data name="Filter_Example_Wildcard" xml:space="preserve"><value>Keep the videos: pattern `*.mkv;*.mp4`</value></data>
+  <data name="Filter_Example_Remove" xml:space="preserve"><value>Remove the extensions `nfo, txt`</value></data>
+  <data name="Filter_Example_Regex" xml:space="preserve"><value>Keep the episodes: regular expression `\bS\d+E\d+\b`</value></data>
 </root>

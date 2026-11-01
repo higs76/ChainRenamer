@@ -262,4 +262,32 @@
   <data name="ExtensionAction_Add" xml:space="preserve"><value>add after it</value></data>
   <data name="ExtensionAction_Remove" xml:space="preserve"><value>remove</value></data>
   <data name="Extension_TextWatermark" xml:space="preserve"><value>jpg</value></data>
+  <data name="Module_Filter" xml:space="preserve"><value>Filter</value></data>
+  <data name="Filter_Description" xml:space="preserve"><value>Keeps or removes files by name, extension, size, date or length. The following steps only see the files kept.</value></data>
+  <data name="FilterMode_Keep" xml:space="preserve"><value>Keep</value></data>
+  <data name="FilterMode_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Filter_Files" xml:space="preserve"><value>the files whose</value></data>
+  <data name="FilterOn_Name" xml:space="preserve"><value>name</value></data>
+  <data name="FilterOn_Extension" xml:space="preserve"><value>extension</value></data>
+  <data name="FilterOn_Size" xml:space="preserve"><value>size</value></data>
+  <data name="FilterOn_Modified" xml:space="preserve"><value>modification date</value></data>
+  <data name="FilterOn_Length" xml:space="preserve"><value>name length</value></data>
+  <data name="TextTest_Contains" xml:space="preserve"><value>contains</value></data>
+  <data name="TextTest_StartsWith" xml:space="preserve"><value>starts with</value></data>
+  <data name="TextTest_EndsWith" xml:space="preserve"><value>ends with</value></data>
+  <data name="TextTest_Wildcard" xml:space="preserve"><value>matches the pattern</value></data>
+  <data name="TextTest_Regex" xml:space="preserve"><value>matches the regular expression</value></data>
+  <data name="Filter_InList" xml:space="preserve"><value>is in the list</value></data>
+  <data name="Filter_Min" xml:space="preserve"><value>is at least</value></data>
+  <data name="Filter_Max" xml:space="preserve"><value>and at most</value></data>
+  <data name="Filter_Characters" xml:space="preserve"><value>characters</value></data>
+  <data name="Filter_From" xml:space="preserve"><value>is from</value></data>
+  <data name="Filter_To" xml:space="preserve"><value>to</value></data>
+  <data name="SizeUnit_Bytes" xml:space="preserve"><value>bytes</value></data>
+  <data name="SizeUnit_KB" xml:space="preserve"><value>KB</value></data>
+  <data name="SizeUnit_MB" xml:space="preserve"><value>MB</value></data>
+  <data name="SizeUnit_GB" xml:space="preserve"><value>GB</value></data>
+  <data name="Filter_PatternHint" xml:space="preserve"><value>* any text, ? one character, ; between two patterns: *.mkv;*.mp4</value></data>
+  <data name="Filter_ExtensionHint" xml:space="preserve"><value>Separated by commas, with or without their dot: mkv, mp4</value></data>
+  <data name="Filter_EmptyHint" xml:space="preserve"><value>Leave a box empty for no limit on that side.</value></data>
 </root>

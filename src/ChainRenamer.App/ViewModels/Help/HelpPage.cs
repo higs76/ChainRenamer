@@ -7,15 +7,16 @@ namespace ChainRenamer.App.ViewModels.Help;
 /// <summary>A setting of a module, or a keyboard shortcut: its label as on screen, and what it does.</summary>
 public sealed record HelpOption(string Label, string Text);
 
-/// <summary>One file of an example: its name before and after the module.</summary>
-public sealed record HelpRow(string Before, string After)
+/// <summary>One file of an example: its name before and after the module, or null after if the module left it out.</summary>
+public sealed record HelpRow(string Before, string? After)
 {
     public bool IsChanged => Before != After;
+    public bool IsExcluded => After is null;
 }
 
 /// <summary>
 /// An example computed by the module itself, so that the help always shows what the module really does.
-/// Rows follow the output order: a sort shows the files in their new order.
+/// Rows follow the output order: a sort shows the files in their new order, a filter the files it kept, then the others.
 /// A name may start with its folder, <c>Season 1\Start.mkv</c>, for the modules that care about folders.
 /// </summary>
 public sealed class HelpExample(string caption, IModule module, params string[] names)
@@ -23,8 +24,22 @@ public sealed class HelpExample(string caption, IModule module, params string[] 
     public string Caption { get; } = caption;
     public IModule Module { get; } = module;
 
-    public IReadOnlyList<HelpRow> Rows { get; } =
-        [.. names.Zip(module.Apply([.. names.Select(ToItem)]), (before, after) => new HelpRow(before, Path.Combine(after.Folder, after.Name)))];
+    public IReadOnlyList<HelpRow> Rows { get; } = Run(module, names);
+
+    private static List<HelpRow> Run(IModule module, string[] names)
+    {
+        var items = names.Select(ToItem).ToList();
+        var output = module.Apply(items);
+        string After(Item i) => Path.Combine(i.Folder, i.Name);
+
+        // Every file kept: line by line, the order before and the order after (a sort reads that way).
+        if (output.Count == items.Count) return [.. names.Zip(output, (name, after) => new HelpRow(name, After(after)))];
+
+        var before = items.Zip(names).ToDictionary(p => p.First.FileId, p => p.Second);
+        var kept = output.Select(i => i.FileId).ToHashSet();
+        return [.. output.Select(i => new HelpRow(before[i.FileId], After(i))),
+                .. items.Where(i => !kept.Contains(i.FileId)).Select(i => new HelpRow(before[i.FileId], null))];
+    }
 
     private static Item ToItem(string path) => new(FileId.New(), Path.GetFileName(path)) { Folder = Path.GetDirectoryName(path) ?? "" };
 }
@@ -60,5 +75,5 @@ public sealed record HelpPage(string Key, string Group, string Title, string Int
     public IEnumerable<string> Texts() =>
         new[] { Title, Intro }
             .Concat(Options.SelectMany(o => new[] { o.Label, o.Text }))
-            .Concat(Examples.SelectMany(e => e.Rows.SelectMany(r => new[] { r.Before, r.After }).Prepend(e.Caption)));
+            .Concat(Examples.SelectMany(e => e.Rows.SelectMany(r => new[] { r.Before, r.After }.OfType<string>()).Prepend(e.Caption)));
 }

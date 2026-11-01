@@ -134,7 +134,7 @@ Le catalogue a été revu le 31/10/2026 en passant en revue les 14 panneaux de B
 
 **Modules « liste »**
 - **Source** (fixe) : dossier local ou UNC, sélection, sous-dossiers (avec une profondeur, y compris « sans les fichiers du dossier racine »), fichiers et/ou dossiers, fichiers cachés.
-- **Filtrer** : extension, motif, regex, taille, date, longueur du nom.
+- **Filtrer** : extension, motif, regex, taille, date, longueur du nom. Fait : un critère par étape (on enchaîne plusieurs Filtrer pour les combiner, ce qui fait un « et »), garder ou retirer ; le motif couvre tout le nom (`*.mkv;*.mp4`), les dates comptent en jours entiers, une borne vide ne limite pas. Taille et date viennent de l'énumération du dossier (`FileItem`, puis `Item`).
 - **Trier** : tri naturel, date, taille, métadonnée, ordre manuel.
 
 **Modules « nom »**

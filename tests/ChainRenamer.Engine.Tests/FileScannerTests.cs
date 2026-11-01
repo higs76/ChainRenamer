@@ -31,6 +31,19 @@ public sealed class FileScannerTests : IDisposable
     }
 
     [Fact]
+    public async Task Reads_the_size_and_date_of_each_file()
+    {
+        var path = Path.Combine(root, "ep 2.mkv");
+        File.WriteAllText(path, "12345");
+        File.SetLastWriteTime(path, new DateTime(2024, 5, 17, 20, 30, 0));
+
+        var file = (await FileScanner.ScanAsync(new SourceModule(root)))[0];
+
+        Assert.Equal(5, file.Size);
+        Assert.Equal(new DateTime(2024, 5, 17, 20, 30, 0), file.Modified);
+    }
+
+    [Fact]
     public async Task Can_include_subfolders()
     {
         var files = await FileScanner.ScanAsync(new SourceModule(root, IncludeSubfolders: true));

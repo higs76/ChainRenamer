@@ -9,6 +9,12 @@ public sealed record Item(FileId FileId, string Name)
     /// <summary>The folder of the file, which never changes: numbering can start again in each folder.</summary>
     public string Folder { get; init; } = "";
 
+    /// <summary>The size of the file in bytes, which never changes.</summary>
+    public long Size { get; init; }
+
+    /// <summary>The last write time of the file, which never changes.</summary>
+    public DateTime Modified { get; init; }
+
     // Not Path.GetExtension: a module may have put a '\' in the name, which must stay plain text.
     private int ExtensionStart => Name.LastIndexOf('.') is var i and >= 0 && i < Name.Length - 1 ? i : Name.Length;
 

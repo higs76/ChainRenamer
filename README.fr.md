@@ -36,6 +36,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 
 - **Source** : dossier local ou partage réseau UNC, sous-dossiers ; décocher des fichiers les retire de toute la chaîne. Sélection rapide : case d'en-tête, Maj + clic, rectangle à la souris, Espace, clic droit.
 - **Trier** : ordre naturel, croissant ou décroissant, ou ordre manuel par glisser-déposer.
+- **Filtrer** : garder ou retirer des fichiers selon leur nom (texte, motif `*.mkv`, expression régulière), leur extension, leur taille, leur date de modification ou la longueur du nom ; les étapes suivantes ne voient que les fichiers gardés.
 - **Remplacer** : un texte par un autre, en respectant ou non la casse ; toutes les occurrences, la première, la dernière, au début ou à la fin du nom.
 - **Remplacer (avancé)** : expressions régulières avec groupes (`$1`, `$2`…).
 - **Casse** : minuscules, MAJUSCULES, Titre ou Phrase ; les petits mots des titres français ou anglais restent en minuscules ; exceptions (`iPhone`, `TV`), chiffres romains, sigles, mots collés.
@@ -54,7 +55,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 
 ## Prévu
 
-- **Modules** : Filtrer, Formater les nombres, Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
+- **Modules** : Formater les nombres, Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
 - **Variables** utilisables dans tous les modules : `{dossier}`, `{date}`, plus tard l'EXIF et les tags audio.
 - **Listes de dépôt** : coller ou déposer une liste de lignes (titres d'épisodes…), la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom (« après le dernier ` - ` »).
