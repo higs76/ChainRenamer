@@ -126,6 +126,9 @@
             <MenuItem Header="{x:Static res:Strings.Menu_OpenLibrary}" Click="OnOpenLibrary" ToolTip.Tip="{Binding LibraryFolder}" />
             <MenuItem Header="{x:Static res:Strings.Menu_MoveLibrary}" Click="OnMoveLibrary" />
         </MenuItem>
+        <MenuItem Header="{x:Static res:Strings.Menu_Tools}">
+            <MenuItem Header="{x:Static res:Strings.Menu_Settings}" Click="OnSettings" />
+        </MenuItem>
         <MenuItem Header="{x:Static res:Strings.Menu_Help}">
             <MenuItem Header="{x:Static res:Strings.Menu_HelpContents}" Click="OnHelp" InputGesture="F1" />
         </MenuItem>

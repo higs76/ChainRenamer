@@ -43,7 +43,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Chain library**: save, save as, import and export of one chain or the whole library, configurable location (a NAS or a synced folder, for example).
 - **Favorites**, as in a browser: sorted into folders that become submenus of the Chains menu (Series ▸ Anime); Ctrl+D adds the open chain.
 - **Built-in help** (F1, or the **?** of a step): how a chain works, then a page per module with its settings and examples computed by the module itself. Searchable, in English and French.
-- **Interface** in English and French, following the Windows language.
+- **Interface** in English and French, following the Windows language or chosen in **Tools > Settings**.
 
 ## Planned
 

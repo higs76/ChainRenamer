@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ChainRenamer.App.ViewModels"
+        xmlns:res="using:ChainRenamer.App.Resources"
+        x:Class="ChainRenamer.App.Views.SettingsWindow"
+        x:DataType="vm:MainViewModel"
+        Title="{x:Static res:Strings.Settings_Title}"
+        Width="560" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+
+    <Window.Styles>
+        <Style Selector="TextBlock.section">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,8,0,0" />
+        </Style>
+    </Window.Styles>
+
+    <StackPanel Margin="20" Spacing="10">
+        <!-- Language: applied at the next start, since every text is read once -->
+        <TextBlock Classes="section" Text="{x:Static res:Strings.Settings_Language}" Margin="0" />
+        <ComboBox ItemsSource="{Binding Languages}" SelectedValue="{Binding Language}" MinWidth="260"
+                  SelectedValueBinding="{Binding Code, x:DataType=vm:LanguageChoice}"
+                  DisplayMemberBinding="{Binding Label, x:DataType=vm:LanguageChoice}" />
+        <StackPanel Spacing="6" IsVisible="{Binding NeedsRestart}">
+            <TextBlock Text="{x:Static res:Strings.Settings_RestartNote}" TextWrapping="Wrap" Opacity="0.8" />
+            <Button Content="{x:Static res:Strings.Settings_Restart}" Click="OnRestart" />
+        </StackPanel>
+
+        <TextBlock Classes="section" Text="{x:Static res:Strings.Settings_Preview}" />
+        <CheckBox IsChecked="{Binding ShowOriginal}" Content="{x:Static res:Strings.ShowOriginal}" />
+
+        <TextBlock Classes="section" Text="{x:Static res:Strings.Settings_Library}" />
+        <SelectableTextBlock Text="{Binding LibraryFolder}" TextWrapping="Wrap" FontFamily="Consolas,monospace" FontSize="12" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Content="{x:Static res:Strings.Settings_OpenLibrary}" Click="OnOpenLibrary" />
+            <Button Content="{x:Static res:Strings.Settings_MoveLibrary}" Click="OnMoveLibrary" />
+        </StackPanel>
+
+        <Button Content="{x:Static res:Strings.Settings_Close}" Click="OnClose" IsCancel="True"
+                HorizontalAlignment="Right" Margin="0,12,0,0" />
+    </StackPanel>
+</Window>

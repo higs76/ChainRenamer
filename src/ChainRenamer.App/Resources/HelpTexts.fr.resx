@@ -41,7 +41,7 @@ Une étape Trier n'a pas de cases : sa colonne porte les poignées ≡ qui dépl
 • deux fichiers reçoivent le même nom ;
 • un caractère interdit : `&lt; &gt; : " / \ | ? *` ;
 • un nom réservé par Windows : `CON`, `PRN`, `AUX`, `NUL`, `COM1` à `COM9`, `LPT1` à `LPT9` ;
-• un nom qui finit par un point ou une espace, ou un nom vide ;
+• un nom qui finit par un point ou un espace, ou un nom vide ;
 • un chemin de plus de 259 caractères.
 Juste avant de renommer, le disque est vérifié à nouveau : un fichier a pu apparaître dans le dossier depuis le chargement.
 
@@ -95,7 +95,7 @@ Décochez ensuite les fichiers à laisser de côté : ils sortent de toute la ch
   <data name="Sort_Example_Descending" xml:space="preserve"><value>Ordre décroissant</value></data>
   <data name="Replace_Intro" xml:space="preserve"><value>Remplace un texte par un autre dans le nom. Le texte est cherché exactement tel qu'il est tapé : `.` est un point. Pour trouver un motif (n'importe quel nombre, n'importe quel mot…), utilisez **Remplacer (avancé)**.
 
-L'extension n'est jamais touchée : remplacer `.` par une espace garde `.mkv`.</value></data>
+L'extension n'est jamais touchée : remplacer `.` par un espace garde `.mkv`.</value></data>
   <data name="Replace_Find_Text" xml:space="preserve"><value>Le texte à trouver.</value></data>
   <data name="Replace_With_Label" xml:space="preserve"><value>par</value></data>
   <data name="Replace_With_Text" xml:space="preserve"><value>Le nouveau texte. Laissez-le vide pour supprimer le texte trouvé.</value></data>
@@ -105,7 +105,7 @@ L'extension n'est jamais touchée : remplacer `.` par une espace garde `.mkv`.</
   <data name="Occurrence_Last_Text" xml:space="preserve"><value>La dernière seulement : pratique pour le dernier séparateur d'un nom.</value></data>
   <data name="Occurrence_Start_Text" xml:space="preserve"><value>Seulement si le nom commence par le texte : supprime ou change un préfixe.</value></data>
   <data name="Occurrence_End_Text" xml:space="preserve"><value>Seulement si le nom finit par le texte : supprime ou change un suffixe.</value></data>
-  <data name="Replace_Example_Dots" xml:space="preserve"><value>`.` par une espace : l'extension reste</value></data>
+  <data name="Replace_Example_Dots" xml:space="preserve"><value>`.` par un espace : l'extension reste</value></data>
   <data name="Replace_Example_Last" xml:space="preserve"><value>Le dernier ` - ` seulement, par `. `</value></data>
   <data name="Replace_Example_Start" xml:space="preserve"><value>`[HD] ` par rien, au début du nom seulement</value></data>
   <data name="Replace_Example_Case" xml:space="preserve"><value>`EP` par `Episode `, en respectant la casse : le `ep` de « Step » reste</value></data>
@@ -113,7 +113,7 @@ L'extension n'est jamais touchée : remplacer `.` par une espace garde `.mkv`.</
 
 Comme Remplacer, il ne touche jamais à l'extension. Tant qu'un motif en cours de saisie n'est pas valide, l'étape est marquée ⚠ et ne change rien.</value></data>
   <data name="Regex_Pattern_Text" xml:space="preserve"><value>Le motif. L'essentiel :
-• `\d` un chiffre, `\s` une espace, `.` n'importe quel caractère, `\.` un vrai point ;
+• `\d` un chiffre, `\s` un espace, `.` n'importe quel caractère, `\.` un vrai point ;
 • `+` une fois ou plus, `*` autant de fois qu'on veut, `?` facultatif ;
 • `( )` un groupe, remis par `$1`, `$2`… ;
 • `^` le début du nom, `$` sa fin ;
@@ -123,5 +123,5 @@ Comme Remplacer, il ne touche jamais à l'extension. Tant qu'un motif en cours d
   <data name="Regex_Example_Season" xml:space="preserve"><value>`(\d+)x(\d+)` par `S$1E$2` : saison et épisode</value></data>
   <data name="Regex_Example_Swap" xml:space="preserve"><value>`^(.+) - (.+)$` par `$2 - $1` : échange les deux parties</value></data>
   <data name="Regex_Example_Brackets" xml:space="preserve"><value>`\s*\[.*?\]` par rien : supprime ce qui est entre crochets</value></data>
-  <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` par une espace : plusieurs espaces n'en font plus qu'une</value></data>
+  <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` par un espace : plusieurs espaces n'en font plus qu'un</value></data>
 </root>

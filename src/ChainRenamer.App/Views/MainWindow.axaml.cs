@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -144,19 +145,35 @@ public partial class MainWindow : Window
         return file?.TryGetLocalPath();
     }
 
-    private async void OnOpenLibrary(object? sender, RoutedEventArgs e)
+    private void OnOpenLibrary(object? sender, RoutedEventArgs e) => OpenLibrary();
+
+    private void OnMoveLibrary(object? sender, RoutedEventArgs e) => MoveLibrary();
+
+    public async void OpenLibrary()
     {
         if (ViewModel is not { } vm) return;
         Directory.CreateDirectory(vm.LibraryFolder);
         await Launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(vm.LibraryFolder));
     }
 
-    private async void OnMoveLibrary(object? sender, RoutedEventArgs e)
+    /// <summary>Asks for the new folder of the library, over <paramref name="over"/> (the settings window) or this window.</summary>
+    public async void MoveLibrary(TopLevel? over = null)
     {
         if (ViewModel is not { } vm) return;
-        var folders = await StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions { Title = Strings.Picker_Library });
+        var folders = await (over ?? this).StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions { Title = Strings.Picker_Library });
         if (folders.Count > 0 && folders[0].TryGetLocalPath() is { } path) await vm.MoveLibraryAsync(path);
     }
+
+    private async void OnSettings(object? sender, RoutedEventArgs e) =>
+        await new SettingsWindow { DataContext = ViewModel }.ShowDialog(this);
+
+    /// <summary>Restarts the application (after a change of language), once the unsaved changes are dealt with.</summary>
+    public void Restart() => ViewModel?.CloseAfterGuard(() =>
+    {
+        Process.Start(Environment.ProcessPath!);
+        closeConfirmed = true;
+        Close();
+    });
 
     private void OnQuit(object? sender, RoutedEventArgs e) => Close();
 

@@ -43,7 +43,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Bibliothèque de chaînes** : enregistrer, enregistrer sous, import et export d'une chaîne ou de toute la bibliothèque, emplacement réglable (un NAS ou un dossier synchronisé, par exemple).
 - **Favoris**, comme dans un navigateur : rangés dans des dossiers qui deviennent des sous-menus du menu Chaînes (Séries ▸ Anime) ; Ctrl+D ajoute la chaîne ouverte.
 - **Aide intégrée** (F1, ou le **?** d'une étape) : le principe de la chaîne, puis une page par module avec ses réglages et des exemples calculés par le module lui-même. Avec une recherche, en français et en anglais.
-- **Interface** en anglais et en français, selon la langue de Windows.
+- **Interface** en anglais et en français, selon la langue de Windows ou au choix dans **Outils > Paramètres**.
 
 ## Prévu
 
