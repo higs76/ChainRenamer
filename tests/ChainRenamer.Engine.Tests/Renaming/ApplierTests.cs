@@ -96,9 +96,30 @@ public sealed class ApplierTests : IDisposable
         await Applier.ApplyAsync(Plan(files, "x.txt"), JournalPath);
 
         var journal = Journal.Read(JournalPath);
-        Assert.Equal(2, journal.Count);
-        Assert.Equal(files[0].FullPath, journal[0].From);
-        Assert.Equal(Path.Combine(root, "x.txt"), journal[1].To);
+        Assert.Equal([new JournalEntry(files[0].FullPath, Path.Combine(root, "x.txt"))], journal);
+    }
+
+    [Fact]
+    public async Task Only_the_files_whose_name_is_taken_go_through_a_temporary_name()
+    {
+        // b is free to go to c at once; a must wait for b to leave.
+        var files = CreateFiles("a.txt", "b.txt", "d.txt");
+
+        var result = await Applier.ApplyAsync(Plan(files, "b.txt", "c.txt", "e.txt"), JournalPath);
+
+        Assert.Equal(3, result.Renamed);
+        Assert.Equal(["b.txt=a.txt", "c.txt=b.txt", "e.txt=d.txt"], Disk());
+        Assert.Equal(4, Journal.Read(JournalPath).Count);    // a → temporary → b, b → c, d → e
+    }
+
+    [Fact]
+    public async Task A_case_only_change_goes_through_a_temporary_name()
+    {
+        var files = CreateFiles("photo.jpg");
+
+        await Applier.ApplyAsync(Plan(files, "Photo.jpg"), JournalPath);
+
+        Assert.Equal(2, Journal.Read(JournalPath).Count);
     }
 
     [Fact]

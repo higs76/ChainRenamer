@@ -10,10 +10,11 @@ public sealed record ApplyResult(int Renamed, Exception? Error = null, bool Roll
 
 /// <summary>
 /// The only place where files are really renamed, in two phases:
-/// 1) every file takes a unique temporary name derived from its FileId;
-/// 2) every file takes its final name.
+/// 1) the files whose new name is still taken by a file of the renaming take a unique temporary name,
+///    derived from their FileId;
+/// 2) the other files take their new name directly, then the waiting ones take theirs.
 /// This handles swaps (A↔B), cycles, renumbering and case-only changes on case-insensitive file systems
-/// (NTFS, SMB). Each move is written to the journal as soon as it is done.
+/// (NTFS, SMB), with a single move for most files. Each move is written to the journal as soon as it is done.
 /// </summary>
 public static class Applier
 {
@@ -28,8 +29,9 @@ public static class Applier
 
         return Task.Run(() =>
         {
+            var viaTemporary = NeedingTemporary(plan.Operations);
             var done = new List<JournalEntry>();
-            int total = plan.Operations.Count * 2;
+            int total = plan.Operations.Count + viaTemporary.Count, renamed = 0;
             using (var journal = Journal.Open(journalPath))
             {
                 try
@@ -44,17 +46,29 @@ public static class Applier
                         progress?.Report((double)done.Count / total);
                     }
 
-                    foreach (var op in plan.Operations) Move(op.SourcePath, TemporaryPath(op));
-                    foreach (var op in plan.Operations) Move(TemporaryPath(op), op.TargetPath);
-                    return new ApplyResult(plan.Operations.Count);
+                    // 1) Out of the way: the files whose new name is still taken by a file of the renaming.
+                    foreach (var op in viaTemporary) Move(op.SourcePath, TemporaryPath(op));
+                    // 2) The others go straight to a free name; then the waiting ones, to names freed meanwhile.
+                    foreach (var op in plan.Operations.Except(viaTemporary)) { Move(op.SourcePath, op.TargetPath); renamed++; }
+                    foreach (var op in viaTemporary) { Move(TemporaryPath(op), op.TargetPath); renamed++; }
+                    return new ApplyResult(renamed);
                 }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or OperationCanceledException)
                 {
-                    int renamed = done.Count - plan.Operations.Count;
-                    return new ApplyResult(Math.Max(renamed, 0), ex, RolledBack: Undo(done, journal));
+                    return new ApplyResult(renamed, ex, RolledBack: Undo(done, journal));
                 }
             }
         }, CancellationToken.None);
+    }
+
+    /// <summary>
+    /// The operations whose target is the current path of a file of the renaming (itself included, for a case-only
+    /// change on a case-insensitive file system): swaps, cycles, shifts. Any other target is free, as the plan checked.
+    /// </summary>
+    public static IReadOnlyList<RenameOperation> NeedingTemporary(IReadOnlyList<RenameOperation> operations)
+    {
+        var sources = operations.Select(o => o.SourcePath).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        return [.. operations.Where(o => sources.Contains(o.TargetPath))];
     }
 
     /// <summary>Puts back every file of a journal. Can be run again safely: only what remains is undone.</summary>

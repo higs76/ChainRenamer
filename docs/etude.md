@@ -122,7 +122,7 @@ Deux sortes de cases à cocher se ressemblent donc : décocher dans Source retir
 - Ne sont pas enregistrés : la Source (dossier, sous-dossiers, fichiers décochés), la portée des étapes et l'ordre manuel de Trier, qui dépendent des fichiers chargés. Les `StepId` sont recréés au chargement.
 - Une erreur de lecture est un code (`ChainError` : fichier invalide, version non prise en charge, module inconnu, réglages invalides), que la CLI et l'App traduisent.
 
-**Renommage disque** : deux phases. Chaque fichier passe d'abord par un nom temporaire unique dérivé de son `FichierId`, puis reçoit son nom final. Cela couvre les échanges, les cycles et les changements de casse seule sur NTFS et SMB. Les conflits sont détectés avant l'application, et un journal permet l'annulation.
+**Renommage disque** : deux phases. Les fichiers dont le nouveau nom est encore pris par un fichier du renommage passent d'abord par un nom temporaire unique dérivé de leur `FichierId` ; les autres reçoivent directement leur nom final, puis les fichiers en attente reçoivent le leur (décision du 01/11/2026 : faire passer tous les fichiers par un nom temporaire doublait les déplacements, sensible sur un NAS). Cela couvre les échanges, les cycles et les changements de casse seule sur NTFS et SMB. Les conflits sont détectés avant l'application, et un journal permet l'annulation.
 
 ## 5. Catalogue des modules
 
