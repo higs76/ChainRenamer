@@ -177,4 +177,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - Version 0.11.0.
 - ✅ Module **Liste** (`List` : remplacer le nom, insérer, paires ancien → nouveau ; collage, fichier texte chargé ou déposé sur le panneau).
 - ✅ **Segment de nom** (`Segment` : après un texte, première ou dernière occurrence, et/ou avant un texte) : option d'une étape « nom », enregistrée dans le `.chain`. La découpe se fait dans `Step.Apply` (avec la portée), que le pipeline appelle ; bloc repliable « Partie du nom » sous les réglages.
-- Reste du jalon 3 (étude) : marqueurs.
+- ✅ **Marqueurs** : pas de module dédié, les modules existants suffisent (Remplacer avancé pose `@@`, Insérer ou Liste insère avant, Remplacer le retire) ; page d'aide « Marqueurs ».
+- Version 0.12.0 : jalon 3 terminé. Prochain : jalon 4 (confort) de l'étude.

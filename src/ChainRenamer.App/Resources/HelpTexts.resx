@@ -307,4 +307,11 @@ A name that lacks one of the texts is left as it is by the step, as if it were u
   <data name="Segment_After_Text" xml:space="preserve"><value>The part starts just after this text, case ignored; empty: at the start of the name. With **its last occurrence**, after the last time the text appears.</value></data>
   <data name="Segment_Before_Text" xml:space="preserve"><value>The part ends just before this text, searched after the start; empty: at the end of the name.</value></data>
   <data name="Segment_Example" xml:space="preserve"><value>A Case step, only after the last ` - `</value></data>
+  <data name="Markers_Title" xml:space="preserve"><value>Markers</value></data>
+  <data name="Markers_Intro" xml:space="preserve"><value>A marker is a placeholder of your own, such as `@@`, that one step puts in the name and the next ones use: a way to insert at a place that depends on the name. No special module is needed:
+
+**1.** A Replace (advanced) puts the marker where a pattern is found: `(\d+x\d+)` → `$1@@` places it just after the episode code, wherever it is. **2.** An Insert or a List inserts **before** the text `@@`. **3.** A Replace of `@@` by nothing removes it.
+
+Choose a marker that never appears in your names. If one is left at the end, it shows in the preview, and `@` is allowed in file names: nothing breaks, but the name is wrong.</value></data>
+  <data name="Markers_Example" xml:space="preserve"><value>The three steps: marker after the episode code, list inserted before the marker, marker removed</value></data>
 </root>

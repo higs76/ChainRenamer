@@ -309,4 +309,11 @@ Un nom auquel manque l'un des textes est laissé tel quel par l'étape, comme s'
   <data name="Segment_After_Text" xml:space="preserve"><value>La partie commence juste après ce texte, sans tenir compte de la casse ; vide : au début du nom. Avec **sa dernière occurrence**, après la dernière fois que le texte apparaît.</value></data>
   <data name="Segment_Before_Text" xml:space="preserve"><value>La partie se termine juste avant ce texte, cherché après le début ; vide : à la fin du nom.</value></data>
   <data name="Segment_Example" xml:space="preserve"><value>Une étape Casse, seulement après le dernier ` - `</value></data>
+  <data name="Markers_Title" xml:space="preserve"><value>Marqueurs</value></data>
+  <data name="Markers_Intro" xml:space="preserve"><value>Un marqueur est un repère à vous, comme `@@`, qu'une étape place dans le nom et que les suivantes utilisent : un moyen d'insérer à un endroit qui dépend du nom. Aucun module particulier n'est nécessaire :
+
+**1.** Un Remplacer (avancé) place le marqueur là où un motif est trouvé : `(\d+x\d+)` → `$1@@` le met juste après le code d'épisode, où qu'il soit. **2.** Un Insérer ou une Liste insère **avant** le texte `@@`. **3.** Un Remplacer de `@@` par rien le retire.
+
+Choisissez un marqueur qui n'apparaît jamais dans vos noms. S'il en reste un à la fin, il se voit dans l'aperçu, et `@` est permis dans les noms de fichiers : rien ne casse, mais le nom est faux.</value></data>
+  <data name="Markers_Example" xml:space="preserve"><value>Les trois étapes : marqueur après le code d'épisode, liste insérée avant le marqueur, marqueur retiré</value></data>
 </root>

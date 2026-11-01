@@ -49,6 +49,17 @@ public static class HelpCatalog
                     "SPEEDY - 01x01 - the first lap.mkv", "SPEEDY - 01x02 - rain on the track.mkv"),
             ],
         },
+        new("Markers", H.Group_Start, H.Markers_Title, H.Markers_Intro)
+        {
+            Examples =
+            [
+                new(H.Markers_Example, Then(
+                        new RegexReplaceModule(@"(\d+x\d+)", "$1@@"),
+                        new ListModule(" - The First Lap\n - Rain on the Track", ListMode.Insert, InsertAt.Before, Anchor: "@@"),
+                        new ReplaceModule("@@", "")),
+                    "Speedy 1x01 [1080p].mkv", "Speedy 1x02 VOSTFR.mkv"),
+            ],
+        },
         new("Shortcuts", H.Group_Start, H.Shortcuts_Title, H.Shortcuts_Intro)
         {
             OptionsTitle = null,
