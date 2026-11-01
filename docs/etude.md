@@ -150,7 +150,7 @@ Le catalogue a été revu le 31/10/2026 en passant en revue les 14 panneaux de B
 - **Nettoyer**, par des cases à cocher : espaces au début et à la fin, doubles espaces, accents (é → e), chiffres, symboles, emojis, points en tête. Le module qu'on met souvent en fin de chaîne.
 - **Insérer** : au début, à la fin, à une position, avant ou après un texte, à un marqueur. Le texte peut contenir des variables.
 - **Modèle** : le nom entier est remplacé par un modèle, par exemple `{nom} - {dossier} - {n}`.
-- **Formater les nombres** : complète un nombre du nom par des zéros (`Episode 5` → `Episode 05`).
+- **Formater les nombres** : complète un nombre du nom par des zéros (`Episode 5` → `Episode 05`). Fait : tous les nombres, le premier ou le dernier (pour épargner `x265`, `1080p` ou l'année) ; nombre de chiffres fixe, ou automatique (autant que le plus long nombre de la liste) ; option pour retirer les zéros en trop. Seuls les chiffres 0 à 9 comptent.
 - **Dates** : trouve une date dans le nom et la réécrit dans un autre format (`01.04.2024` → `2024-04-01`).
 - **Numérotation** : début, pas, remplissage (`001`), séparateur, position (début, fin, position) ; chiffres, lettres ou chiffres romains. Remise à zéro **quand le dossier change** ou **quand une variable change** : avec `{saison}` capturée plus haut, les épisodes sont numérotés saison par saison.
 - **Extension** : garder, minuscules, majuscules, Titre ; extension imposée, extension ajoutée (`.holiday` → `.holiday.gif`), extension retirée.
@@ -240,8 +240,8 @@ Décisions :
 
 ## 8. Jalons
 
-1. **Fondations** : solution, moteur avec cache et recalcul, modules Source, Remplacer et Trier, Applicateur en deux phases, CLI minimale, App minimale.
-2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension (faits en 0.9.0), Filtrer, Formater les nombres ; aide par module.
+1. **Fondations** : solution, moteur avec cache et recalcul, modules Source, Remplacer et Trier, Applicateur en deux phases, CLI minimale, App minimale. ✅
+2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension (faits en 0.9.0), Filtrer, Formater les nombres (faits en 0.10.0) ; aide par module. ✅
 3. **Puissance** : variables communes, Capturer, Modèle, Dates, Table de remplacement, Listes de dépôt, segment de nom, marqueurs.
 4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur.
 5. **Métadonnées** : EXIF, ID3.

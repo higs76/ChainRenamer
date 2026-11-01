@@ -203,6 +203,26 @@ public static class HelpCatalog
                 new(H.Numbering_Example_Roman, new NumberingModule(Style: NumberStyle.UpperRoman, Where: InsertAt.End, Separator: " "), "Rocky.mkv", "Rocky.mkv", "Rocky.mkv"),
             ],
         },
+        new("PadNumbers", H.Group_Modules, Strings.Module_PadNumbers, H.PadNumbers_Intro)
+        {
+            Module = typeof(PadNumbersModule),
+            Options =
+            [
+                Choice(Strings.PadNumbers_Which, Strings.WhichNumbers_All, H.WhichNumbers_All_Text),
+                Choice(Strings.PadNumbers_Which, Strings.WhichNumbers_First, H.WhichNumbers_First_Text),
+                Choice(Strings.PadNumbers_Which, Strings.WhichNumbers_Last, H.WhichNumbers_Last_Text),
+                new(Strings.PadNumbers_Digits, H.PadNumbers_Digits_Text),
+                new(Strings.PadNumbers_Automatic, H.PadNumbers_Automatic_Text),
+                new(Strings.PadNumbers_TrimZeros, H.PadNumbers_TrimZeros_Text),
+            ],
+            Examples =
+            [
+                new(H.PadNumbers_Example_All, new PadNumbersModule(), "Speedy S1E5.mkv", "Track 7.mp3"),
+                new(H.PadNumbers_Example_Automatic, new PadNumbersModule(Digits: 0), "Photo 1.jpg", "Photo 20.jpg", "Photo 120.jpg"),
+                new(H.PadNumbers_Example_Last, new PadNumbersModule(Which: WhichNumbers.Last), "Speedy 2024 1080p - 7.mkv"),
+                new(H.PadNumbers_Example_Trim, new PadNumbersModule(TrimZeros: true), "Episode 007.mkv", "Episode 0012.mkv"),
+            ],
+        },
         new("Clean", H.Group_Modules, Strings.Module_Clean, H.Clean_Intro)
         {
             Module = typeof(CleanModule),

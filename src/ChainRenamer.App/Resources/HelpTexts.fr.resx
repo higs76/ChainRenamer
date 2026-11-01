@@ -228,4 +228,17 @@ Un filtre qui n'a rien à tester (pas de texte, pas de limite) garde tous les fi
   <data name="Filter_Example_Wildcard" xml:space="preserve"><value>Garder les vidéos : motif `*.mkv;*.mp4`</value></data>
   <data name="Filter_Example_Remove" xml:space="preserve"><value>Retirer les extensions `nfo, txt`</value></data>
   <data name="Filter_Example_Regex" xml:space="preserve"><value>Garder les épisodes : expression régulière `\bS\d+E\d+\b`</value></data>
+  <data name="PadNumbers_Intro" xml:space="preserve"><value>Complète les nombres du nom par des zéros : `Episode 5` → `Episode 05`, `S1E5` → `S01E05`. Sans cela, l'Explorateur et beaucoup de lecteurs rangent `Episode 10` avant `Episode 2`.
+
+Un nombre est une suite de chiffres de 0 à 9. Un nombre déjà plus long que demandé reste tel quel. L'extension n'est jamais touchée : `Clip 7.3gp` → `Clip 07.3gp`.</value></data>
+  <data name="WhichNumbers_All_Text" xml:space="preserve"><value>Tous les nombres du nom. Attention à `x265` ou `1080p` : ce sont aussi des nombres, que seul un nombre de chiffres plus grand que le leur modifie.</value></data>
+  <data name="WhichNumbers_First_Text" xml:space="preserve"><value>Seulement le premier nombre du nom, souvent le numéro d'épisode ou de piste.</value></data>
+  <data name="WhichNumbers_Last_Text" xml:space="preserve"><value>Seulement le dernier nombre du nom : `Vacances 2024 - 7` → `Vacances 2024 - 07`, sans toucher à l'année.</value></data>
+  <data name="PadNumbers_Digits_Text" xml:space="preserve"><value>Combien de chiffres chaque nombre reçoit, au moins.</value></data>
+  <data name="PadNumbers_Automatic_Text" xml:space="preserve"><value>Autant de chiffres que le plus long nombre parmi tous les fichiers de l'étape : de 1 à 120, chaque nombre reçoit trois chiffres. Si l'on ajoute des fichiers plus tard, la largeur suit.</value></data>
+  <data name="PadNumbers_TrimZeros_Text" xml:space="preserve"><value>Raccourcit aussi les nombres qui ont trop de zéros devant : `007` → `07` sur deux chiffres. Décochée, `007` reste.</value></data>
+  <data name="PadNumbers_Example_All" xml:space="preserve"><value>Tous les nombres sur deux chiffres</value></data>
+  <data name="PadNumbers_Example_Automatic" xml:space="preserve"><value>Automatique : trois chiffres, comme pour 120</value></data>
+  <data name="PadNumbers_Example_Last" xml:space="preserve"><value>Le dernier nombre seulement : l'année et la résolution restent</value></data>
+  <data name="PadNumbers_Example_Trim" xml:space="preserve"><value>Retirer les zéros en trop</value></data>
 </root>

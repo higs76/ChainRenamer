@@ -228,4 +228,17 @@ A filter with nothing to test (no text, no limit) keeps every file. In the grid 
   <data name="Filter_Example_Wildcard" xml:space="preserve"><value>Keep the videos: pattern `*.mkv;*.mp4`</value></data>
   <data name="Filter_Example_Remove" xml:space="preserve"><value>Remove the extensions `nfo, txt`</value></data>
   <data name="Filter_Example_Regex" xml:space="preserve"><value>Keep the episodes: regular expression `\bS\d+E\d+\b`</value></data>
+  <data name="PadNumbers_Intro" xml:space="preserve"><value>Pads the numbers of the name with zeros: `Episode 5` → `Episode 05`, `S1E5` → `S01E05`. Without it, Explorer and many players list `Episode 10` before `Episode 2`.
+
+A number is a run of digits from 0 to 9. A number already longer than asked is kept as it is. The extension is never touched: `Clip 7.3gp` → `Clip 07.3gp`.</value></data>
+  <data name="WhichNumbers_All_Text" xml:space="preserve"><value>Every number of the name. Careful with `x265` or `1080p`: they are numbers too, which only a number of digits larger than theirs changes.</value></data>
+  <data name="WhichNumbers_First_Text" xml:space="preserve"><value>Only the first number of the name, often the episode or track number.</value></data>
+  <data name="WhichNumbers_Last_Text" xml:space="preserve"><value>Only the last number of the name: `Holiday 2024 - 7` → `Holiday 2024 - 07`, the year left alone.</value></data>
+  <data name="PadNumbers_Digits_Text" xml:space="preserve"><value>How many digits each number gets, at least.</value></data>
+  <data name="PadNumbers_Automatic_Text" xml:space="preserve"><value>As many digits as the longest number among all the files of the step: from 1 to 120, every number gets three digits. Add files later, and the width follows.</value></data>
+  <data name="PadNumbers_TrimZeros_Text" xml:space="preserve"><value>Also shortens the numbers that have too many zeros in front: `007` → `07` with two digits. Unchecked, `007` stays.</value></data>
+  <data name="PadNumbers_Example_All" xml:space="preserve"><value>Every number on two digits</value></data>
+  <data name="PadNumbers_Example_Automatic" xml:space="preserve"><value>Automatic: three digits, as for 120</value></data>
+  <data name="PadNumbers_Example_Last" xml:space="preserve"><value>The last number only: the year and the resolution stay</value></data>
+  <data name="PadNumbers_Example_Trim" xml:space="preserve"><value>Remove the extra zeros</value></data>
 </root>

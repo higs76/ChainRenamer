@@ -43,6 +43,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Supprimer** : les premiers ou derniers caractères, une plage de positions, avant ou après un texte, chaque partie entre deux textes (`[1080p]`).
 - **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
 - **Numérotation** : chiffres (`001`), lettres ou chiffres romains, n'importe où dans le nom, en recommençant dans chaque dossier si on le souhaite.
+- **Formater les nombres** : `Episode 5` → `Episode 05`, tous les nombres, le premier ou le dernier, sur un nombre de chiffres fixe ou autant que le plus long nombre.
 - **Nettoyer** : espaces en trop, accents, chiffres, symboles, emojis, points en tête.
 - **Extension** : casse, remplacement, ajout, suppression : le seul module qui touche à l'extension.
 - **Aperçu** : colonnes Original | Avant l'étape | Après l'étape, conflits en rouge.
@@ -55,7 +56,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 
 ## Prévu
 
-- **Modules** : Formater les nombres, Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
+- **Modules** : Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
 - **Variables** utilisables dans tous les modules : `{dossier}`, `{date}`, plus tard l'EXIF et les tags audio.
 - **Listes de dépôt** : coller ou déposer une liste de lignes (titres d'épisodes…), la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom (« après le dernier ` - ` »).
@@ -75,7 +76,7 @@ ChainRenamer.Cli --chain Anime --subfolders "\\nas\video\Speedy"
 
 ## Télécharger
 
-Les versions sont publiées dans les [Releases](../../releases) : un seul `ChainRenamer.exe` pour Windows x64, .NET inclus, rien à installer.
+Les versions sont publiées dans les [Releases](../../releases) : un seul `ChainRenamer.exe` pour Windows x64, .NET inclus, rien à installer. La ligne de commande est dans son propre zip, `ChainRenamer.Cli-X.Y.Z-win-x64.zip`.
 
 ## Technologies
 

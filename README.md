@@ -43,6 +43,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Remove**: the first or last characters, a range of positions, before or after a text, every part between two texts (`[1080p]`).
 - **Insert**: a text at the start, at the end, at a position, before or after a text.
 - **Numbering**: digits (`001`), letters or Roman numerals, anywhere in the name, starting again in each folder if wanted.
+- **Pad numbers**: `Episode 5` → `Episode 05`, every number, the first or the last, to a set number of digits or as many as the longest number.
 - **Clean**: extra spaces, accents, digits, symbols, emojis, leading dots.
 - **Extension**: case, replace, add, remove: the only module that touches the extension.
 - **Preview**: Original | Before the step | After the step columns, conflicts in red.
@@ -55,7 +56,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 
 ## Planned
 
-- **Modules**: Pad numbers, Dates, Template, Replacement table, Capture (named groups reused as variables).
+- **Modules**: Dates, Template, Replacement table, Capture (named groups reused as variables).
 - **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
 - **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
 - **Name segment**: limit a step to part of the name ("after the last ` - `").
@@ -75,7 +76,7 @@ ChainRenamer.Cli --chain Anime --subfolders "\\nas\video\Speedy"
 
 ## Download
 
-Versions are published in the [Releases](../../releases): a single `ChainRenamer.exe` for Windows x64, .NET included, nothing to install.
+Versions are published in the [Releases](../../releases): a single `ChainRenamer.exe` for Windows x64, .NET included, nothing to install. The command line comes in its own zip, `ChainRenamer.Cli-X.Y.Z-win-x64.zip`.
 
 ## Built with
 

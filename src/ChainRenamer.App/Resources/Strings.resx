@@ -290,4 +290,13 @@
   <data name="Filter_PatternHint" xml:space="preserve"><value>* any text, ? one character, ; between two patterns: *.mkv;*.mp4</value></data>
   <data name="Filter_ExtensionHint" xml:space="preserve"><value>Separated by commas, with or without their dot: mkv, mp4</value></data>
   <data name="Filter_EmptyHint" xml:space="preserve"><value>Leave a box empty for no limit on that side.</value></data>
+  <data name="Module_PadNumbers" xml:space="preserve"><value>Pad numbers</value></data>
+  <data name="PadNumbers_Description" xml:space="preserve"><value>Pads the numbers of the name with zeros, so that they line up and sort well: Episode 5 → Episode 05.</value></data>
+  <data name="PadNumbers_Which" xml:space="preserve"><value>Pad</value></data>
+  <data name="WhichNumbers_All" xml:space="preserve"><value>every number</value></data>
+  <data name="WhichNumbers_First" xml:space="preserve"><value>the first number</value></data>
+  <data name="WhichNumbers_Last" xml:space="preserve"><value>the last number</value></data>
+  <data name="PadNumbers_Digits" xml:space="preserve"><value>to digits:</value></data>
+  <data name="PadNumbers_Automatic" xml:space="preserve"><value>Automatic: as many as the longest number</value></data>
+  <data name="PadNumbers_TrimZeros" xml:space="preserve"><value>Remove the extra zeros (007 → 07)</value></data>
 </root>

@@ -136,6 +136,7 @@ Mise en œuvre (`Engine/Renaming`) :
   ```
   dotnet publish src/ChainRenamer.App -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -o <dossier>
   ```
+  Même commande pour `src/ChainRenamer.Cli`, zippée à part : `ChainRenamer.Cli-X.Y.Z-win-x64.zip` (depuis la 0.10.0).
 
 ## Jalon 1 (premier objectif)
 
@@ -161,4 +162,6 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ 0.9.0 : fenêtre Outils > Paramètres (langue de l'interface, appliquée au redémarrage) ; modules **Casse**, **Supprimer**, **Nettoyer**, **Insérer**, **Numérotation** (remise à zéro par dossier via `Item.Folder`), **Extension**, chacun avec ses tests, son panneau et sa page d'aide. Les listes déroulantes des réglages utilisent `Choice(Value, Label)`.
 - ✅ CLI (étape 8 du jalon 1).
 - ✅ Module **Filtrer** (un critère par étape : nom, extension, taille, date de modification, longueur ; garder ou retirer). `FileItem` et `Item` portent la taille et la date, lues par `FileScanner` pendant l'énumération (aucun accès de plus par fichier sur un partage). L'aide montre les fichiers retirés, barrés.
-- Reste : Formater les nombres.
+- ✅ Module **Formater les nombres** (`PadNumbers` : tous, premier ou dernier nombre ; chiffres fixes ou automatiques ; zéros en trop).
+- ✅ Test de charge sur 50 000 fichiers (voir « Gros dossiers » dans la partie App).
+- Version 0.10.0 : jalon 2 terminé.

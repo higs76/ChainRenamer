@@ -290,4 +290,13 @@
   <data name="Filter_PatternHint" xml:space="preserve"><value>* : n'importe quel texte, ? : un caractère, ; entre deux motifs : *.mkv;*.mp4</value></data>
   <data name="Filter_ExtensionHint" xml:space="preserve"><value>Séparées par des virgules, avec ou sans leur point : mkv, mp4</value></data>
   <data name="Filter_EmptyHint" xml:space="preserve"><value>Laisser une case vide pour ne pas fixer de limite de ce côté.</value></data>
+  <data name="Module_PadNumbers" xml:space="preserve"><value>Formater les nombres</value></data>
+  <data name="PadNumbers_Description" xml:space="preserve"><value>Complète les nombres du nom par des zéros, pour qu'ils s'alignent et se trient bien : Episode 5 → Episode 05.</value></data>
+  <data name="PadNumbers_Which" xml:space="preserve"><value>Compléter</value></data>
+  <data name="WhichNumbers_All" xml:space="preserve"><value>tous les nombres</value></data>
+  <data name="WhichNumbers_First" xml:space="preserve"><value>le premier nombre</value></data>
+  <data name="WhichNumbers_Last" xml:space="preserve"><value>le dernier nombre</value></data>
+  <data name="PadNumbers_Digits" xml:space="preserve"><value>sur un nombre de chiffres de</value></data>
+  <data name="PadNumbers_Automatic" xml:space="preserve"><value>Automatique : autant que le plus long nombre</value></data>
+  <data name="PadNumbers_TrimZeros" xml:space="preserve"><value>Retirer les zéros en trop (007 → 07)</value></data>
 </root>
