@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.CaseSettingsView"
+             x:DataType="vm:CaseSettingsViewModel">
+    <StackPanel Spacing="8">
+        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8">
+            <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Case_Mode}" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Cases}" SelectedValue="{Binding Case}" MinWidth="200"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="16,0,0,0" Text="{x:Static res:Strings.Case_SmallWords}" IsEnabled="{Binding IsTitle}" />
+            <ComboBox Grid.Column="3" ItemsSource="{Binding Languages}" SelectedValue="{Binding SmallWords}" IsEnabled="{Binding IsTitle}" MinWidth="200"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+            <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Case_Exceptions}" />
+            <TextBox Grid.Column="1" Text="{Binding Exceptions}" PlaceholderText="{x:Static res:Strings.Case_ExceptionsWatermark}" />
+        </Grid>
+        <WrapPanel>
+            <CheckBox Margin="0,0,24,0" IsChecked="{Binding RomanNumerals}" Content="{x:Static res:Strings.Case_Roman}" />
+            <CheckBox Margin="0,0,24,0" IsChecked="{Binding KeepAcronyms}" Content="{x:Static res:Strings.Case_Acronyms}" />
+            <CheckBox IsChecked="{Binding SpaceBeforeCapitals}" Content="{x:Static res:Strings.Case_SpaceBeforeCapitals}" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

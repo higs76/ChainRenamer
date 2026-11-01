@@ -124,4 +124,89 @@ Like Replace, it never touches the extension. While a pattern is being typed and
   <data name="Regex_Example_Swap" xml:space="preserve"><value>`^(.+) - (.+)$` by `$2 - $1`: swaps the two parts</value></data>
   <data name="Regex_Example_Brackets" xml:space="preserve"><value>`\s*\[.*?\]` by nothing: removes what is between brackets</value></data>
   <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` by a space: several spaces become one</value></data>
+  <data name="Case_Intro" xml:space="preserve"><value>Changes uppercase and lowercase letters in the name. The extension is never touched: the **Extension** module does that.
+
+A word is a run of letters, digits and apostrophes. Everything else separates words: spaces, dots, dashes, underscores… So `speedy.01x03.my_first-race` becomes `Speedy.01x03.My_First-Race` in Title case.</value></data>
+  <data name="Case_Mode_Text" xml:space="preserve"><value>**lowercase**, **UPPERCASE**, **Title** (each word starts with a capital) or **Sentence** (only the first word does).</value></data>
+  <data name="Case_SmallWords_Text" xml:space="preserve"><value>In Title case, these short words stay in lowercase, except at the start and at the end of the name: `of`, `the`, `and`… in English, `de`, `la`, `et`… in French. In French, the word after `l'` or `d'` gets its capital: `de l'Épisode`.</value></data>
+  <data name="Case_Exceptions_Text" xml:space="preserve"><value>Words always written as typed here, in every mode: `TV, iPhone, DVD`. Separated by commas.</value></data>
+  <data name="Case_Roman_Text" xml:space="preserve"><value>In Title and Sentence case, `iv` or `xii` become `IV` and `XII`. Up to XXXIX only, so that ordinary words like “mix” or “civil” are left alone.</value></data>
+  <data name="Case_Acronyms_Text" xml:space="preserve"><value>In Title and Sentence case, a word already written in uppercase (`DVD`, `USA`) stays so. Not when the whole name is in uppercase: `THE MATRIX` does become `The Matrix`.</value></data>
+  <data name="Case_SpaceBeforeCapitals_Text" xml:space="preserve"><value>First puts a space between a lowercase letter and the capital that follows it, to separate words written together.</value></data>
+  <data name="Case_Example_Title" xml:space="preserve"><value>Title, English small words</value></data>
+  <data name="Case_Example_French" xml:space="preserve"><value>Title, French small words</value></data>
+  <data name="Case_Example_Roman" xml:space="preserve"><value>Title: Roman numerals and acronyms</value></data>
+  <data name="Case_Example_Upper" xml:space="preserve"><value>A name all in uppercase, Title, exceptions `iPhone, TV`</value></data>
+  <data name="Case_Example_Glued" xml:space="preserve"><value>Separate glued words</value></data>
+  <data name="Case_Example_Sentence" xml:space="preserve"><value>Sentence</value></data>
+  <data name="Remove_Intro" xml:space="preserve"><value>Removes part of the name: a number of characters, a range of positions, or what is around a text. The extension is never touched.
+
+Removing often leaves double spaces or a space before the extension: a **Clean** step at the end of the chain tidies them.</value></data>
+  <data name="RemoveWhat_First_Text" xml:space="preserve"><value>The first characters of the name, as many as **Number** says.</value></data>
+  <data name="RemoveWhat_Last_Text" xml:space="preserve"><value>The last characters of the name, before the extension.</value></data>
+  <data name="RemoveWhat_Range_Text" xml:space="preserve"><value>From one position to another, both included. Position 1 is the first character; a negative position counts from the end: -1 is the last character, -3 the third from the end.</value></data>
+  <data name="RemoveWhat_Before_Text" xml:space="preserve"><value>Everything before the text, for example the artist in `Artist - Title`.</value></data>
+  <data name="RemoveWhat_After_Text" xml:space="preserve"><value>Everything after the text, for example the tags in `Title [1080p] [x265]`.</value></data>
+  <data name="RemoveWhat_Between_Text" xml:space="preserve"><value>Each part that starts with the first text and ends with the second: `[` and `]` remove every `[…]` of the name.</value></data>
+  <data name="Remove_IncludeText_Text" xml:space="preserve"><value>Checked (default), the texts go with what they surround. Unchecked, they stay: only what is between them, before them or after them goes.</value></data>
+  <data name="Remove_Last_Text" xml:space="preserve"><value>Before and after a text: the text is searched from the end of the name, to remove after the last ` - ` for example.</value></data>
+  <data name="Remove_MatchCase_Text" xml:space="preserve"><value>Checked, `VOST` does not find `vost`.</value></data>
+  <data name="Remove_Example_First" xml:space="preserve"><value>The first 4 characters</value></data>
+  <data name="Remove_Example_Range" xml:space="preserve"><value>From position -3 to -1: the last three characters</value></data>
+  <data name="Remove_Example_Before" xml:space="preserve"><value>Everything before ` - `, the text included</value></data>
+  <data name="Remove_Example_After" xml:space="preserve"><value>Everything after ` [`</value></data>
+  <data name="Remove_Example_Last" xml:space="preserve"><value>Everything after the last ` - `</value></data>
+  <data name="Remove_Example_Between" xml:space="preserve"><value>Between `[` and `]`: a Clean step will remove the spaces left</value></data>
+  <data name="Clean_Intro" xml:space="preserve"><value>Tidies the name, by check boxes. Put it at the end of a chain: it removes what the other steps leave behind, such as double spaces or a space before the extension. The extension is never touched.</value></data>
+  <data name="Clean_Trim_Text" xml:space="preserve"><value>No space at the start of the name, nor at its end (before the extension). Checked by default.</value></data>
+  <data name="Clean_Collapse_Text" xml:space="preserve"><value>Several spaces in a row become one. Checked by default.</value></data>
+  <data name="Clean_LeadingDots_Text" xml:space="preserve"><value>Dots at the very start of the name: on Linux and macOS, they hide the file.</value></data>
+  <data name="Clean_Accents_Text" xml:space="preserve"><value>Letters lose their accents: `é` → `e`, `ç` → `c`. Ligatures are split: `œ` → `oe`, `ß` → `ss`. Handy for devices that do not like accents.</value></data>
+  <data name="Clean_Digits_Text" xml:space="preserve"><value>Every digit of the name.</value></data>
+  <data name="Clean_Symbols_Text" xml:space="preserve"><value>Symbols such as `©`, `™`, `€`, `+`, `=`, and the emojis. Punctuation (dots, dashes, brackets, apostrophes) stays.</value></data>
+  <data name="Clean_Emojis_Text" xml:space="preserve"><value>The emojis only: `🏖️`, `😀`, `👨‍👩‍👧`…</value></data>
+  <data name="Clean_Example_Default" xml:space="preserve"><value>The default: spaces at the ends and in double</value></data>
+  <data name="Clean_Example_Accents" xml:space="preserve"><value>Accents</value></data>
+  <data name="Clean_Example_Emojis" xml:space="preserve"><value>Emojis</value></data>
+  <data name="Clean_Example_Symbols" xml:space="preserve"><value>Symbols</value></data>
+  <data name="Insert_Intro" xml:space="preserve"><value>Inserts a text in the name: at the start, at the end, after a number of characters, or before or after a text. The extension is never touched: “at the end” inserts before it.</value></data>
+  <data name="Insert_Text_Text" xml:space="preserve"><value>The text to insert. Mind the spaces: `[HD] ` with its space at the end.</value></data>
+  <data name="InsertAt_Start_Text" xml:space="preserve"><value>Before the first character.</value></data>
+  <data name="InsertAt_End_Text" xml:space="preserve"><value>After the last character, before the extension.</value></data>
+  <data name="InsertAt_Position_Text" xml:space="preserve"><value>After as many characters as **Characters** says. Negative, it counts from the end: -2 inserts before the last two characters.</value></data>
+  <data name="InsertAt_Before_Text" xml:space="preserve"><value>Before the first place where the text is found. If it is not found, the name does not change.</value></data>
+  <data name="InsertAt_After_Text" xml:space="preserve"><value>After the first place where the text is found.</value></data>
+  <data name="Insert_Example_Start" xml:space="preserve"><value>`[HD] ` at the start</value></data>
+  <data name="Insert_Example_End" xml:space="preserve"><value>` (2019)` at the end</value></data>
+  <data name="Insert_Example_Position" xml:space="preserve"><value>A space after 4 characters</value></data>
+  <data name="Insert_Example_Before" xml:space="preserve"><value>`S01` before `E`</value></data>
+  <data name="Insert_Example_After" xml:space="preserve"><value>`(Live) ` after ` - `</value></data>
+  <data name="Numbering_Intro" xml:space="preserve"><value>Numbers the files and inserts the number in the name. The files are numbered **in their order**, the one of the grid: put a **Sort** step before this one, natural or by hand.
+
+Unchecked files of the step are skipped, and do not use a number: the others are numbered 1, 2, 3 without gaps.</value></data>
+  <data name="Numbering_Style_Text" xml:space="preserve"><value>Digits `1, 2, 3`, letters `a, b, c` (after `z` comes `aa`), or Roman numerals `I, II, III`.</value></data>
+  <data name="Numbering_Start_Text" xml:space="preserve"><value>The number of the first file.</value></data>
+  <data name="Numbering_Step_Text" xml:space="preserve"><value>What is added from one file to the next: 1 gives 1, 2, 3; 10 gives 10, 20, 30; -1 counts down.</value></data>
+  <data name="Numbering_Digits_Text" xml:space="preserve"><value>Digits only: the minimum number of digits, completed with zeros. 2 gives `01`, 3 gives `001`, so that the names sort well everywhere.</value></data>
+  <data name="Numbering_Where_Text" xml:space="preserve"><value>The same places as the Insert module: at the start, at the end, after a number of characters, before or after a text.</value></data>
+  <data name="Numbering_Separator_Text" xml:space="preserve"><value>At the start or at the end: the text between the number and the name, ` - ` by default.</value></data>
+  <data name="Numbering_Reset_Text" xml:space="preserve"><value>With the subfolders of the Source: each folder starts again at the first number. Season 1 and Season 2 both start at episode 01.</value></data>
+  <data name="Numbering_Example_Default" xml:space="preserve"><value>The default: in the order of the files, at the start</value></data>
+  <data name="Numbering_Example_End" xml:space="preserve"><value>At the end, 3 digits, a space as separator</value></data>
+  <data name="Numbering_Example_After" xml:space="preserve"><value>After `S01E`: the episode numbers</value></data>
+  <data name="Numbering_Example_Reset" xml:space="preserve"><value>Start again in each folder</value></data>
+  <data name="Numbering_Example_Roman" xml:space="preserve"><value>Roman numerals, at the end</value></data>
+  <data name="Extension_Intro" xml:space="preserve"><value>Changes the extension, what follows the last dot: `.jpg`, `.mkv`. It is the only module that touches it; the others always leave it alone.
+
+With **replace by** and **add after it**, the extension can be typed with or without its dot.</value></data>
+  <data name="ExtensionAction_Lower_Text" xml:space="preserve"><value>`.JPG` → `.jpg`. The most common choice: cameras often write in uppercase.</value></data>
+  <data name="ExtensionAction_Upper_Text" xml:space="preserve"><value>`.jpg` → `.JPG`.</value></data>
+  <data name="ExtensionAction_Title_Text" xml:space="preserve"><value>`.jpg` → `.Jpg`.</value></data>
+  <data name="ExtensionAction_Set_Text" xml:space="preserve"><value>Another extension: `.jpeg` → `.jpg`. A file without extension gets this one.</value></data>
+  <data name="ExtensionAction_Add_Text" xml:space="preserve"><value>Added after the current extension: `.holiday` → `.holiday.gif`.</value></data>
+  <data name="ExtensionAction_Remove_Text" xml:space="preserve"><value>No extension any more: `notes.txt.bak` → `notes.txt`. Careful: Windows uses the extension to know which program opens the file.</value></data>
+  <data name="Extension_Example_Lower" xml:space="preserve"><value>Lowercase</value></data>
+  <data name="Extension_Example_Set" xml:space="preserve"><value>Replace by `jpg`</value></data>
+  <data name="Extension_Example_Add" xml:space="preserve"><value>Add `gif` after it</value></data>
+  <data name="Extension_Example_Remove" xml:space="preserve"><value>Remove</value></data>
 </root>

@@ -78,6 +78,7 @@ public class HelpTests
         {
             Assert.True(text.Count(c => c == '`') % 2 == 0, text);
             Assert.True((text.Split("**").Length - 1) % 2 == 0, text);
+            Assert.DoesNotContain(@".\n", text);     // a line break typed as text instead of a real one
         }
     }
 

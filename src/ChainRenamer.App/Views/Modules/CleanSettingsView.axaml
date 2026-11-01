@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.CleanSettingsView"
+             x:DataType="vm:CleanSettingsViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{x:Static res:Strings.Clean_Header}" />
+        <WrapPanel>
+            <WrapPanel.Styles>
+                <Style Selector="CheckBox">
+                    <Setter Property="Margin" Value="0,0,24,0" />
+                    <Setter Property="MinWidth" Value="250" />
+                </Style>
+            </WrapPanel.Styles>
+            <CheckBox IsChecked="{Binding TrimSpaces}" Content="{x:Static res:Strings.Clean_Trim}" />
+            <CheckBox IsChecked="{Binding CollapseSpaces}" Content="{x:Static res:Strings.Clean_Collapse}" />
+            <CheckBox IsChecked="{Binding LeadingDots}" Content="{x:Static res:Strings.Clean_LeadingDots}" />
+            <CheckBox IsChecked="{Binding RemoveAccents}" Content="{x:Static res:Strings.Clean_Accents}" />
+            <CheckBox IsChecked="{Binding RemoveDigits}" Content="{x:Static res:Strings.Clean_Digits}" />
+            <CheckBox IsChecked="{Binding RemoveSymbols}" Content="{x:Static res:Strings.Clean_Symbols}" />
+            <CheckBox IsChecked="{Binding RemoveEmojis}" Content="{x:Static res:Strings.Clean_Emojis}" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

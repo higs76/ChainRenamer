@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.NumberingSettingsView"
+             x:DataType="vm:NumberingSettingsViewModel">
+    <StackPanel Spacing="8">
+        <!-- The number: style, start, step, digits -->
+        <WrapPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Style}" />
+                <ComboBox ItemsSource="{Binding Styles}" SelectedValue="{Binding Style}" MinWidth="130"
+                          SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Start}" />
+                <NumericUpDown Value="{Binding Start}" Increment="1" FormatString="0" Width="120" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Step}" />
+                <NumericUpDown Value="{Binding Step}" Increment="1" FormatString="0" Width="110" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4" IsVisible="{Binding IsDigits}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Digits}" />
+                <NumericUpDown Value="{Binding Digits}" Minimum="1" Maximum="10" Increment="1" FormatString="0" Width="110" />
+            </StackPanel>
+        </WrapPanel>
+
+        <!-- Where it goes -->
+        <WrapPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Where}" />
+                <ComboBox ItemsSource="{Binding Places}" SelectedValue="{Binding Where}" MinWidth="240"
+                          SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4" IsVisible="{Binding HasSeparator}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Numbering_Separator}" />
+                <TextBox Text="{Binding Separator}" Width="90" FontFamily="Consolas,monospace" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4" IsVisible="{Binding IsPosition}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Insert_Position}" />
+                <NumericUpDown Value="{Binding Position}" Increment="1" FormatString="0" Width="120" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,4" IsVisible="{Binding IsAnchor}">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Insert_Anchor}" />
+                <TextBox Text="{Binding Anchor}" Width="160" FontFamily="Consolas,monospace" />
+            </StackPanel>
+        </WrapPanel>
+
+        <CheckBox IsChecked="{Binding ResetPerFolder}" Content="{x:Static res:Strings.Numbering_Reset}" />
+        <TextBlock Text="{x:Static res:Strings.Numbering_Hint}" Opacity="0.7" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

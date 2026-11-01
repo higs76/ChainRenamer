@@ -156,6 +156,14 @@ Le catalogue a été revu le 31/10/2026 en passant en revue les 14 panneaux de B
 - **Extension** : garder, minuscules, majuscules, Titre ; extension imposée, extension ajoutée (`.holiday` → `.holiday.gif`), extension retirée.
 - **Capturer** : regex à groupes nommés, qui crée des variables (`{saison}`, `{episode}`) réutilisables plus loin. Déplacer un morceau du nom, c'est Capturer, Supprimer, puis Insérer la variable ailleurs.
 
+**Réalisés en 0.9.0 (01/11/2026) : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension.** Précisions de mise en œuvre :
+- Casse : les petits mots ambigus (`up`, `off`, `so`) ne sont pas dans la liste anglaise ; les chiffres romains s'arrêtent à XXXIX, pour ne pas prendre « mix », « dix » ou « civil » pour des nombres ; un sigle (mot déjà en majuscules) est gardé sauf si tout le nom est en majuscules (`THE MATRIX` devient `The Matrix`) ; en français, le mot qui suit `l'` ou `d'` prend sa majuscule (`de l'Épisode`). La langue des petits mots d'une nouvelle étape suit celle de l'interface.
+- Supprimer : premiers, derniers, d'une position à une autre, avant ou après un texte (première ou dernière occurrence), chaque partie entre deux textes ; textes compris ou non.
+- Nettoyer : espaces au début et à la fin et espaces doubles (cochés par défaut), points en tête (sur le nom entier : `.config` n'a pas de radical), accents et ligatures (`œ` → `oe`, `ß` → `ss`), chiffres, symboles (emojis compris), emojis seuls.
+- Insérer : au début, à la fin (avant l'extension), après n caractères (négatif : depuis la fin), avant ou après un texte. Les variables viendront avec le jalon 3.
+- Numérotation : réutilise les emplacements d'Insérer ; séparateur au début et à la fin ; chiffres, lettres (`z` puis `aa`) ou romains ; remise à zéro par dossier, grâce au dossier porté par chaque `Item` (`Item.Folder`, rempli par le pipeline). La remise à zéro par variable attend Capturer.
+- Extension : minuscules, majuscules, initiale, remplacer, ajouter, supprimer ; « garder » revient à ne pas mettre le module.
+
 **Variables communes**
 Plutôt que des modules dédiés (Auto Date, Append Folder Name de BRU), le moteur fournit des variables utilisables dans tous les modules qui acceptent du texte (Insérer, Modèle, Remplacer…) :
 - `{dossier}`, `{dossier:2}` (le dossier parent, ou celui de niveau 2) ;
@@ -233,7 +241,7 @@ Décisions :
 ## 8. Jalons
 
 1. **Fondations** : solution, moteur avec cache et recalcul, modules Source, Remplacer et Trier, Applicateur en deux phases, CLI minimale, App minimale.
-2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension, Filtrer, Formater les nombres ; aide par module.
+2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension (faits en 0.9.0), Filtrer, Formater les nombres ; aide par module.
 3. **Puissance** : variables communes, Capturer, Modèle, Dates, Table de remplacement, Listes de dépôt, segment de nom, marqueurs.
 4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur.
 5. **Métadonnées** : EXIF, ID3.

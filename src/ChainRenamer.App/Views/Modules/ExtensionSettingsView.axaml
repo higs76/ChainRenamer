@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.ExtensionSettingsView"
+             x:DataType="vm:ExtensionSettingsViewModel">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock VerticalAlignment="Center" Text="{x:Static res:Strings.Extension_Action}" />
+        <ComboBox ItemsSource="{Binding Choices}" SelectedValue="{Binding Action}" MinWidth="240"
+                  SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+        <TextBox Text="{Binding Text}" Width="140" FontFamily="Consolas,monospace" IsVisible="{Binding HasText}"
+                 PlaceholderText="{x:Static res:Strings.Extension_TextWatermark}" />
+    </StackPanel>
+</UserControl>

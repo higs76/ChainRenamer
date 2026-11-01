@@ -16,6 +16,7 @@ public sealed record HelpRow(string Before, string After)
 /// <summary>
 /// An example computed by the module itself, so that the help always shows what the module really does.
 /// Rows follow the output order: a sort shows the files in their new order.
+/// A name may start with its folder, <c>Season 1\Start.mkv</c>, for the modules that care about folders.
 /// </summary>
 public sealed class HelpExample(string caption, IModule module, params string[] names)
 {
@@ -23,7 +24,9 @@ public sealed class HelpExample(string caption, IModule module, params string[] 
     public IModule Module { get; } = module;
 
     public IReadOnlyList<HelpRow> Rows { get; } =
-        [.. names.Zip(module.Apply([.. names.Select(n => new Item(FileId.New(), n))]), (before, after) => new HelpRow(before, after.Name))];
+        [.. names.Zip(module.Apply([.. names.Select(ToItem)]), (before, after) => new HelpRow(before, Path.Combine(after.Folder, after.Name)))];
+
+    private static Item ToItem(string path) => new(FileId.New(), Path.GetFileName(path)) { Folder = Path.GetDirectoryName(path) ?? "" };
 }
 
 /// <summary>

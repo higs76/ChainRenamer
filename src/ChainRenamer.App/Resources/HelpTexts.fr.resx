@@ -124,4 +124,89 @@ Comme Remplacer, il ne touche jamais à l'extension. Tant qu'un motif en cours d
   <data name="Regex_Example_Swap" xml:space="preserve"><value>`^(.+) - (.+)$` par `$2 - $1` : échange les deux parties</value></data>
   <data name="Regex_Example_Brackets" xml:space="preserve"><value>`\s*\[.*?\]` par rien : supprime ce qui est entre crochets</value></data>
   <data name="Regex_Example_Spaces" xml:space="preserve"><value>`\s+` par un espace : plusieurs espaces n'en font plus qu'un</value></data>
+  <data name="Case_Intro" xml:space="preserve"><value>Change les majuscules et les minuscules du nom. L'extension n'est jamais touchée : c'est le rôle du module **Extension**.
+
+Un mot est une suite de lettres, de chiffres et d'apostrophes. Tout le reste sépare les mots : espaces, points, tirets, soulignés… Ainsi `speedy.01x03.my_first-race` devient `Speedy.01x03.My_First-Race` en casse Titre.</value></data>
+  <data name="Case_Mode_Text" xml:space="preserve"><value>**minuscules**, **MAJUSCULES**, **Titre** (chaque mot commence par une majuscule) ou **Phrase** (seul le premier mot en a une).</value></data>
+  <data name="Case_SmallWords_Text" xml:space="preserve"><value>En casse Titre, ces petits mots restent en minuscules, sauf au début et à la fin du nom : `de`, `la`, `et`… en français, `of`, `the`, `and`… en anglais. En français, le mot qui suit `l'` ou `d'` prend sa majuscule : `de l'Épisode`.</value></data>
+  <data name="Case_Exceptions_Text" xml:space="preserve"><value>Des mots toujours écrits comme ici, dans tous les modes : `TV, iPhone, DVD`. Séparés par des virgules.</value></data>
+  <data name="Case_Roman_Text" xml:space="preserve"><value>En casse Titre et Phrase, `iv` ou `xii` deviennent `IV` et `XII`. Jusqu'à XXXIX seulement, pour ne pas toucher aux mots ordinaires comme « mix » ou « dix ».</value></data>
+  <data name="Case_Acronyms_Text" xml:space="preserve"><value>En casse Titre et Phrase, un mot déjà écrit en majuscules (`DVD`, `USA`) le reste. Sauf si tout le nom est en majuscules : `THE MATRIX` devient bien `The Matrix`.</value></data>
+  <data name="Case_SpaceBeforeCapitals_Text" xml:space="preserve"><value>Met d'abord un espace entre une minuscule et la majuscule qui la suit, pour séparer des mots écrits attachés.</value></data>
+  <data name="Case_Example_Title" xml:space="preserve"><value>Titre, petits mots anglais</value></data>
+  <data name="Case_Example_French" xml:space="preserve"><value>Titre, petits mots français</value></data>
+  <data name="Case_Example_Roman" xml:space="preserve"><value>Titre : chiffres romains et sigles</value></data>
+  <data name="Case_Example_Upper" xml:space="preserve"><value>Un nom tout en majuscules, Titre, exceptions `iPhone, TV`</value></data>
+  <data name="Case_Example_Glued" xml:space="preserve"><value>Séparer les mots collés</value></data>
+  <data name="Case_Example_Sentence" xml:space="preserve"><value>Phrase</value></data>
+  <data name="Remove_Intro" xml:space="preserve"><value>Supprime une partie du nom : un nombre de caractères, une plage de positions, ou ce qui entoure un texte. L'extension n'est jamais touchée.
+
+Supprimer laisse souvent des espaces en double ou un espace avant l'extension : une étape **Nettoyer** en fin de chaîne les fait disparaître.</value></data>
+  <data name="RemoveWhat_First_Text" xml:space="preserve"><value>Les premiers caractères du nom, autant que l'indique **Nombre**.</value></data>
+  <data name="RemoveWhat_Last_Text" xml:space="preserve"><value>Les derniers caractères du nom, avant l'extension.</value></data>
+  <data name="RemoveWhat_Range_Text" xml:space="preserve"><value>D'une position à une autre, toutes deux comprises. La position 1 est le premier caractère ; une position négative compte depuis la fin : -1 est le dernier caractère, -3 le troisième en partant de la fin.</value></data>
+  <data name="RemoveWhat_Before_Text" xml:space="preserve"><value>Tout ce qui précède le texte, par exemple l'artiste dans `Artiste - Titre`.</value></data>
+  <data name="RemoveWhat_After_Text" xml:space="preserve"><value>Tout ce qui suit le texte, par exemple les étiquettes dans `Titre [1080p] [x265]`.</value></data>
+  <data name="RemoveWhat_Between_Text" xml:space="preserve"><value>Chaque partie qui commence par le premier texte et finit par le second : `[` et `]` suppriment tous les `[…]` du nom.</value></data>
+  <data name="Remove_IncludeText_Text" xml:space="preserve"><value>Cochée (par défaut), les textes partent avec ce qu'ils entourent. Décochée, ils restent : seul part ce qui est entre eux, avant eux ou après eux.</value></data>
+  <data name="Remove_Last_Text" xml:space="preserve"><value>Avant et après un texte : le texte est cherché depuis la fin du nom, pour supprimer après le dernier ` - ` par exemple.</value></data>
+  <data name="Remove_MatchCase_Text" xml:space="preserve"><value>Cochée, `VOST` ne trouve pas `vost`.</value></data>
+  <data name="Remove_Example_First" xml:space="preserve"><value>Les 4 premiers caractères</value></data>
+  <data name="Remove_Example_Range" xml:space="preserve"><value>De la position -3 à -1 : les trois derniers caractères</value></data>
+  <data name="Remove_Example_Before" xml:space="preserve"><value>Tout ce qui précède ` - `, le texte compris</value></data>
+  <data name="Remove_Example_After" xml:space="preserve"><value>Tout ce qui suit ` [`</value></data>
+  <data name="Remove_Example_Last" xml:space="preserve"><value>Tout ce qui suit le dernier ` - `</value></data>
+  <data name="Remove_Example_Between" xml:space="preserve"><value>Entre `[` et `]` : une étape Nettoyer retirera les espaces restants</value></data>
+  <data name="Clean_Intro" xml:space="preserve"><value>Fait le ménage dans le nom, par des cases à cocher. Placez-le en fin de chaîne : il retire ce que les autres étapes laissent derrière elles, comme des espaces en double ou un espace avant l'extension. L'extension n'est jamais touchée.</value></data>
+  <data name="Clean_Trim_Text" xml:space="preserve"><value>Aucun espace au début du nom, ni à sa fin (avant l'extension). Cochée par défaut.</value></data>
+  <data name="Clean_Collapse_Text" xml:space="preserve"><value>Plusieurs espaces à la suite n'en font plus qu'un. Cochée par défaut.</value></data>
+  <data name="Clean_LeadingDots_Text" xml:space="preserve"><value>Les points tout au début du nom : sous Linux et macOS, ils cachent le fichier.</value></data>
+  <data name="Clean_Accents_Text" xml:space="preserve"><value>Les lettres perdent leurs accents : `é` → `e`, `ç` → `c`. Les ligatures sont séparées : `œ` → `oe`, `ß` → `ss`. Pratique pour les appareils qui n'aiment pas les accents.</value></data>
+  <data name="Clean_Digits_Text" xml:space="preserve"><value>Tous les chiffres du nom.</value></data>
+  <data name="Clean_Symbols_Text" xml:space="preserve"><value>Les symboles comme `©`, `™`, `€`, `+`, `=`, et les emojis. La ponctuation (points, tirets, parenthèses, apostrophes) reste.</value></data>
+  <data name="Clean_Emojis_Text" xml:space="preserve"><value>Les emojis seulement : `🏖️`, `😀`, `👨‍👩‍👧`…</value></data>
+  <data name="Clean_Example_Default" xml:space="preserve"><value>Par défaut : les espaces aux extrémités et en double</value></data>
+  <data name="Clean_Example_Accents" xml:space="preserve"><value>Accents</value></data>
+  <data name="Clean_Example_Emojis" xml:space="preserve"><value>Emojis</value></data>
+  <data name="Clean_Example_Symbols" xml:space="preserve"><value>Symboles</value></data>
+  <data name="Insert_Intro" xml:space="preserve"><value>Insère un texte dans le nom : au début, à la fin, après un nombre de caractères, ou avant ou après un texte. L'extension n'est jamais touchée : « à la fin » insère avant elle.</value></data>
+  <data name="Insert_Text_Text" xml:space="preserve"><value>Le texte à insérer. Attention aux espaces : `[HD] ` avec son espace à la fin.</value></data>
+  <data name="InsertAt_Start_Text" xml:space="preserve"><value>Avant le premier caractère.</value></data>
+  <data name="InsertAt_End_Text" xml:space="preserve"><value>Après le dernier caractère, avant l'extension.</value></data>
+  <data name="InsertAt_Position_Text" xml:space="preserve"><value>Après autant de caractères que l'indique **Caractères**. Négatif, on compte depuis la fin : -2 insère avant les deux derniers caractères.</value></data>
+  <data name="InsertAt_Before_Text" xml:space="preserve"><value>Avant le premier endroit où le texte se trouve. S'il n'est pas trouvé, le nom ne change pas.</value></data>
+  <data name="InsertAt_After_Text" xml:space="preserve"><value>Après le premier endroit où le texte se trouve.</value></data>
+  <data name="Insert_Example_Start" xml:space="preserve"><value>`[HD] ` au début</value></data>
+  <data name="Insert_Example_End" xml:space="preserve"><value>` (2019)` à la fin</value></data>
+  <data name="Insert_Example_Position" xml:space="preserve"><value>Un espace après 4 caractères</value></data>
+  <data name="Insert_Example_Before" xml:space="preserve"><value>`S01` avant `E`</value></data>
+  <data name="Insert_Example_After" xml:space="preserve"><value>`(Live) ` après ` - `</value></data>
+  <data name="Numbering_Intro" xml:space="preserve"><value>Numérote les fichiers et insère le numéro dans le nom. Les fichiers sont numérotés **dans leur ordre**, celui de la grille : placez une étape **Trier** avant celle-ci, naturel ou à la main.
+
+Les fichiers décochés dans l'étape sont sautés et ne prennent pas de numéro : les autres sont numérotés 1, 2, 3 sans trou.</value></data>
+  <data name="Numbering_Style_Text" xml:space="preserve"><value>Des chiffres `1, 2, 3`, des lettres `a, b, c` (après `z` vient `aa`), ou des chiffres romains `I, II, III`.</value></data>
+  <data name="Numbering_Start_Text" xml:space="preserve"><value>Le numéro du premier fichier.</value></data>
+  <data name="Numbering_Step_Text" xml:space="preserve"><value>Ce qui s'ajoute d'un fichier au suivant : 1 donne 1, 2, 3 ; 10 donne 10, 20, 30 ; -1 compte à rebours.</value></data>
+  <data name="Numbering_Digits_Text" xml:space="preserve"><value>Pour les chiffres : le nombre minimal de chiffres, complété par des zéros. 2 donne `01`, 3 donne `001`, pour que les noms se trient bien partout.</value></data>
+  <data name="Numbering_Where_Text" xml:space="preserve"><value>Les mêmes emplacements que le module Insérer : au début, à la fin, après un nombre de caractères, avant ou après un texte.</value></data>
+  <data name="Numbering_Separator_Text" xml:space="preserve"><value>Au début ou à la fin : le texte entre le numéro et le nom, ` - ` par défaut.</value></data>
+  <data name="Numbering_Reset_Text" xml:space="preserve"><value>Avec les sous-dossiers de la Source : chaque dossier recommence au premier numéro. Saison 1 et Saison 2 commencent toutes deux à l'épisode 01.</value></data>
+  <data name="Numbering_Example_Default" xml:space="preserve"><value>Par défaut : dans l'ordre des fichiers, au début</value></data>
+  <data name="Numbering_Example_End" xml:space="preserve"><value>À la fin, 3 chiffres, un espace comme séparateur</value></data>
+  <data name="Numbering_Example_After" xml:space="preserve"><value>Après `S01E` : les numéros d'épisode</value></data>
+  <data name="Numbering_Example_Reset" xml:space="preserve"><value>Recommencer dans chaque dossier</value></data>
+  <data name="Numbering_Example_Roman" xml:space="preserve"><value>Chiffres romains, à la fin</value></data>
+  <data name="Extension_Intro" xml:space="preserve"><value>Change l'extension, ce qui suit le dernier point : `.jpg`, `.mkv`. C'est le seul module qui y touche ; les autres la laissent toujours tranquille.
+
+Avec **remplacer par** et **ajouter après elle**, l'extension s'écrit avec ou sans son point.</value></data>
+  <data name="ExtensionAction_Lower_Text" xml:space="preserve"><value>`.JPG` → `.jpg`. Le choix le plus courant : les appareils photo écrivent souvent en majuscules.</value></data>
+  <data name="ExtensionAction_Upper_Text" xml:space="preserve"><value>`.jpg` → `.JPG`.</value></data>
+  <data name="ExtensionAction_Title_Text" xml:space="preserve"><value>`.jpg` → `.Jpg`.</value></data>
+  <data name="ExtensionAction_Set_Text" xml:space="preserve"><value>Une autre extension : `.jpeg` → `.jpg`. Un fichier sans extension reçoit celle-ci.</value></data>
+  <data name="ExtensionAction_Add_Text" xml:space="preserve"><value>Ajoutée après l'extension actuelle : `.holiday` → `.holiday.gif`.</value></data>
+  <data name="ExtensionAction_Remove_Text" xml:space="preserve"><value>Plus d'extension : `notes.txt.bak` → `notes.txt`. Attention : Windows se sert de l'extension pour savoir quel programme ouvre le fichier.</value></data>
+  <data name="Extension_Example_Lower" xml:space="preserve"><value>Minuscules</value></data>
+  <data name="Extension_Example_Set" xml:space="preserve"><value>Remplacer par `jpg`</value></data>
+  <data name="Extension_Example_Add" xml:space="preserve"><value>Ajouter `gif` après elle</value></data>
+  <data name="Extension_Example_Remove" xml:space="preserve"><value>Supprimer</value></data>
 </root>

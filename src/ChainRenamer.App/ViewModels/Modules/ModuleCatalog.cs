@@ -23,6 +23,12 @@ public static class ModuleCatalog
         ModuleType.Of<SortModule>(Strings.Module_Sort, m => new SortSettingsViewModel(m)),
         ModuleType.Of<ReplaceModule>(Strings.Module_Replace, m => new ReplaceSettingsViewModel(m)),
         ModuleType.Of<RegexReplaceModule>(Strings.Module_RegexReplace, m => new RegexReplaceSettingsViewModel(m)),
+        ModuleType.Of<CaseModule>(Strings.Module_Case, m => new CaseSettingsViewModel(m)),
+        ModuleType.Of<RemoveModule>(Strings.Module_Remove, m => new RemoveSettingsViewModel(m)),
+        ModuleType.Of<InsertModule>(Strings.Module_Insert, m => new InsertSettingsViewModel(m)),
+        ModuleType.Of<NumberingModule>(Strings.Module_Numbering, m => new NumberingSettingsViewModel(m)),
+        ModuleType.Of<CleanModule>(Strings.Module_Clean, m => new CleanSettingsViewModel(m)),
+        ModuleType.Of<ExtensionModule>(Strings.Module_Extension, m => new ExtensionSettingsViewModel(m)),
     ];
 
     /// <summary>The settings panel showing a module read from a chain, or null if the app has none for it.</summary>

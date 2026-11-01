@@ -23,6 +23,25 @@ public class ChainTests
     }
 
     [Fact]
+    public void Every_setting_of_every_module_survives_a_round_trip()
+    {
+        // Settings that are not the defaults, so that a forgotten one shows.
+        IModule[] modules =
+        [
+            new CaseModule(TextCase.Sentence, SmallWords.French, "TV, iPhone", RomanNumerals: false, KeepAcronyms: false, SpaceBeforeCapitals: true),
+            new RemoveModule(RemoveWhat.Between, 2, 3, -1, "[", "]", IncludeText: false, LastOccurrence: true, MatchCase: true),
+            new CleanModule(false, false, true, true, true, true, true),
+            new InsertModule("x", InsertAt.After, 3, "a", MatchCase: true),
+            new NumberingModule(5, 2, 3, NumberStyle.UpperRoman, InsertAt.End, 4, "b", "_", ResetPerFolder: true),
+            new ExtensionModule(ExtensionAction.Add, "gif"),
+        ];
+
+        var loaded = RoundTrip(new Chain([.. modules.Select(m => new Step(StepId.New(), m))]));
+
+        Assert.Equal(modules, loaded.Steps.Select(s => s.Module));
+    }
+
+    [Fact]
     public void Loading_gives_new_step_ids()
     {
         var chain = Sample();

@@ -89,11 +89,144 @@ public static class HelpCatalog
                 new(H.Regex_Example_Spaces, new RegexReplaceModule(@"\s+", " "), "Speedy   01  final.mkv"),
             ],
         },
+        new("Case", H.Group_Modules, Strings.Module_Case, H.Case_Intro)
+        {
+            Module = typeof(CaseModule),
+            Options =
+            [
+                new(Strings.Case_Mode, H.Case_Mode_Text),
+                new(Strings.Case_SmallWords, H.Case_SmallWords_Text),
+                new(Strings.Case_Exceptions, H.Case_Exceptions_Text),
+                new(Strings.Case_Roman, H.Case_Roman_Text),
+                new(Strings.Case_Acronyms, H.Case_Acronyms_Text),
+                new(Strings.Case_SpaceBeforeCapitals, H.Case_SpaceBeforeCapitals_Text),
+            ],
+            Examples =
+            [
+                new(H.Case_Example_Title, new CaseModule(SmallWords: SmallWords.English), "the lord of the rings.mkv"),
+                new(H.Case_Example_French, new CaseModule(SmallWords: SmallWords.French), "le retour de l'épisode.mkv"),
+                new(H.Case_Example_Roman, new CaseModule(SmallWords: SmallWords.English), "rocky iv on DVD.mkv"),
+                new(H.Case_Example_Upper, new CaseModule(Exceptions: "iPhone, TV"), "MY IPHONE ON TV.mp4"),
+                new(H.Case_Example_Glued, new CaseModule(SpaceBeforeCapitals: true), "MyHolidayInParis.jpg"),
+                new(H.Case_Example_Sentence, new CaseModule(TextCase.Sentence), "THE MATRIX RELOADED.mkv"),
+            ],
+        },
+        new("Remove", H.Group_Modules, Strings.Module_Remove, H.Remove_Intro)
+        {
+            Module = typeof(RemoveModule),
+            Options =
+            [
+                Choice(Strings.Remove_What, Strings.RemoveWhat_First, H.RemoveWhat_First_Text),
+                Choice(Strings.Remove_What, Strings.RemoveWhat_Last, H.RemoveWhat_Last_Text),
+                Choice(Strings.Remove_What, Strings.RemoveWhat_Range, H.RemoveWhat_Range_Text),
+                Choice(Strings.Remove_What, Strings.RemoveWhat_Before, H.RemoveWhat_Before_Text),
+                Choice(Strings.Remove_What, Strings.RemoveWhat_After, H.RemoveWhat_After_Text),
+                Choice(Strings.Remove_What, Strings.RemoveWhat_Between, H.RemoveWhat_Between_Text),
+                new(Strings.Remove_IncludeText, H.Remove_IncludeText_Text),
+                new(Strings.Remove_Last, H.Remove_Last_Text),
+                new(Strings.Replace_MatchCase, H.Remove_MatchCase_Text),
+            ],
+            Examples =
+            [
+                new(H.Remove_Example_First, new RemoveModule(RemoveWhat.First, Count: 4), "001 Speedy 01.mkv"),
+                new(H.Remove_Example_Range, new RemoveModule(RemoveWhat.Range, From: -3, To: -1), "Holiday 2024 (1).jpg"),
+                new(H.Remove_Example_Before, new RemoveModule(RemoveWhat.Before, Text: " - "), "Queen - Bohemian Rhapsody.mp3"),
+                new(H.Remove_Example_After, new RemoveModule(RemoveWhat.After, Text: " ["), "Speedy 01 [1080p] [x265].mkv"),
+                new(H.Remove_Example_Last, new RemoveModule(RemoveWhat.After, Text: " - ", LastOccurrence: true), "Speedy - 01 - My first race.mkv"),
+                new(H.Remove_Example_Between, new RemoveModule(RemoveWhat.Between, Text: "[", EndText: "]"), "Speedy [VOSTFR] 01 [1080p].mkv"),
+            ],
+        },
+        new("Insert", H.Group_Modules, Strings.Module_Insert, H.Insert_Intro)
+        {
+            Module = typeof(InsertModule),
+            Options =
+            [
+                new(Strings.Insert_Text, H.Insert_Text_Text),
+                new(Strings.InsertAt_Start, H.InsertAt_Start_Text),
+                new(Strings.InsertAt_End, H.InsertAt_End_Text),
+                new(Strings.InsertAt_Position, H.InsertAt_Position_Text),
+                new(Strings.InsertAt_Before, H.InsertAt_Before_Text),
+                new(Strings.InsertAt_After, H.InsertAt_After_Text),
+            ],
+            Examples =
+            [
+                new(H.Insert_Example_Start, new InsertModule("[HD] ", InsertAt.Start), "Speedy 01.mkv"),
+                new(H.Insert_Example_End, new InsertModule(" (2019)", InsertAt.End), "Parasite.mkv"),
+                new(H.Insert_Example_Position, new InsertModule(" ", InsertAt.Position, 4), "2024Holiday.jpg"),
+                new(H.Insert_Example_Before, new InsertModule("S01", InsertAt.Before, Anchor: "E", MatchCase: true), "Speedy E03.mkv"),
+                new(H.Insert_Example_After, new InsertModule("(Live) ", InsertAt.After, Anchor: " - "), "Queen - Bohemian Rhapsody.mp3"),
+            ],
+        },
+        new("Numbering", H.Group_Modules, Strings.Module_Numbering, H.Numbering_Intro)
+        {
+            Module = typeof(NumberingModule),
+            Options =
+            [
+                new(Strings.Numbering_Style, H.Numbering_Style_Text),
+                new(Strings.Numbering_Start, H.Numbering_Start_Text),
+                new(Strings.Numbering_Step, H.Numbering_Step_Text),
+                new(Strings.Numbering_Digits, H.Numbering_Digits_Text),
+                new(Strings.Numbering_Where, H.Numbering_Where_Text),
+                new(Strings.Numbering_Separator, H.Numbering_Separator_Text),
+                new(Strings.Numbering_Reset, H.Numbering_Reset_Text),
+            ],
+            Examples =
+            [
+                new(H.Numbering_Example_Default, new NumberingModule(), "Paris.jpg", "London.jpg", "Rome.jpg"),
+                new(H.Numbering_Example_End, new NumberingModule(Digits: 3, Where: InsertAt.End, Separator: " "), "Holiday.jpg", "Holiday.jpg"),
+                new(H.Numbering_Example_After, new NumberingModule(Where: InsertAt.After, Anchor: "S01E"), "Speedy S01E.mkv", "Speedy S01E.mkv"),
+                new(H.Numbering_Example_Reset, new NumberingModule(ResetPerFolder: true), @"Season 1\Start.mkv", @"Season 1\Race.mkv", @"Season 2\Return.mkv"),
+                new(H.Numbering_Example_Roman, new NumberingModule(Style: NumberStyle.UpperRoman, Where: InsertAt.End, Separator: " "), "Rocky.mkv", "Rocky.mkv", "Rocky.mkv"),
+            ],
+        },
+        new("Clean", H.Group_Modules, Strings.Module_Clean, H.Clean_Intro)
+        {
+            Module = typeof(CleanModule),
+            Options =
+            [
+                new(Strings.Clean_Trim, H.Clean_Trim_Text),
+                new(Strings.Clean_Collapse, H.Clean_Collapse_Text),
+                new(Strings.Clean_LeadingDots, H.Clean_LeadingDots_Text),
+                new(Strings.Clean_Accents, H.Clean_Accents_Text),
+                new(Strings.Clean_Digits, H.Clean_Digits_Text),
+                new(Strings.Clean_Symbols, H.Clean_Symbols_Text),
+                new(Strings.Clean_Emojis, H.Clean_Emojis_Text),
+            ],
+            Examples =
+            [
+                new(H.Clean_Example_Default, new CleanModule(), " Speedy  01   final .mkv"),
+                new(H.Clean_Example_Accents, new CleanModule(RemoveAccents: true), "Été à Noël, cœur.mkv"),
+                new(H.Clean_Example_Emojis, new CleanModule(RemoveEmojis: true), "Holiday 🏖️ 2024 ☀️.jpg"),
+                new(H.Clean_Example_Symbols, new CleanModule(RemoveSymbols: true), "Movie™ (2019) ©.mkv"),
+            ],
+        },
+        new("Extension", H.Group_Modules, Strings.Module_Extension, H.Extension_Intro)
+        {
+            Module = typeof(ExtensionModule),
+            Options =
+            [
+                new(Strings.ExtensionAction_Lower, H.ExtensionAction_Lower_Text),
+                new(Strings.ExtensionAction_Upper, H.ExtensionAction_Upper_Text),
+                new(Strings.ExtensionAction_Title, H.ExtensionAction_Title_Text),
+                new(Strings.ExtensionAction_Set, H.ExtensionAction_Set_Text),
+                new(Strings.ExtensionAction_Add, H.ExtensionAction_Add_Text),
+                new(Strings.ExtensionAction_Remove, H.ExtensionAction_Remove_Text),
+            ],
+            Examples =
+            [
+                new(H.Extension_Example_Lower, new ExtensionModule(ExtensionAction.Lower), "IMG_0042.JPG", "Report.Pdf"),
+                new(H.Extension_Example_Set, new ExtensionModule(ExtensionAction.Set, "jpg"), "photo.jpeg", "scan.JPEG"),
+                new(H.Extension_Example_Add, new ExtensionModule(ExtensionAction.Add, "gif"), "card.holiday"),
+                new(H.Extension_Example_Remove, new ExtensionModule(ExtensionAction.Remove), "notes.txt.bak"),
+            ],
+        },
     ];
 
     /// <summary>The page explaining a module, or the home page.</summary>
     public static string KeyOf(Type? module) => Pages().FirstOrDefault(p => p.Module is not null && p.Module == module)?.Key ?? Home;
 
     // "Occurrences: First"
-    private static HelpOption Choice(string choice, string text) => new(string.Format(H.Choice, Strings.Replace_Occurrence, choice), text);
+    private static HelpOption Choice(string choice, string text) => Choice(Strings.Replace_Occurrence, choice, text);
+
+    private static HelpOption Choice(string setting, string choice, string text) => new(string.Format(H.Choice, setting, choice), text);
 }

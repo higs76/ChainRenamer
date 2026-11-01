@@ -38,6 +38,12 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Sort**: natural order, ascending or descending, or a manual order by drag and drop.
 - **Replace**: a text by another, matching case or not; all occurrences, the first, the last, at the start or at the end of the name.
 - **Replace (advanced)**: regular expressions with groups (`$1`, `$2`…).
+- **Case**: lowercase, UPPERCASE, Title or Sentence; small words of English or French titles stay in lowercase; exceptions (`iPhone`, `TV`), Roman numerals, acronyms, glued words.
+- **Remove**: the first or last characters, a range of positions, before or after a text, every part between two texts (`[1080p]`).
+- **Insert**: a text at the start, at the end, at a position, before or after a text.
+- **Numbering**: digits (`001`), letters or Roman numerals, anywhere in the name, starting again in each folder if wanted.
+- **Clean**: extra spaces, accents, digits, symbols, emojis, leading dots.
+- **Extension**: case, replace, add, remove: the only module that touches the extension.
 - **Preview**: Original | Before the step | After the step columns, conflicts in red.
 - **Safe renaming**: two phases (handles A↔B swaps, cycles and case-only changes on NTFS and SMB), undoable thanks to a journal.
 - **Chain library**: save, save as, import and export of one chain or the whole library, configurable location (a NAS or a synced folder, for example).
@@ -47,7 +53,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 
 ## Planned
 
-- **Modules**: Case, Remove, Clean, Insert, Numbering, Extension, Filter, Pad numbers, Dates, Template, Replacement table, Capture (named groups reused as variables).
+- **Modules**: Filter, Pad numbers, Dates, Template, Replacement table, Capture (named groups reused as variables).
 - **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
 - **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
 - **Name segment**: limit a step to part of the name ("after the last ` - `").

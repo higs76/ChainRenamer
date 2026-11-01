@@ -3,6 +3,9 @@ using ChainRenamer.Engine;
 
 namespace ChainRenamer.App.ViewModels.Modules;
 
+/// <summary>An entry of a drop-down list of settings: the value (an enum) and its label.</summary>
+public sealed record Choice(object Value, string Label);
+
 /// <summary>
 /// The settings panel of one module. Its view is found by name:
 /// <c>ViewModels.Modules.XxxSettingsViewModel</c> → <c>Views.Modules.XxxSettingsView</c>.

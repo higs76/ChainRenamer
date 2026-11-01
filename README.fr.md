@@ -38,6 +38,12 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Trier** : ordre naturel, croissant ou décroissant, ou ordre manuel par glisser-déposer.
 - **Remplacer** : un texte par un autre, en respectant ou non la casse ; toutes les occurrences, la première, la dernière, au début ou à la fin du nom.
 - **Remplacer (avancé)** : expressions régulières avec groupes (`$1`, `$2`…).
+- **Casse** : minuscules, MAJUSCULES, Titre ou Phrase ; les petits mots des titres français ou anglais restent en minuscules ; exceptions (`iPhone`, `TV`), chiffres romains, sigles, mots collés.
+- **Supprimer** : les premiers ou derniers caractères, une plage de positions, avant ou après un texte, chaque partie entre deux textes (`[1080p]`).
+- **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
+- **Numérotation** : chiffres (`001`), lettres ou chiffres romains, n'importe où dans le nom, en recommençant dans chaque dossier si on le souhaite.
+- **Nettoyer** : espaces en trop, accents, chiffres, symboles, emojis, points en tête.
+- **Extension** : casse, remplacement, ajout, suppression : le seul module qui touche à l'extension.
 - **Aperçu** : colonnes Original | Avant l'étape | Après l'étape, conflits en rouge.
 - **Renommage sûr** : en deux phases (gère les échanges A↔B, les cycles et les changements de casse seule sur NTFS et SMB), annulable grâce à un journal.
 - **Bibliothèque de chaînes** : enregistrer, enregistrer sous, import et export d'une chaîne ou de toute la bibliothèque, emplacement réglable (un NAS ou un dossier synchronisé, par exemple).
@@ -47,7 +53,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 
 ## Prévu
 
-- **Modules** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension, Filtrer, Formater les nombres, Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
+- **Modules** : Filtrer, Formater les nombres, Dates, Modèle, Table de remplacement, Capturer (groupes nommés réutilisés comme variables).
 - **Variables** utilisables dans tous les modules : `{dossier}`, `{date}`, plus tard l'EXIF et les tags audio.
 - **Listes de dépôt** : coller ou déposer une liste de lignes (titres d'épisodes…), la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom (« après le dernier ` - ` »).

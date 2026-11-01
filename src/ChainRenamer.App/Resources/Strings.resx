@@ -182,4 +182,84 @@
   <data name="Settings_OpenLibrary" xml:space="preserve"><value>Open the folder</value></data>
   <data name="Settings_MoveLibrary" xml:space="preserve"><value>Change the location…</value></data>
   <data name="Settings_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Module_Case" xml:space="preserve"><value>Case</value></data>
+  <data name="Case_Description" xml:space="preserve"><value>Changes uppercase and lowercase letters, without touching the extension.</value></data>
+  <data name="Case_Mode" xml:space="preserve"><value>Case</value></data>
+  <data name="Case_Lower" xml:space="preserve"><value>lowercase</value></data>
+  <data name="Case_Upper" xml:space="preserve"><value>UPPERCASE</value></data>
+  <data name="Case_Title" xml:space="preserve"><value>Title Case (Each Word)</value></data>
+  <data name="Case_Sentence" xml:space="preserve"><value>Sentence case (first word only)</value></data>
+  <data name="Case_SmallWords" xml:space="preserve"><value>Small words in lowercase</value></data>
+  <data name="SmallWords_None" xml:space="preserve"><value>none</value></data>
+  <data name="SmallWords_English" xml:space="preserve"><value>English (of, the, and…)</value></data>
+  <data name="SmallWords_French" xml:space="preserve"><value>French (de, la, et…)</value></data>
+  <data name="Case_Exceptions" xml:space="preserve"><value>Exceptions</value></data>
+  <data name="Case_ExceptionsWatermark" xml:space="preserve"><value>Words whose case is imposed, separated by commas: TV, iPhone, DVD</value></data>
+  <data name="Case_Roman" xml:space="preserve"><value>Roman numerals in uppercase (Part III)</value></data>
+  <data name="Case_Acronyms" xml:space="preserve"><value>Keep acronyms (DVD, USA)</value></data>
+  <data name="Case_SpaceBeforeCapitals" xml:space="preserve"><value>Separate glued words (MyHoliday → My Holiday)</value></data>
+  <data name="Module_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Remove_Description" xml:space="preserve"><value>Removes part of the name, by position or around a text, without touching the extension.</value></data>
+  <data name="Remove_What" xml:space="preserve"><value>Remove</value></data>
+  <data name="RemoveWhat_First" xml:space="preserve"><value>the first characters</value></data>
+  <data name="RemoveWhat_Last" xml:space="preserve"><value>the last characters</value></data>
+  <data name="RemoveWhat_Range" xml:space="preserve"><value>from a position to another</value></data>
+  <data name="RemoveWhat_Before" xml:space="preserve"><value>everything before a text</value></data>
+  <data name="RemoveWhat_After" xml:space="preserve"><value>everything after a text</value></data>
+  <data name="RemoveWhat_Between" xml:space="preserve"><value>every part between two texts</value></data>
+  <data name="Remove_Count" xml:space="preserve"><value>Number</value></data>
+  <data name="Remove_From" xml:space="preserve"><value>From position</value></data>
+  <data name="Remove_To" xml:space="preserve"><value>to</value></data>
+  <data name="Remove_Text" xml:space="preserve"><value>Text</value></data>
+  <data name="Remove_Start" xml:space="preserve"><value>From</value></data>
+  <data name="Remove_End" xml:space="preserve"><value>to</value></data>
+  <data name="Remove_IncludeText" xml:space="preserve"><value>Remove the texts too</value></data>
+  <data name="Remove_Last" xml:space="preserve"><value>Last occurrence of the text</value></data>
+  <data name="Remove_RangeHint" xml:space="preserve"><value>Position 1 is the first character, -1 the last one.</value></data>
+  <data name="Module_Clean" xml:space="preserve"><value>Clean</value></data>
+  <data name="Clean_Description" xml:space="preserve"><value>Tidies the name: spaces, accents, symbols… Often the last step of a chain.</value></data>
+  <data name="Clean_Header" xml:space="preserve"><value>Remove:</value></data>
+  <data name="Clean_Trim" xml:space="preserve"><value>Spaces at the start and at the end</value></data>
+  <data name="Clean_Collapse" xml:space="preserve"><value>Double spaces</value></data>
+  <data name="Clean_LeadingDots" xml:space="preserve"><value>Dots at the start of the name</value></data>
+  <data name="Clean_Accents" xml:space="preserve"><value>Accents (é → e, œ → oe)</value></data>
+  <data name="Clean_Digits" xml:space="preserve"><value>Digits</value></data>
+  <data name="Clean_Symbols" xml:space="preserve"><value>Symbols (© ™ € + =…)</value></data>
+  <data name="Clean_Emojis" xml:space="preserve"><value>Emojis</value></data>
+  <data name="Module_Insert" xml:space="preserve"><value>Insert</value></data>
+  <data name="Insert_Description" xml:space="preserve"><value>Inserts a text at the start, at the end, at a position, or before or after a text.</value></data>
+  <data name="Insert_Text" xml:space="preserve"><value>Insert the text</value></data>
+  <data name="InsertAt_Start" xml:space="preserve"><value>at the start</value></data>
+  <data name="InsertAt_End" xml:space="preserve"><value>at the end (before the extension)</value></data>
+  <data name="InsertAt_Position" xml:space="preserve"><value>after a number of characters</value></data>
+  <data name="InsertAt_Before" xml:space="preserve"><value>before a text</value></data>
+  <data name="InsertAt_After" xml:space="preserve"><value>after a text</value></data>
+  <data name="Insert_Position" xml:space="preserve"><value>Characters</value></data>
+  <data name="Insert_PositionHint" xml:space="preserve"><value>Negative: counted from the end.</value></data>
+  <data name="Insert_Anchor" xml:space="preserve"><value>Text</value></data>
+  <data name="Module_Numbering" xml:space="preserve"><value>Numbering</value></data>
+  <data name="Numbering_Description" xml:space="preserve"><value>Numbers the files in their order: 01, 02… or a, b…, I, II…</value></data>
+  <data name="Numbering_Style" xml:space="preserve"><value>Style</value></data>
+  <data name="NumberStyle_Digits" xml:space="preserve"><value>1, 2, 3</value></data>
+  <data name="NumberStyle_LowerLetters" xml:space="preserve"><value>a, b, c</value></data>
+  <data name="NumberStyle_UpperLetters" xml:space="preserve"><value>A, B, C</value></data>
+  <data name="NumberStyle_UpperRoman" xml:space="preserve"><value>I, II, III</value></data>
+  <data name="NumberStyle_LowerRoman" xml:space="preserve"><value>i, ii, iii</value></data>
+  <data name="Numbering_Start" xml:space="preserve"><value>Start at</value></data>
+  <data name="Numbering_Step" xml:space="preserve"><value>Step</value></data>
+  <data name="Numbering_Digits" xml:space="preserve"><value>Digits</value></data>
+  <data name="Numbering_Where" xml:space="preserve"><value>Place</value></data>
+  <data name="Numbering_Separator" xml:space="preserve"><value>Separator</value></data>
+  <data name="Numbering_Reset" xml:space="preserve"><value>Start again in each folder</value></data>
+  <data name="Numbering_Hint" xml:space="preserve"><value>The files are numbered in their order: put a Sort step before this one.</value></data>
+  <data name="Module_Extension" xml:space="preserve"><value>Extension</value></data>
+  <data name="Extension_Description" xml:space="preserve"><value>Changes the extension: case, replacement, addition or removal. The only module that touches it.</value></data>
+  <data name="Extension_Action" xml:space="preserve"><value>Extension</value></data>
+  <data name="ExtensionAction_Lower" xml:space="preserve"><value>lowercase (.jpg)</value></data>
+  <data name="ExtensionAction_Upper" xml:space="preserve"><value>uppercase (.JPG)</value></data>
+  <data name="ExtensionAction_Title" xml:space="preserve"><value>capital first (.Jpg)</value></data>
+  <data name="ExtensionAction_Set" xml:space="preserve"><value>replace by</value></data>
+  <data name="ExtensionAction_Add" xml:space="preserve"><value>add after it</value></data>
+  <data name="ExtensionAction_Remove" xml:space="preserve"><value>remove</value></data>
+  <data name="Extension_TextWatermark" xml:space="preserve"><value>jpg</value></data>
 </root>
