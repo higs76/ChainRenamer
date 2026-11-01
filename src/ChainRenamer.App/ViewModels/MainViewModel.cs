@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using Avalonia.Threading;
 using ChainRenamer.App.Resources;
 using ChainRenamer.App.ViewModels.Modules;
 using ChainRenamer.Engine;
@@ -44,7 +45,7 @@ public partial class MainViewModel : ViewModelBase
     public string Title => $"{ChainName ?? Strings.Chain_Untitled}{(IsModified ? " •" : "")} — ChainRenamer {Version}";
 
     public ObservableCollection<StepViewModel> Steps { get; } = [];
-    public ObservableCollection<PreviewRow> Rows { get; } = [];
+    public RowCollection<PreviewRow> Rows { get; } = [];
     public IReadOnlyList<AddModuleEntry> AddEntries { get; }
 
     /// <summary>At least two steps besides the fixed source: their order can be changed.</summary>
@@ -92,7 +93,7 @@ public partial class MainViewModel : ViewModelBase
         step.Changed += (_, _) =>
         {
             pipeline.Update(step.ToStep());
-            Refresh();
+            RefreshSoon();
         };
         Steps.Add(step);
         return step;
@@ -334,9 +335,23 @@ public partial class MainViewModel : ViewModelBase
 
     // ───────────── Preview ─────────────
 
+    private bool refreshPending;
+
+    /// <summary>
+    /// Refreshes once the pending input is handled: the keys typed while a large folder is computed
+    /// are all taken into account by a single refresh, instead of one refresh per key.
+    /// </summary>
+    private void RefreshSoon()
+    {
+        if (refreshPending) return;
+        refreshPending = true;
+        Dispatcher.UIThread.Post(() => { if (refreshPending) Refresh(); }, DispatcherPriority.Background);
+    }
+
     /// <summary>Updates every block of the chain column, the final plan, then the preview.</summary>
     private void Refresh()
     {
+        refreshPending = false;
         for (int i = 0; i < Steps.Count; i++)
         {
             var step = Steps[i];
@@ -437,6 +452,9 @@ public partial class MainViewModel : ViewModelBase
 
     private StepViewModel? rowsStep;
 
+    // Beyond this, rebuilding the grid at once is cheaper than moving rows one by one.
+    private const int MaxMoves = 50;
+
     /// <summary>
     /// For the same step and the same files, rows are reordered and updated in place,
     /// so that the grid keeps its scroll position (typing a regex, dragging a file…).
@@ -444,25 +462,33 @@ public partial class MainViewModel : ViewModelBase
     private void UpdateRows(StepViewModel step, List<PreviewRow> rows)
     {
         var current = Rows.ToDictionary(r => r.FileId);
-        if (step != rowsStep || rows.Count != Rows.Count || !rows.All(r => current.ContainsKey(r.FileId)))
+        if (step != rowsStep || rows.Count != Rows.Count || !rows.All(r => current.ContainsKey(r.FileId)) || !Reorder(rows))
         {
             rowsStep = step;
-            Rows.Clear();
-            foreach (var row in rows) Rows.Add(row);
+            Rows.ReplaceAll(rows);
             return;
         }
 
+        for (int k = 0; k < rows.Count; k++) Rows[k].CopyFrom(rows[k]);
+    }
+
+    /// <summary>Puts the rows in the order of <paramref name="rows"/>; false if that takes too many moves.</summary>
+    private bool Reorder(List<PreviewRow> rows)
+    {
+        int moves = 0;
         for (int k = 0; k < rows.Count; k++)
         {
-            var row = current[rows[k].FileId];
-            int from = Rows.IndexOf(row);
-            if (from != k)
-            {
-                // Not Rows.Move: the DataGrid does not redraw on a "Move" notification.
-                Rows.RemoveAt(from);
-                Rows.Insert(k, row);
-            }
-            row.CopyFrom(rows[k]);
+            if (Rows[k].FileId == rows[k].FileId) continue;     // most often: already in place
+            if (++moves > MaxMoves) return false;
+
+            // The rows before k are in place: the one wanted here is further down.
+            int from = k + 1;
+            while (Rows[from].FileId != rows[k].FileId) from++;
+            var row = Rows[from];
+            // Not Rows.Move: the DataGrid does not redraw on a "Move" notification.
+            Rows.RemoveAt(from);
+            Rows.Insert(k, row);
         }
+        return true;
     }
 }

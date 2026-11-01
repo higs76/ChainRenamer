@@ -69,15 +69,17 @@ public sealed partial record CaseModule(
     [GeneratedRegex(@"^(?=.)x{0,3}(ix|iv|v?i{0,3})$", RegexOptions.IgnoreCase)]
     private static partial Regex Roman();
 
-    public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) =>
-        [.. input.Select(i => i.With(NamePart.Stem, Change(i.Stem)))];
+    public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input)
+    {
+        var exceptions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var e in Exceptions.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)) exceptions.TryAdd(e, e);
+        return [.. input.Select(i => i.With(NamePart.Stem, Change(i.Stem, exceptions)))];
+    }
 
-    private string Change(string name)
+    private string Change(string name, Dictionary<string, string> exceptions)
     {
         if (SpaceBeforeCapitals) name = GluedWords().Replace(name, " ");
 
-        var exceptions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var e in Exceptions.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)) exceptions.TryAdd(e, e);
         bool allUpper = !name.Any(char.IsLower);
         var words = Word().Matches(name);
         int index = 0;
