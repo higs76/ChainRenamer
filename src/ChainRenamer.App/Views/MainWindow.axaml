@@ -19,6 +19,7 @@
         <KeyBinding Gesture="Ctrl+N" Command="{Binding NewChainCommand}" />
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveCommand}" />
         <KeyBinding Gesture="Ctrl+Shift+S" Command="{Binding SaveAsCommand}" />
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding ToggleFavoriteCommand}" />
     </Window.KeyBindings>
 
     <Window.Styles>
@@ -114,11 +115,12 @@
             <MenuItem Header="{x:Static res:Strings.Menu_Quit}" Click="OnQuit" />
         </MenuItem>
         <MenuItem x:Name="ChainsMenu" Header="{x:Static res:Strings.Menu_Chains}">
-            <!-- The favorite chains are inserted here when the menu opens -->
+            <!-- The favorites, with their folders as submenus, are inserted here when the menu opens -->
             <MenuItem x:Name="AllChainsMenu" Header="{x:Static res:Strings.Menu_AllChains}" />
             <Separator />
-            <MenuItem Header="{x:Static res:Strings.Menu_Favorite}" ToggleType="CheckBox"
+            <MenuItem Header="{x:Static res:Strings.Menu_Favorite}" ToggleType="CheckBox" InputGesture="Ctrl+D"
                       IsChecked="{Binding IsFavorite}" IsEnabled="{Binding HasName}" />
+            <MenuItem Header="{x:Static res:Strings.Menu_OrganizeFavorites}" Click="OnOrganizeFavorites" />
             <MenuItem Header="{x:Static res:Strings.Menu_Delete}" Command="{Binding DeleteChainCommand}" />
             <Separator />
             <MenuItem Header="{x:Static res:Strings.Menu_OpenLibrary}" Click="OnOpenLibrary" ToolTip.Tip="{Binding LibraryFolder}" />

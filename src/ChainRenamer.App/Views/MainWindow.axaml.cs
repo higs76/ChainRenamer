@@ -65,7 +65,7 @@ public partial class MainWindow : Window
 
         foreach (var item in favoriteItems) ChainsMenu.Items.Remove(item);
         favoriteItems.Clear();
-        favoriteItems.AddRange(vm.FavoriteChains().Select(name => ChainItem("★  " + name, name, vm)));
+        favoriteItems.AddRange(FavoriteItems(vm.Favorites(), vm));
         if (favoriteItems.Count > 0) favoriteItems.Add(new Separator());
         for (int i = 0; i < favoriteItems.Count; i++) ChainsMenu.Items.Insert(i, favoriteItems[i]);
 
@@ -73,6 +73,25 @@ public partial class MainWindow : Window
         AllChainsMenu.ItemsSource = all.Count == 0
             ? [new MenuItem { Header = Strings.Menu_NoChain, IsEnabled = false }]
             : all.Select(c => ChainItem((c.IsFavorite ? "★  " : "") + c.Name, c.Name, vm)).ToList();
+    }
+
+    /// <summary>A folder of favorites is a submenu, as in a browser.</summary>
+    private static IEnumerable<MenuItem> FavoriteItems(IEnumerable<Favorite> favorites, MainViewModel vm) => favorites.Select(f =>
+    {
+        if (!f.IsFolder) return ChainItem("★  " + f.Name, f.Name, vm);
+        var items = FavoriteItems(f.Items!, vm).ToList();
+        return new MenuItem
+        {
+            Header = new TextBlock { Text = f.Name },
+            ItemsSource = items.Count > 0 ? items : [new MenuItem { Header = Strings.Menu_EmptyFolder, IsEnabled = false }],
+        };
+    });
+
+    private async void OnOrganizeFavorites(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel is not { } vm) return;
+        await new FavoritesWindow { DataContext = vm.OrganizeFavorites() }.ShowDialog(this);
+        vm.FavoritesChanged();
     }
 
     // The header is a TextBlock: a plain string would turn "_" into an access key ("Series_2" → "Series2").

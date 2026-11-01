@@ -113,7 +113,7 @@
   <data name="Menu_Chains" xml:space="preserve"><value>_Chains</value></data>
   <data name="Menu_AllChains" xml:space="preserve"><value>All chains</value></data>
   <data name="Menu_NoChain" xml:space="preserve"><value>(no saved chain)</value></data>
-  <data name="Menu_Favorite" xml:space="preserve"><value>Favorite chain</value></data>
+  <data name="Menu_Favorite" xml:space="preserve"><value>In favorites</value></data>
   <data name="Menu_Delete" xml:space="preserve"><value>Delete this chain…</value></data>
   <data name="Menu_OpenLibrary" xml:space="preserve"><value>Open the library folder</value></data>
   <data name="Menu_MoveLibrary" xml:space="preserve"><value>Change the library location…</value></data>
@@ -146,4 +146,19 @@
   <data name="Picker_Chain" xml:space="preserve"><value>Chain</value></data>
   <data name="Picker_Backup" xml:space="preserve"><value>Library backup</value></data>
   <data name="Backup_Name" xml:space="preserve"><value>ChainRenamer library</value></data>
+  <data name="Menu_OrganizeFavorites" xml:space="preserve"><value>Organize favorites…</value></data>
+  <data name="Menu_EmptyFolder" xml:space="preserve"><value>(empty)</value></data>
+  <data name="Favorites_Title" xml:space="preserve"><value>Organize favorites</value></data>
+  <data name="Favorites_Hint" xml:space="preserve"><value>Favorites appear at the top of the Chains menu, in this order; folders become submenus. A favorite is only a shortcut: removing it never deletes the chain.</value></data>
+  <data name="Favorites_NewFolder" xml:space="preserve"><value>New folder</value></data>
+  <data name="Favorites_AddChain" xml:space="preserve"><value>Add a chain ▾</value></data>
+  <data name="Favorites_NothingToAdd" xml:space="preserve"><value>(every chain is already a favorite)</value></data>
+  <data name="Favorites_MoveUp" xml:space="preserve"><value>Move up</value></data>
+  <data name="Favorites_MoveDown" xml:space="preserve"><value>Move down</value></data>
+  <data name="Favorites_MoveTo" xml:space="preserve"><value>Move to ▾</value></data>
+  <data name="Favorites_TopLevel" xml:space="preserve"><value>Favorites (top level)</value></data>
+  <data name="Favorites_Remove" xml:space="preserve"><value>Remove from favorites</value></data>
+  <data name="Favorites_Remove_Tip" xml:space="preserve"><value>The chain stays in the library. A removed folder takes its favorites with it.</value></data>
+  <data name="Favorites_FolderName" xml:space="preserve"><value>Folder name</value></data>
+  <data name="Favorites_Close" xml:space="preserve"><value>Close</value></data>
 </root>

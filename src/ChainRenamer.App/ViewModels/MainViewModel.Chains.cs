@@ -22,7 +22,7 @@ public partial class MainViewModel
     /// <summary>The name of the chain in the library, or null for a new chain not saved yet.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Title), nameof(HasName))]
-    [NotifyCanExecuteChangedFor(nameof(DeleteChainCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeleteChainCommand), nameof(ToggleFavoriteCommand))]
     public partial string? ChainName { get; set; }
 
     [ObservableProperty]
@@ -37,11 +37,12 @@ public partial class MainViewModel
     /// <summary>The steps after the source: what a .chain file holds.</summary>
     private Chain CurrentChain() => new([.. Steps.Skip(1).Select(s => s.ToStep())]);
 
-    public IReadOnlyList<string> FavoriteChains() => library.Favorites();
+    /// <summary>The favorites, in their folders, for the top of the Chains menu.</summary>
+    public IReadOnlyList<Favorite> Favorites() => library.Favorites();
 
     public IReadOnlyList<ChainEntry> SavedChains()
     {
-        var favorites = library.Favorites().ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var favorites = Favorite.Chains(library.Favorites()).ToHashSet(StringComparer.OrdinalIgnoreCase);
         return [.. library.Names().Select(name => new ChainEntry(name, favorites.Contains(name)))];
     }
 
@@ -84,9 +85,7 @@ public partial class MainViewModel
     {
         ChainName = name;
         savedJson = chain.ToJson();
-        showingFavorite = true;     // showing the state of the chain, not a change by the user
-        IsFavorite = name is not null && library.IsFavorite(name);
-        showingFavorite = false;
+        FavoritesChanged();
     }
 
     /// <summary>Ctrl+S: a chain that has no name yet asks for one.</summary>
@@ -150,6 +149,21 @@ public partial class MainViewModel
     partial void OnIsFavoriteChanged(bool value)
     {
         if (!showingFavorite && ChainName is { } name) _ = Try(() => library.SetFavorite(name, value));
+    }
+
+    /// <summary>Ctrl+D, as in a browser.</summary>
+    [RelayCommand(CanExecute = nameof(HasName))]
+    private void ToggleFavorite() => IsFavorite = !IsFavorite;
+
+    /// <summary>The view model of the "Organize favorites" window.</summary>
+    public FavoritesViewModel OrganizeFavorites() => new(library);
+
+    /// <summary>Shows whether the chain is a favorite (after loading it, or after the "Organize favorites" window).</summary>
+    public void FavoritesChanged()
+    {
+        showingFavorite = true;     // showing the state of the chain, not a change by the user
+        IsFavorite = ChainName is { } name && library.IsFavorite(name);
+        showingFavorite = false;
     }
 
     [RelayCommand(CanExecute = nameof(HasName))]

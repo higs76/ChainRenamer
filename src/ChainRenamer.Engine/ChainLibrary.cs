@@ -1,5 +1,7 @@
 using System.IO.Compression;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using ChainRenamer.Engine.Renaming;
 
 namespace ChainRenamer.Engine;
@@ -36,38 +38,59 @@ public sealed class ChainLibrary(string folder)
     public Task SaveAsync(string name, Chain chain, CancellationToken cancellation = default) =>
         IsValidName(name) ? chain.SaveAsync(PathOf(name), cancellation) : throw new ArgumentException($"Invalid chain name: {name}", nameof(name));
 
+    /// <summary>Deletes the chain, and removes it from the favorites.</summary>
     public void Delete(string name)
     {
-        File.Delete(PathOf(name));
         SetFavorite(name, false);
+        File.Delete(PathOf(name));
     }
 
     // ───────────── Favorites ─────────────
 
-    /// <summary>The favorite chains that still exist, in natural order.</summary>
-    public IReadOnlyList<string> Favorites()
+    private static readonly JsonSerializerOptions FavoritesOptions = new()
     {
-        var path = Path.Combine(Folder, FavoritesFile);
-        if (!File.Exists(path)) return [];
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
+    private string FavoritesPath => Path.Combine(Folder, FavoritesFile);
+
+    /// <summary>The favorites, in folders and in the user's order, without the chains that no longer exist.</summary>
+    public IReadOnlyList<Favorite> Favorites() =>
+        File.Exists(FavoritesPath) ? Favorite.Map(ReadFavorites(File.ReadAllText(FavoritesPath)), n => Contains(n) ? n : null) : [];
+
+    public void SaveFavorites(IEnumerable<Favorite> favorites)
+    {
+        Directory.CreateDirectory(Folder);
+        File.WriteAllText(FavoritesPath, JsonSerializer.Serialize(favorites, FavoritesOptions));
+    }
+
+    public bool IsFavorite(string name) => Favorite.Chains(Favorites()).Contains(name, StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Adds the chain at the end of the favorites, or removes it from every folder.</summary>
+    public void SetFavorite(string name, bool favorite)
+    {
+        if (favorite == IsFavorite(name)) return;
+        SaveFavorites(favorite
+            ? [.. Favorites(), new Favorite(name)]
+            : Favorite.Map(Favorites(), n => n.Equals(name, StringComparison.OrdinalIgnoreCase) ? null : n));
+    }
+
+    /// <summary>Version 0.7 wrote a plain list of names: <c>["Series", "Photos"]</c>. A damaged file is no favorites.</summary>
+    private static IReadOnlyList<Favorite> ReadFavorites(string json)
+    {
         try
         {
-            var names = JsonSerializer.Deserialize<string[]>(File.ReadAllText(path)) ?? [];
-            return [.. names.Where(Contains).Order(NaturalOrder.Comparer)];
+            return [.. (JsonSerializer.Deserialize<JsonElement[]>(json) ?? [])
+                .Select(e => e.ValueKind == JsonValueKind.String ? new Favorite(e.GetString()!) : e.Deserialize<Favorite>(FavoritesOptions))
+                .OfType<Favorite>()];
         }
         catch (JsonException)
         {
-            return [];      // a damaged list of favorites is not worth an error
+            return [];
         }
-    }
-
-    public bool IsFavorite(string name) => Favorites().Contains(name, StringComparer.OrdinalIgnoreCase);
-
-    public void SetFavorite(string name, bool favorite)
-    {
-        var names = Favorites().Where(n => !n.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
-        if (favorite) names.Add(name);
-        Directory.CreateDirectory(Folder);
-        File.WriteAllText(Path.Combine(Folder, FavoritesFile), JsonSerializer.Serialize(names));
     }
 
     // ───────────── Import and export ─────────────
@@ -95,7 +118,7 @@ public sealed class ChainLibrary(string folder)
     {
         File.Delete(zip);
         using var archive = ZipFile.Open(zip, ZipArchiveMode.Create);
-        foreach (var file in Names().Select(PathOf).Append(Path.Combine(Folder, FavoritesFile)).Where(File.Exists))
+        foreach (var file in Names().Select(PathOf).Append(FavoritesPath).Where(File.Exists))
             archive.CreateEntryFromFile(file, Path.GetFileName(file));
     }
 
@@ -121,28 +144,26 @@ public sealed class ChainLibrary(string folder)
 
         if (archive.GetEntry(FavoritesFile) is { } favorites)
         {
-            try
-            {
-                using var stream = favorites.Open();
-                foreach (var name in JsonSerializer.Deserialize<string[]>(stream) ?? [])
-                    if (imported.TryGetValue(name, out var here)) SetFavorite(here, true);
-            }
-            catch (JsonException) { }
+            using var reader = new StreamReader(favorites.Open());
+            var theirs = ReadFavorites(await reader.ReadToEndAsync(cancellation));
+            SaveFavorites(Favorite.Merge(Favorites(), Favorite.Map(theirs, imported.GetValueOrDefault)));
         }
         return [.. imported.Values];
     }
 
     /// <summary>
-    /// Copies the chains and favorites of this library into <paramref name="target"/> (when the user moves it),
-    /// without overwriting what is there already.
+    /// Copies the chains of this library into <paramref name="target"/> (when the user moves it),
+    /// without overwriting the chains there already, and adds its favorites to theirs.
     /// </summary>
     public void CopyTo(string target)
     {
         Directory.CreateDirectory(target);
-        foreach (var file in Names().Select(PathOf).Append(Path.Combine(Folder, FavoritesFile)).Where(File.Exists))
+        foreach (var file in Names().Select(PathOf))
         {
             var to = Path.Combine(target, Path.GetFileName(file));
             if (!File.Exists(to)) File.Copy(file, to);
         }
+        var there = new ChainLibrary(target);
+        there.SaveFavorites(Favorite.Merge(there.Favorites(), Favorites()));
     }
 }

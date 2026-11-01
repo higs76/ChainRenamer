@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ChainRenamer.App.ViewModels"
+        xmlns:res="using:ChainRenamer.App.Resources"
+        x:Class="ChainRenamer.App.Views.FavoritesWindow"
+        x:DataType="vm:FavoritesViewModel"
+        Title="{x:Static res:Strings.Favorites_Title}"
+        Width="620" Height="480" MinWidth="480" MinHeight="320"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+
+    <Window.Styles>
+        <Style Selector="StackPanel.actions > Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="TextBlock.folder">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="TreeViewItem" x:DataType="vm:FavoriteNode">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="12">
+        <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Strings.Favorites_Hint}" TextWrapping="Wrap" Opacity="0.7" Margin="0,0,0,10" />
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,10,0,0">
+            <Button DockPanel.Dock="Right" Content="{x:Static res:Strings.Favorites_Close}" Click="OnClose" IsCancel="True" />
+            <TextBlock Text="{Binding Error}" Foreground="#E81123" TextWrapping="Wrap" VerticalAlignment="Center" />
+        </DockPanel>
+
+        <!-- Renaming a folder: saved as it is typed -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,10,0,0" IsVisible="{Binding CanRename}">
+            <TextBlock Text="{x:Static res:Strings.Favorites_FolderName}" VerticalAlignment="Center" />
+            <TextBox x:Name="FolderName" Width="280" Text="{Binding Selected.Name, FallbackValue=''}" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Right" Classes="actions" Spacing="6" Margin="10,0,0,0" Width="180">
+            <Button Content="{x:Static res:Strings.Favorites_NewFolder}" Command="{Binding NewFolderCommand}" />
+            <Button Content="{x:Static res:Strings.Favorites_AddChain}" Click="OnAddChain" />
+            <Separator />
+            <Button Content="{x:Static res:Strings.Favorites_MoveUp}" Command="{Binding MoveUpCommand}" />
+            <Button Content="{x:Static res:Strings.Favorites_MoveDown}" Command="{Binding MoveDownCommand}" />
+            <Button Content="{x:Static res:Strings.Favorites_MoveTo}" Click="OnMoveTo" IsEnabled="{Binding Selected, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            <Separator />
+            <Button Content="{x:Static res:Strings.Favorites_Remove}" Command="{Binding RemoveCommand}" ToolTip.Tip="{x:Static res:Strings.Favorites_Remove_Tip}" />
+        </StackPanel>
+
+        <TreeView x:Name="Tree" ItemsSource="{Binding Roots}" SelectedItem="{Binding Selected}"
+                  BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate ItemsSource="{Binding Items}" x:DataType="vm:FavoriteNode">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="★" IsVisible="{Binding !IsFolder}" Foreground="{DynamicResource SystemAccentColor}" />
+                        <TextBlock Text="{Binding Name}" Classes.folder="{Binding IsFolder}" />
+                    </StackPanel>
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </DockPanel>
+</Window>
