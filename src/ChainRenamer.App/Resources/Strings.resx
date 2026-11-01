@@ -340,4 +340,13 @@
   <data name="Dates_Example" xml:space="preserve"><value>→ {0}</value></data>
   <data name="Dates_InvalidFormat" xml:space="preserve"><value>format not valid</value></data>
   <data name="Dates_Hint" xml:space="preserve"><value>A date is three numbers with the same separator (. - _ or a space), or eight digits in a row (20240517); the year has 2 or 4 digits. Format: yyyy year, MM month, dd day, MMMM month name, dddd day name.</value></data>
+  <data name="Module_List" xml:space="preserve"><value>List</value></data>
+  <data name="List_Description" xml:space="preserve"><value>Renames from a list of lines, such as episode titles copied from a website: line 1 goes to file 1, line 2 to file 2…</value></data>
+  <data name="ListMode_ReplaceName" xml:space="preserve"><value>Each line becomes the name of its file</value></data>
+  <data name="ListMode_Insert" xml:space="preserve"><value>Each line is inserted in the name of its file</value></data>
+  <data name="ListMode_Pairs" xml:space="preserve"><value>Pairs: old name → new name</value></data>
+  <data name="List_Count" xml:space="preserve"><value>{0} lines</value></data>
+  <data name="List_Watermark" xml:space="preserve"><value>Paste or type one line per file, or drop a text file here</value></data>
+  <data name="List_Hint" xml:space="preserve"><value>Line N goes to file N, in the order of the list: put a Sort step before. An empty line keeps its file's name, and so do the files beyond the last line. The extension is kept.</value></data>
+  <data name="List_PairsHint" xml:space="preserve"><value>One pair per line: the old name and the new one separated by a tab, → or =. Written with its extension, the old name gives the whole new name; without, the extension is kept. The file is found by its name, whatever its rank.</value></data>
 </root>

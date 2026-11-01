@@ -36,6 +36,7 @@ ChainRenamer replaces the panels with an assembly line:
 - **Replace (advanced)**: regular expressions with groups: `(\d+)x(\d+)` → `S$1E$2`.
 - **Replacement table**: a list of texts to replace, pasted from a spreadsheet or loaded from a text file, to reuse from one chain to another.
 - **Remove**: the first or last characters, a range of positions, what comes before or after a text, every part between two texts (`[1080p]`).
+- **List**: paste or drop a list of lines (episode titles from a website…): line N goes to file N; or pairs "old name → new name".
 - **Capture**: a regular expression with named groups turns parts of the name into variables, `{season}`, `{episode}`, reused by the following steps.
 - **Template**: rebuild the whole name from text and variables: `{folder:2} - {folder} - {n:2}`.
 - **Insert**: a text at the start, at the end, at a position, before or after a text.
@@ -72,7 +73,6 @@ The project is young (version 0.x): it works and is tested, but the list of modu
 ## Coming next
 
 - **Metadata variables**: photo EXIF dates, music tags.
-- **Drop lists**: paste a list of episode titles, line N goes to file N.
 - **Name segment**: limit a step to a part of the name, such as "after the last ` - `".
 
 ## Command line

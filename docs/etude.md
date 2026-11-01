@@ -186,6 +186,8 @@ On colle une liste de lignes (presse-papiers), ou on dépose un fichier texte da
 - Mode **paires** : chaque ligne donne « ancien nom → nouveau nom » ; le fichier est retrouvé par son nom et non par son rang (l'« Import Rename-Pairs » de BRU).
 - Un avertissement apparaît si le nombre de lignes diffère du nombre de fichiers, ou si une paire ne trouve pas son fichier.
 
+Fait (0.12.0) : un seul module **Liste** avec trois modes (remplacer le nom, insérer, paires) plutôt que deux modules. Une ligne vide garde le nom de son fichier ; les lignes acceptent les variables ; en mode paires, un ancien nom écrit avec son extension donne tout le nouveau nom, sans extension il garde celle du fichier. Le panneau affiche le nombre de lignes, à comparer au nombre de fichiers ; l'avertissement des paires sans fichier (`ListModule.Unmatched`) reste à afficher.
+
 **Ce qu'on ne reprend pas de BRU**
 - Name → Reverse (nom à l'envers) et Remove (nom vidé : un Modèle vide le fait).
 - Move/Copy : couvert par Capturer + Supprimer + Insérer.

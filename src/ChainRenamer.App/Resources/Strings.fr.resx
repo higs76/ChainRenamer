@@ -340,4 +340,13 @@
   <data name="Dates_Example" xml:space="preserve"><value>→ {0}</value></data>
   <data name="Dates_InvalidFormat" xml:space="preserve"><value>format non valide</value></data>
   <data name="Dates_Hint" xml:space="preserve"><value>Une date, ce sont trois nombres avec le même séparateur (. - _ ou un espace), ou huit chiffres d'affilée (20240517) ; l'année a 2 ou 4 chiffres. Format : yyyy année, MM mois, dd jour, MMMM nom du mois, dddd nom du jour.</value></data>
+  <data name="Module_List" xml:space="preserve"><value>Liste</value></data>
+  <data name="List_Description" xml:space="preserve"><value>Renomme à partir d'une liste de lignes, comme des titres d'épisodes copiés depuis un site : la ligne 1 va au fichier 1, la ligne 2 au fichier 2…</value></data>
+  <data name="ListMode_ReplaceName" xml:space="preserve"><value>Chaque ligne devient le nom de son fichier</value></data>
+  <data name="ListMode_Insert" xml:space="preserve"><value>Chaque ligne est insérée dans le nom de son fichier</value></data>
+  <data name="ListMode_Pairs" xml:space="preserve"><value>Paires : ancien nom → nouveau nom</value></data>
+  <data name="List_Count" xml:space="preserve"><value>{0} lignes</value></data>
+  <data name="List_Watermark" xml:space="preserve"><value>Collez ou tapez une ligne par fichier, ou déposez ici un fichier texte</value></data>
+  <data name="List_Hint" xml:space="preserve"><value>La ligne N va au fichier N, dans l'ordre de la liste : placez une étape Trier avant. Une ligne vide garde le nom de son fichier, comme les fichiers au-delà de la dernière ligne. L'extension est gardée.</value></data>
+  <data name="List_PairsHint" xml:space="preserve"><value>Une paire par ligne : l'ancien nom et le nouveau séparés par une tabulation, → ou =. Écrit avec son extension, l'ancien nom donne tout le nouveau nom ; sans, l'extension est gardée. Le fichier est retrouvé par son nom, quel que soit son rang.</value></data>
 </root>

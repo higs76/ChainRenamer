@@ -290,4 +290,14 @@ Une date, ce sont trois nombres séparés par le même caractère (`.`, `-`, `_`
   <data name="Dates_Example_Iso" xml:space="preserve"><value>Jour d'abord, réécrit l'année d'abord</value></data>
   <data name="Dates_Example_Camera" xml:space="preserve"><value>La date d'un appareil photo, `yyyyMMdd`, en `yyyy-MM-dd`</value></data>
   <data name="Dates_Example_Year" xml:space="preserve"><value>Seulement l'année : format `yyyy`</value></data>
+  <data name="List_Intro" xml:space="preserve"><value>Renomme à partir d'une liste de lignes : titres d'épisodes copiés depuis un site, liste de pistes, noms préparés dans un tableur. Collez la liste, tapez-la, chargez un fichier texte ou déposez le fichier sur le panneau.
+
+La ligne N va au fichier N, dans l'ordre qu'ont les fichiers à cette étape : placez une étape **Trier** juste avant, et comparez le nombre de lignes affiché sous la liste au nombre de fichiers. Une ligne vide garde le nom de son fichier, comme les fichiers au-delà de la dernière ligne. Les lignes peuvent contenir des **variables** : `{n:2} - Le Premier Tour`.</value></data>
+  <data name="ListMode_ReplaceName_Text" xml:space="preserve"><value>La ligne remplace le nom ; l'extension est gardée.</value></data>
+  <data name="ListMode_Insert_Text" xml:space="preserve"><value>La ligne est insérée dans le nom, là où Insérer la mettrait : au début, à la fin, à une position, avant ou après un texte.</value></data>
+  <data name="ListMode_Pairs_Text" xml:space="preserve"><value>Chaque ligne contient un ancien nom et un nouveau, séparés par une tabulation (deux colonnes d'un tableur), `→` ou `=`. Le fichier est retrouvé par son nom, pas par son rang : l'ordre n'a pas d'importance. Écrit avec son extension, l'ancien nom donne tout le nouveau nom ; sans, l'extension est gardée.</value></data>
+  <data name="List_MatchCase_Text" xml:space="preserve"><value>Mode insérer : pour le texte avant ou après lequel va la ligne. Mode paires : cochée, `speedy 01` ne trouve pas `Speedy 01.mkv`.</value></data>
+  <data name="List_Example_Titles" xml:space="preserve"><value>Des titres d'épisodes, un par ligne</value></data>
+  <data name="List_Example_Insert" xml:space="preserve"><value>Insérés à la fin : ` - The First Lap`, ` - Rain on the Track`</value></data>
+  <data name="List_Example_Pairs" xml:space="preserve"><value>Paires : `Speedy 02 → Finale`, `Speedy 01 → Pilot`</value></data>
 </root>

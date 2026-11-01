@@ -288,4 +288,14 @@ A date is three numbers separated by the same character (`.`, `-`, `_` or a spac
   <data name="Dates_Example_Iso" xml:space="preserve"><value>Day first, written year first</value></data>
   <data name="Dates_Example_Camera" xml:space="preserve"><value>A camera's date, `yyyyMMdd`, to `yyyy-MM-dd`</value></data>
   <data name="Dates_Example_Year" xml:space="preserve"><value>Only the year: format `yyyy`</value></data>
+  <data name="List_Intro" xml:space="preserve"><value>Renames from a list of lines: episode titles copied from a website, a track list, names prepared in a spreadsheet. Paste the list, type it, load a text file, or drop the file on the panel.
+
+Line N goes to file N, in the order the files have at this step: put a **Sort** step just before, and compare the number of lines shown under the list with the number of files. An empty line keeps the name of its file, and so do the files beyond the last line. The lines may hold **variables**: `{n:2} - The First Lap`.</value></data>
+  <data name="ListMode_ReplaceName_Text" xml:space="preserve"><value>The line replaces the name; the extension is kept.</value></data>
+  <data name="ListMode_Insert_Text" xml:space="preserve"><value>The line is inserted in the name, where Insert would put it: at the start, at the end, at a position, before or after a text.</value></data>
+  <data name="ListMode_Pairs_Text" xml:space="preserve"><value>Each line holds an old name and a new one, separated by a tab (two columns of a spreadsheet), `→` or `=`. The file is found by its name, not by its rank: the order does not matter. Written with its extension, the old name gives the whole new name; without, the extension is kept.</value></data>
+  <data name="List_MatchCase_Text" xml:space="preserve"><value>Insert mode: for the text before or after which the line goes. Pairs mode: checked, `speedy 01` does not find `Speedy 01.mkv`.</value></data>
+  <data name="List_Example_Titles" xml:space="preserve"><value>Episode titles, one per line</value></data>
+  <data name="List_Example_Insert" xml:space="preserve"><value>Inserted at the end: ` - The First Lap`, ` - Rain on the Track`</value></data>
+  <data name="List_Example_Pairs" xml:space="preserve"><value>Pairs: `Speedy 02 → Finale`, `Speedy 01 → Pilot`</value></data>
 </root>

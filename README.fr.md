@@ -36,6 +36,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - **Remplacer (avancé)** : expressions régulières avec groupes : `(\d+)x(\d+)` → `S$1E$2`.
 - **Table de remplacement** : une liste de textes à remplacer, collée depuis un tableur ou chargée depuis un fichier texte, à réutiliser d'une chaîne à l'autre.
 - **Supprimer** : les premiers ou derniers caractères, une plage de positions, ce qui précède ou suit un texte, chaque partie entre deux textes (`[1080p]`).
+- **Liste** : coller ou déposer une liste de lignes (titres d'épisodes copiés d'un site…) : la ligne N va au fichier N ; ou des paires « ancien nom → nouveau nom ».
 - **Capturer** : une expression régulière à groupes nommés transforme des parties du nom en variables, `{saison}`, `{episode}`, réutilisées par les étapes suivantes.
 - **Modèle** : reconstruire tout le nom à partir de texte et de variables : `{dossier:2} - {dossier} - {n:2}`.
 - **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
@@ -72,7 +73,6 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 ## À venir
 
 - **Variables de métadonnées** : dates EXIF des photos, tags de musique.
-- **Listes à déposer** : coller une liste de titres d'épisodes, la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom, comme « après le dernier ` - ` ».
 
 ## Ligne de commande

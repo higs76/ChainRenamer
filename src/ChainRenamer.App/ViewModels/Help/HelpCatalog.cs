@@ -170,6 +170,23 @@ public static class HelpCatalog
                     "speedy.1x03.mkv", "speedy.2x11.mkv"),
             ],
         },
+        new("List", H.Group_Modules, Strings.Module_List, H.List_Intro)
+        {
+            Module = typeof(ListModule),
+            Options =
+            [
+                new(Strings.ListMode_ReplaceName, H.ListMode_ReplaceName_Text),
+                new(Strings.ListMode_Insert, H.ListMode_Insert_Text),
+                new(Strings.ListMode_Pairs, H.ListMode_Pairs_Text),
+                new(Strings.Replace_MatchCase, H.List_MatchCase_Text),
+            ],
+            Examples =
+            [
+                new(H.List_Example_Titles, new ListModule("The First Lap\nRain on the Track\nA New Rival"), "Speedy 01.mkv", "Speedy 02.mkv", "Speedy 03.mkv"),
+                new(H.List_Example_Insert, new ListModule(" - The First Lap\n - Rain on the Track", ListMode.Insert), "Speedy 01.mkv", "Speedy 02.mkv"),
+                new(H.List_Example_Pairs, new ListModule("Speedy 02\tFinale\nSpeedy 01\tPilot", ListMode.Pairs), "Speedy 01.mkv", "Speedy 02.mkv"),
+            ],
+        },
         new("Case", H.Group_Modules, Strings.Module_Case, H.Case_Intro)
         {
             Module = typeof(CaseModule),

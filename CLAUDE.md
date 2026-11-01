@@ -39,7 +39,7 @@ Correspondance avec l'étude (rédigée en français) :
 | Source, Filtrer, Trier | `Source`, `Filter`, `Sort` |
 | Remplacer, Remplacer (avancé, regex), Table de remplacement, Casse, Supprimer, Nettoyer, Insérer, Modèle, Formater les nombres, Dates, Numérotation, Extension, Capturer | `Replace`, `RegexReplace`, `ReplaceTable`, `Case`, `Remove`, `Clean`, `Insert`, `Template`, `PadNumbers`, `Dates`, `Numbering`, `Extension`, `Capture` |
 | Variables communes, segment de nom | `Variables`, `Step.Segment` |
-| Liste – remplacer / insérer | `ListReplace` / `ListInsert` |
+| Liste (remplacer, insérer, paires) | `List` (un seul module, `ListMode`) |
 
 ## Environnement
 
@@ -175,4 +175,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ Module **Capturer** (`Capture`) et Numérotation par valeur de variable (`ResetOn`). Les exemples d'aide qui ont besoin de plusieurs modules passent par `Then(…)` dans `HelpCatalog`.
 - ✅ Module **Dates**.
 - Version 0.11.0.
-- Reste du jalon 3 (étude) : listes de dépôt, segment de nom, marqueurs.
+- ✅ Module **Liste** (`List` : remplacer le nom, insérer, paires ancien → nouveau ; collage, fichier texte chargé ou déposé sur le panneau).
+- Reste du jalon 3 (étude) : segment de nom, marqueurs.

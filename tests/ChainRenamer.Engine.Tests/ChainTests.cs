@@ -37,6 +37,7 @@ public class ChainTests
             new PadNumbersModule(3, WhichNumbers.Last, TrimZeros: true),
             new ReplaceTableModule([new("a", "b"), new(" x ", "", Enabled: false)], MatchCase: true),
             new TemplateModule("{folder} - {n:2}"),
+            new ListModule("a\nb", ListMode.Insert, InsertAt.After, 2, "x", MatchCase: true),
             new DatesModule(DateOrder.MonthDayYear, "dd MMMM yyyy"),
             new CaptureModule(@"(?<season>\d+)", MatchCase: true),
             new FilterModule(FilterOn.Size, TextTest.Regex, "x", true, 1.5, 3, SizeUnit.GB, new DateOnly(2024, 1, 2), new DateOnly(2025, 3, 4), Exclude: true),

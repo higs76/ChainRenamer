@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.ListSettingsView"
+             x:DataType="vm:ListSettingsViewModel"
+             DragDrop.AllowDrop="True">
+    <StackPanel Spacing="8">
+        <WrapPanel>
+            <ComboBox ItemsSource="{Binding Modes}" SelectedValue="{Binding Mode}" MinWidth="280" Margin="0,0,16,0"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsInsert}">
+                <ComboBox ItemsSource="{Binding Places}" SelectedValue="{Binding Where}" MinWidth="200"
+                          SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+                <NumericUpDown Value="{Binding Position}" Increment="1" FormatString="0" Width="130" IsVisible="{Binding IsPosition}" />
+                <TextBox Text="{Binding Anchor}" Width="160" FontFamily="Consolas,monospace" IsVisible="{Binding IsAnchor}" />
+            </StackPanel>
+        </WrapPanel>
+
+        <!-- One line per file; a text file can be dropped on the panel -->
+        <TextBox Text="{Binding Lines}" AcceptsReturn="True" TextWrapping="NoWrap" Height="150"
+                 FontFamily="Consolas,monospace" Watermark="{x:Static res:Strings.List_Watermark}" />
+
+        <WrapPanel>
+            <TextBlock VerticalAlignment="Center" Text="{Binding Count}" FontWeight="SemiBold" Margin="0,0,16,0" />
+            <Button Content="{x:Static res:Strings.ReplaceTable_Load}" Click="OnLoad" Margin="0,0,24,0" />
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding MatchCase}" Content="{x:Static res:Strings.Replace_MatchCase}" />
+        </WrapPanel>
+        <TextBlock Text="{Binding Hint}" Opacity="0.7" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>
