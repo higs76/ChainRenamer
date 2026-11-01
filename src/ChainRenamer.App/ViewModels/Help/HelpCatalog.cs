@@ -1,4 +1,5 @@
 using ChainRenamer.App.Resources;
+using ChainRenamer.Engine;
 using ChainRenamer.Engine.Modules;
 using H = ChainRenamer.App.Resources.HelpTexts;
 
@@ -159,6 +160,16 @@ public static class HelpCatalog
                 new(H.Template_Example_Date, new TemplateModule("{n:3} - {name}"), "Holiday.jpg", "Beach.jpg"),
             ],
         },
+        new("Capture", H.Group_Modules, Strings.Module_Capture, H.Capture_Intro)
+        {
+            Module = typeof(CaptureModule),
+            Options = [new(Strings.Capture_Pattern, H.Capture_Pattern_Text), new(Strings.Replace_MatchCase, H.Capture_MatchCase_Text)],
+            Examples =
+            [
+                new(H.Capture_Example_Template, Then(new CaptureModule(@"(?<season>\d+)x(?<episode>\d+)"), new TemplateModule("S{season}E{episode}")),
+                    "speedy.1x03.mkv", "speedy.2x11.mkv"),
+            ],
+        },
         new("Case", H.Group_Modules, Strings.Module_Case, H.Case_Intro)
         {
             Module = typeof(CaseModule),
@@ -241,6 +252,7 @@ public static class HelpCatalog
                 new(Strings.Numbering_Where, H.Numbering_Where_Text),
                 new(Strings.Numbering_Separator, H.Numbering_Separator_Text),
                 new(Strings.Numbering_Reset, H.Numbering_Reset_Text),
+                new(Strings.Numbering_ResetOn, H.Numbering_ResetOn_Text),
             ],
             Examples =
             [
@@ -248,6 +260,8 @@ public static class HelpCatalog
                 new(H.Numbering_Example_End, new NumberingModule(Digits: 3, Where: InsertAt.End, Separator: " "), "Holiday.jpg", "Holiday.jpg"),
                 new(H.Numbering_Example_After, new NumberingModule(Where: InsertAt.After, Anchor: "S01E"), "Speedy S01E.mkv", "Speedy S01E.mkv"),
                 new(H.Numbering_Example_Reset, new NumberingModule(ResetPerFolder: true), @"Season 1\Start.mkv", @"Season 1\Race.mkv", @"Season 2\Return.mkv"),
+                new(H.Numbering_Example_ResetOn, Then(new CaptureModule(@"S(?<season>\d+)"), new NumberingModule(Where: InsertAt.End, ResetOn: "season")),
+                    "Speedy S1 Start.mkv", "Speedy S1 Race.mkv", "Speedy S2 Return.mkv"),
                 new(H.Numbering_Example_Roman, new NumberingModule(Style: NumberStyle.UpperRoman, Where: InsertAt.End, Separator: " "), "Rocky.mkv", "Rocky.mkv", "Rocky.mkv"),
             ],
         },
@@ -316,6 +330,14 @@ public static class HelpCatalog
 
     /// <summary>The page explaining a module, or the home page.</summary>
     public static string KeyOf(Type? module) => Pages().FirstOrDefault(p => p.Module is not null && p.Module == module)?.Key ?? Home;
+
+    /// <summary>Several modules one after the other, for an example that needs a chain (a capture changes no name).</summary>
+    private sealed record Chained(IModule[] Modules) : IModule
+    {
+        public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) => Modules.Aggregate(input, (items, module) => module.Apply(items));
+    }
+
+    private static IModule Then(params IModule[] modules) => new Chained(modules);
 
     // "Occurrences: First"
     private static HelpOption Choice(string choice, string text) => Choice(Strings.Replace_Occurrence, choice, text);

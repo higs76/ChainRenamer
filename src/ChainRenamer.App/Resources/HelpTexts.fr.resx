@@ -264,7 +264,7 @@ Chaque variable a un nom anglais, qui marche toujours, et parfois un nom frança
   <data name="Variable_Date_Text" xml:space="preserve"><value>`{date}` : la date de dernière modification du fichier : `2024-05-17`. N'importe quel format de date .NET après les deux-points : `{date:yyyy}` pour l'année, `{date:yyyy-MM-dd HH.mm}` avec l'heure.</value></data>
   <data name="Variable_Today_Text" xml:space="preserve"><value>`{aujourdhui}` ou `{today}` : la date du jour, avec les mêmes formats que `{date}`.</value></data>
   <data name="Variable_Size_Text" xml:space="preserve"><value>`{taille}` ou `{size}` : la taille du fichier dans l'unité la plus lisible : `1.5 MB`. `{taille:KB}`, `{taille:MB}` ou `{taille:GB}` donnent un nombre arrondi dans cette unité, `{taille:B}` les octets.</value></data>
-  <data name="Variable_Captured_Text" xml:space="preserve"><value>Les variables d'une étape Capturer placée plus haut dans la chaîne : `{saison}`, `{episode}`… Elles l'emportent sur une variable intégrée du même nom.</value></data>
+  <data name="Variable_Captured_Text" xml:space="preserve"><value>Les variables d'une étape Capturer placée plus haut dans la chaîne : `{saison}`, `{episode}`… Un nombre après les deux-points les complète par des zéros : `{saison:2}` donne `01`. Elles l'emportent sur une variable intégrée du même nom.</value></data>
   <data name="Variable_Captured_Label" xml:space="preserve"><value>Variables capturées</value></data>
   <data name="Template_Intro" xml:space="preserve"><value>Remplace tout le nom, sans son extension, par un modèle : du texte et des **variables** (voir cette page), que chaque fichier remplace par ses propres valeurs. L'extension est gardée.
 
@@ -274,4 +274,12 @@ Un modèle vide laisse les noms tels quels. Là où un Modèle reconstruit tout 
   <data name="Template_Example_Date" xml:space="preserve"><value>`{n:3} - {nom}` : le rang devant le nom</value></data>
   <data name="Insert_Variables_Text" xml:space="preserve"><value>Le texte peut contenir des **variables** : `[{dossier}] ` met le nom du dossier devant chaque fichier.</value></data>
   <data name="Insert_Example_Variable" xml:space="preserve"><value>Le dossier devant : `[{dossier}] `</value></data>
+  <data name="Capture_Intro" xml:space="preserve"><value>Capture des parties du nom dans des **variables**, sans changer le nom : une expression régulière dont les groupes ont un nom, `(?&lt;saison&gt;\d+)`, crée une variable de ce nom, `{saison}`, que les étapes suivantes utilisent dans un Modèle, un Insérer, un Remplacer, ou pour faire recommencer une Numérotation.
+
+Pour déplacer une partie du nom, on la capture, on la supprime, puis on insère sa variable ailleurs. Dans la grille d'une étape Capturer, la colonne « après » montre les valeurs capturées dans chaque nom. Un nom que l'expression ne trouve pas ne reçoit aucune variable : `{saison}` reste alors tel quel dans son nouveau nom, ce qui se voit tout de suite.</value></data>
+  <data name="Capture_Pattern_Text" xml:space="preserve"><value>Une expression régulière .NET, cherchée dans le nom sans son extension. Chaque groupe écrit `(?&lt;nom&gt;…)` crée `{nom}` ; les groupes simples `(…)` ne créent rien. Les noms ignorent la casse : `{Saison}` et `{saison}` sont la même variable.</value></data>
+  <data name="Capture_MatchCase_Text" xml:space="preserve"><value>Cochée, `x` ne trouve pas `X`.</value></data>
+  <data name="Capture_Example_Template" xml:space="preserve"><value>Capturer `(?&lt;saison&gt;\d+)x(?&lt;episode&gt;\d+)`, puis un Modèle `S{saison}E{episode}`</value></data>
+  <data name="Numbering_ResetOn_Text" xml:space="preserve"><value>Un compteur pour chaque valeur d'une variable : `saison` (ou `{saison}`), capturée plus haut, numérote les épisodes saison par saison. Un modèle marche aussi : `{date:yyyy}` recommence chaque année. Les fichiers d'une même valeur sont numérotés dans l'ordre de la liste, même si d'autres fichiers s'intercalent.</value></data>
+  <data name="Numbering_Example_ResetOn" xml:space="preserve"><value>Un compteur par saison : Capturer `S(?&lt;saison&gt;\d+)`, puis Pour chaque valeur de `saison`</value></data>
 </root>

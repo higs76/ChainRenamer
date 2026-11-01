@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.CaptureSettingsView"
+             x:DataType="vm:CaptureSettingsViewModel">
+    <StackPanel Spacing="8">
+        <TextBlock Text="{x:Static res:Strings.Capture_Pattern}" />
+        <TextBox Text="{Binding Pattern}" FontFamily="Consolas,monospace" Watermark="(?&lt;season&gt;\d+)x(?&lt;episode&gt;\d+)" />
+        <TextBlock Text="{Binding Captured}" FontWeight="SemiBold" />
+        <CheckBox IsChecked="{Binding MatchCase}" Content="{x:Static res:Strings.Replace_MatchCase}" />
+        <TextBlock Text="{x:Static res:Strings.Capture_Hint}" Opacity="0.7" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

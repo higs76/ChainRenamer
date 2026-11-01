@@ -408,11 +408,16 @@ public partial class MainViewModel : ViewModelBase
         PreviewRow Row(FileId id, string? newName) => new(id, originals.GetValueOrDefault(id, ""), before[id], newName,
             skipped.Contains(id), conflicts.TryGetValue(id, out var kind) ? Describe(kind) : null, actions);
 
+        // A capture does not change the names: its "after" column shows what it captured, {season} = 1 · {episode} = 03.
+        var captured = step.Settings is CaptureSettingsViewModel capture ? capture.VariableNames() : [];
+        string After(Item i) => captured.Count == 0 || !captured.Any(i.Variables.ContainsKey) ? i.Name
+            : string.Join("  ·  ", captured.Where(i.Variables.ContainsKey).Select(n => $"{{{n}}} = {i.Variables[n]}"));
+
         // The source keeps the folder order, so that unchecking a file does not move it.
         // Other steps show their output order, then the files they left out.
         List<PreviewRow> rows = step.IsSource
             ? [.. input.Select(i => Row(i.FileId, after.GetValueOrDefault(i.FileId)))]
-            : [.. result.Items.Select(i => Row(i.FileId, i.Name)),
+            : [.. result.Items.Select(i => Row(i.FileId, After(i))),
                .. input.Where(i => !after.ContainsKey(i.FileId)).Select(i => Row(i.FileId, null))];
 
         UpdateRows(step, rows);

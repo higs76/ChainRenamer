@@ -54,6 +54,7 @@ public class VariablesTests
         var item = Episode with { Variables = Episode.Variables.Add("Season", "01").Add("folder", "mine") };
 
         Assert.Equal("S01 mine", Variables.Expand("S{season} {folder}", item, 1));
+        Assert.Equal("S001", Variables.Expand("S{season:3}", item, 1));
     }
 
     [Fact]

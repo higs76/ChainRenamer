@@ -262,7 +262,7 @@ Some take a format after a colon: `{n:3}` gives `007`, `{date:yyyyMMdd}` gives `
   <data name="Variable_Date_Text" xml:space="preserve"><value>The date the file was last modified: `2024-05-17`. Any .NET date format after the colon: `{date:yyyy}` for the year, `{date:yyyy-MM-dd HH.mm}` with the time.</value></data>
   <data name="Variable_Today_Text" xml:space="preserve"><value>The date of the day, with the same formats as `{date}`.</value></data>
   <data name="Variable_Size_Text" xml:space="preserve"><value>The size of the file in the most readable unit: `1.5 MB`. `{size:KB}`, `{size:MB}` or `{size:GB}` give a rounded number in that unit, `{size:B}` the bytes.</value></data>
-  <data name="Variable_Captured_Text" xml:space="preserve"><value>The variables of a Capture step placed earlier in the chain: `{season}`, `{episode}`… They win over a built-in variable of the same name.</value></data>
+  <data name="Variable_Captured_Text" xml:space="preserve"><value>The variables of a Capture step placed earlier in the chain: `{season}`, `{episode}`… A number after the colon pads them with zeros: `{season:2}` gives `01`. They win over a built-in variable of the same name.</value></data>
   <data name="Variable_Captured_Label" xml:space="preserve"><value>Captured variables</value></data>
   <data name="Template_Intro" xml:space="preserve"><value>Replaces the whole name, without its extension, by a template: some text and **variables** (see that page), which each file replaces by its own values. The extension is kept.
 
@@ -272,4 +272,12 @@ An empty template leaves the names as they are. Where a Template rebuilds the na
   <data name="Template_Example_Date" xml:space="preserve"><value>`{n:3} - {name}`: the rank in front of the name</value></data>
   <data name="Insert_Variables_Text" xml:space="preserve"><value>The text may hold **variables**: `[{folder}] ` puts the name of the folder in front of each file.</value></data>
   <data name="Insert_Example_Variable" xml:space="preserve"><value>The folder in front: `[{folder}] `</value></data>
+  <data name="Capture_Intro" xml:space="preserve"><value>Captures parts of the name into **variables**, without changing the name: a regular expression whose groups have a name, `(?&lt;season&gt;\d+)`, creates a variable of that name, `{season}`, that the following steps use in a Template, an Insert, a Replace, or to start a Numbering again.
+
+To move a part of the name, capture it, remove it, then insert its variable elsewhere. In the grid of a Capture step, the after column shows the values captured from each name. A name the expression does not match gets no variable: `{season}` then stays as typed in its new name, which shows it at once.</value></data>
+  <data name="Capture_Pattern_Text" xml:space="preserve"><value>A .NET regular expression, searched in the name without its extension. Each group written `(?&lt;name&gt;…)` creates `{name}`; plain groups `(…)` create nothing. Names ignore case: `{Season}` and `{season}` are the same.</value></data>
+  <data name="Capture_MatchCase_Text" xml:space="preserve"><value>Checked, `x` does not find `X`.</value></data>
+  <data name="Capture_Example_Template" xml:space="preserve"><value>Capture `(?&lt;season&gt;\d+)x(?&lt;episode&gt;\d+)`, then a Template `S{season}E{episode}`</value></data>
+  <data name="Numbering_ResetOn_Text" xml:space="preserve"><value>A counter for each value of a variable: `season` (or `{season}`), captured earlier, numbers the episodes season by season. A template works too: `{date:yyyy}` starts again each year. The files of a value are numbered in the order of the list, even when other files come between them.</value></data>
+  <data name="Numbering_Example_ResetOn" xml:space="preserve"><value>A counter per season: Capture `S(?&lt;season&gt;\d+)`, then For each value of `season`</value></data>
 </root>

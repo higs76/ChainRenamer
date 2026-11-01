@@ -323,4 +323,11 @@
   <data name="Variable_Size" xml:space="preserve"><value>{taille} : la taille</value></data>
   <data name="Variable_Ext" xml:space="preserve"><value>{ext} : l'extension, sans son point</value></data>
   <data name="Variable_Today" xml:space="preserve"><value>{aujourdhui} : la date du jour</value></data>
+  <data name="Module_Capture" xml:space="preserve"><value>Capturer</value></data>
+  <data name="Capture_Description" xml:space="preserve"><value>Capture des parties du nom dans des variables, sans le changer : les étapes suivantes les utilisent, comme {saison} ou {episode}.</value></data>
+  <data name="Capture_Pattern" xml:space="preserve"><value>Expression régulière à groupes nommés</value></data>
+  <data name="Capture_Variables" xml:space="preserve"><value>Variables créées : {0}</value></data>
+  <data name="Capture_NoVariable" xml:space="preserve"><value>Aucune variable pour l'instant : nommez un groupe avec (?&lt;nom&gt;…)</value></data>
+  <data name="Capture_Hint" xml:space="preserve"><value>(?&lt;saison&gt;\d+)x(?&lt;episode&gt;\d+) trouve 1x03 et crée {saison} = 1 et {episode} = 03. Dans la grille de cette étape, la colonne « après » montre ce que donne chaque nom. Un nom que l'expression ne trouve pas ne reçoit aucune variable.</value></data>
+  <data name="Numbering_ResetOn" xml:space="preserve"><value>ou pour chaque valeur de</value></data>
 </root>

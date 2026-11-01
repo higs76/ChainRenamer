@@ -8,7 +8,7 @@ namespace ChainRenamer.App.ViewModels.Modules;
 public partial class NumberingSettingsViewModel : ModuleSettingsViewModel
 {
     public NumberingSettingsViewModel(NumberingModule? module = null) =>
-        (Start, Step, Digits, Style, Where, Position, Anchor, Separator, ResetPerFolder) = module ?? new NumberingModule();
+        (Start, Step, Digits, Style, Where, Position, Anchor, Separator, ResetPerFolder, ResetOn) = module ?? new NumberingModule();
 
     [ObservableProperty] public partial int Start { get; set; }
     [ObservableProperty] public partial int Step { get; set; }
@@ -27,6 +27,7 @@ public partial class NumberingSettingsViewModel : ModuleSettingsViewModel
     [ObservableProperty] public partial string Anchor { get; set; }
     [ObservableProperty] public partial string Separator { get; set; }
     [ObservableProperty] public partial bool ResetPerFolder { get; set; }
+    [ObservableProperty] public partial string ResetOn { get; set; }
 
     public bool IsDigits => Style == NumberStyle.Digits;
     public bool IsPosition => Where == InsertAt.Position;
@@ -47,5 +48,5 @@ public partial class NumberingSettingsViewModel : ModuleSettingsViewModel
     public override string Title => Strings.Module_Numbering;
     public override string Description => Strings.Numbering_Description;
 
-    public override IModule ToModule() => new NumberingModule(Start, Step, Digits, Style, Where, Position, Anchor, Separator, ResetPerFolder);
+    public override IModule ToModule() => new NumberingModule(Start, Step, Digits, Style, Where, Position, Anchor, Separator, ResetPerFolder, ResetOn);
 }

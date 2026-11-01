@@ -33,7 +33,9 @@ public static partial class Variables
     {
         var name = match.Groups["name"].Value;
         var format = match.Groups["format"].Success ? match.Groups["format"].Value : null;
-        if (item.Variables.TryGetValue(name, out var captured)) return captured;
+        // A captured variable takes a number of digits too: {season:2} gives 01.
+        if (item.Variables.TryGetValue(name, out var captured))
+            return int.TryParse(format, out int width) ? captured.PadLeft(Math.Clamp(width, 1, 12), '0') : captured;
 
         return (Aliases.GetValueOrDefault(name) ?? name).ToLowerInvariant() switch
         {

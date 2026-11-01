@@ -26,6 +26,7 @@ public enum NumberStyle
 /// <param name="Digits">The minimum number of digits: 3 gives 001. Letters and Roman numerals are not padded.</param>
 /// <param name="Separator">Between the number and the name, when the number goes at the start or at the end.</param>
 /// <param name="ResetPerFolder">Numbering starts again in each folder (with the source's subfolders).</param>
+/// <param name="ResetOn">A variable (<c>season</c> or <c>{season}</c>) or a template (<c>{date:yyyy}</c>): one counter per value.</param>
 [Module("Numbering")]
 public sealed record NumberingModule(
     int Start = 1,
@@ -36,17 +37,21 @@ public sealed record NumberingModule(
     int Position = 0,
     string Anchor = "",
     string Separator = " - ",
-    bool ResetPerFolder = false) : INameModule
+    bool ResetPerFolder = false,
+    string ResetOn = "") : INameModule
 {
     public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input)
     {
         var place = new InsertModule(Where: Where, Position: Position, Anchor: Anchor);
-        var next = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);     // the next number of each folder
-        return [.. input.Select(item =>
+        var next = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);     // the next number of each counter
+        // "season" or "{season}": one counter per value of the variable; a template such as "{date:yyyy}" works too.
+        var resetOn = ResetOn.Trim() is { Length: > 0 } r && !Variables.In(r) ? "{" + r + "}" : ResetOn.Trim();
+        return [.. input.Select((item, k) =>
         {
-            var folder = ResetPerFolder ? item.Folder : "";     // a single counter when numbering does not start again
-            int n = next.GetValueOrDefault(folder, Start);
-            next[folder] = n + Step;
+            // A single counter when numbering does not start again.
+            var counter = (ResetPerFolder ? item.Folder : "") + "|" + Variables.Expand(resetOn, item, k + 1);
+            int n = next.GetValueOrDefault(counter, Start);
+            next[counter] = n + Step;
 
             var text = Where switch
             {

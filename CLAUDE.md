@@ -172,4 +172,5 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ `Applier` : seuls les fichiers dont le nouveau nom est encore pris passent par un nom temporaire.
 - ✅ Module **Table de remplacement** (`ReplaceTable`, paires `ReplacePair` avec case active ; `Parse` / `Format` pour le collage et les fichiers texte). Un `ImmutableArray` dans un record de module impose de redéfinir `Equals` (sinon comparaison par référence) ; dans les tests xUnit, comparer des tableaux (`ToArray()`).
 - ✅ Variables communes (`Engine/Variables.cs`, `Item.Variables` pour Capturer) et module **Modèle** (`Template`) ; page d'aide générale « Variables ».
-- Reste : Capturer, Dates.
+- ✅ Module **Capturer** (`Capture`) et Numérotation par valeur de variable (`ResetOn`). Les exemples d'aide qui ont besoin de plusieurs modules passent par `Then(…)` dans `HelpCatalog`.
+- Reste : Dates.
