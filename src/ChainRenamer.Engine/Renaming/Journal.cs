@@ -26,6 +26,13 @@ public sealed class Journal : IDisposable
 
     public static Journal Open(string path) => new(path);
 
+    /// <summary>Where the App and the CLI keep their journals: %LOCALAPPDATA%\ChainRenamer\journals.</summary>
+    public static string DefaultFolder { get; } =
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ChainRenamer", "journals");
+
+    /// <summary>A new journal file, named after the current time.</summary>
+    public static string NewPath() => Path.Combine(DefaultFolder, $"{DateTime.Now:yyyyMMdd-HHmmss-fff}.jsonl");
+
     public void Write(JournalEntry entry)
     {
         writer.WriteLine(JsonSerializer.Serialize(entry));

@@ -50,6 +50,7 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Favorites**, as in a browser: sorted into folders that become submenus of the Chains menu (Series ▸ Anime); Ctrl+D adds the open chain.
 - **Built-in help** (F1, or the **?** of a step): how a chain works, then a page per module with its settings and examples computed by the module itself. Searchable, in English and French.
 - **Interface** in English and French, following the Windows language or chosen in **Tools > Settings**.
+- **Command line**: `ChainRenamer.Cli` replays a saved chain on a folder, for scripts and scheduled tasks. Preview by default, renaming with `--apply`, undo with `--undo`.
 
 ## Planned
 
@@ -57,7 +58,19 @@ Replace never touches the extension: only an Extension module will. If a rule su
 - **Variables** usable in every module: `{folder}`, `{date}`, later EXIF and audio tags.
 - **Drop lists**: paste or drop a list of lines (episode titles…), line N goes to file N.
 - **Name segment**: limit a step to part of the name ("after the last ` - `").
-- **Command line**: replay a `.chain` file on a folder, for scripts and scheduled tasks.
+
+## Command line
+
+```
+ChainRenamer.Cli --chain <chain> [--subfolders] [--apply] [--library <folder>] <folder>
+ChainRenamer.Cli --undo <journal>
+```
+
+`<chain>` is a `.chain` file or the name of a chain of the library (the one chosen in the App by default). Without `--apply`, the command only lists what would be renamed, with the conflicts. With it, the files are renamed and the command prints the journal to give to `--undo`. Exit code: 0 done, 1 conflicts or renaming error, 2 wrong arguments, chain or folder.
+
+```
+ChainRenamer.Cli --chain Anime --subfolders "\\nas\video\Speedy"
+```
 
 ## Download
 
@@ -84,7 +97,7 @@ dotnet run --project src/ChainRenamer.App
 
 ```
 src/ChainRenamer.Engine/       the engine: pipeline, modules, chains, renaming (no UI dependency)
-src/ChainRenamer.Cli/          command line (coming)
+src/ChainRenamer.Cli/          command line
 src/ChainRenamer.App/          desktop app (Avalonia)
 tests/ChainRenamer.Engine.Tests/  engine tests
 tests/ChainRenamer.App.Tests/     app tests that need no screen (help, favorites, translations)

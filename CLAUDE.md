@@ -74,7 +74,7 @@ Commandes :
 dotnet build
 dotnet test
 dotnet run --project src/ChainRenamer.App
-dotnet run --project src/ChainRenamer.Cli -- --chain example.chain <folder>
+dotnet run --project src/ChainRenamer.Cli -- --chain example.chain [--subfolders] [--apply] <folder>
 ```
 
 ## Règles d'architecture (à respecter strictement)
@@ -153,7 +153,7 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
    - 0.6.0 (retours d'un testeur) : sélection par rectangle (`Views/MarqueeSelect.cs`, Ctrl pour ajouter) ; en-têtes « Avant / Après l'étape n · nom » ; colonne Original masquable ; description de chaque module (`ModuleSettingsViewModel.Description`) à côté du nom de l'étape ; menu d'ajout ordonné (Trier, Remplacer, Remplacer (avancé)).
    - 0.7.0 : format `.chain` (`Chain`, JSON versionné, types `[Module("…")]`, erreurs `ChainError`) ; bibliothèque (`ChainLibrary` : dossier de `.chain` + `favorites.json`, import, export, zip de sauvegarde, déplacement) ; menus Fichier et Chaînes ; préférences ; Remplacer « au début / à la fin du nom » ; README qui explique le principe.
    - 0.8.0 : favoris en dossiers comme dans un navigateur ; aide intégrée (pages générales et une page par module, exemples calculés, recherche) ; projet `ChainRenamer.App.Tests`.
-8. CLI minimale : charger une `.chain` (chemin ou nom dans la bibliothèque), afficher l'aperçu, appliquer avec `--apply`.
+8. ✅ CLI minimale : charger une `.chain` (chemin ou nom dans la bibliothèque, celle des paramètres de l'App par défaut), afficher l'aperçu et les conflits, appliquer avec `--apply`, annuler avec `--undo <journal>`. Codes de sortie 0 / 1 (conflits, erreur) / 2 (arguments). Le moteur fournit `new Pipeline(source, chain)` et `Journal.NewPath()`, partagés avec l'App.
 
 ## Jalon 2 (en cours)
 

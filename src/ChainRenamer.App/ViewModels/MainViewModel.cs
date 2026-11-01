@@ -291,7 +291,7 @@ public partial class MainViewModel : ViewModelBase
 
             // Progress<T> runs its callback on the thread that created it: here, the UI thread.
             var progress = new Progress<double>(p => SetStatus(string.Format(Strings.Apply_Running, p)));
-            var journal = NewJournalPath();
+            var journal = Journal.NewPath();
             var result = await Applier.ApplyAsync(plan, journal, progress);
 
             if (result.Succeeded)
@@ -331,10 +331,6 @@ public partial class MainViewModel : ViewModelBase
     }
 
     private void SetStatus(string text, bool error = false) => (Status, StatusIsError) = (text, error);
-
-    private static string NewJournalPath() => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "ChainRenamer", "journals", $"{DateTime.Now:yyyyMMdd-HHmmss}.jsonl");
 
     // ───────────── Preview ─────────────
 

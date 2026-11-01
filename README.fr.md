@@ -50,6 +50,7 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Favoris**, comme dans un navigateur : rangés dans des dossiers qui deviennent des sous-menus du menu Chaînes (Séries ▸ Anime) ; Ctrl+D ajoute la chaîne ouverte.
 - **Aide intégrée** (F1, ou le **?** d'une étape) : le principe de la chaîne, puis une page par module avec ses réglages et des exemples calculés par le module lui-même. Avec une recherche, en français et en anglais.
 - **Interface** en anglais et en français, selon la langue de Windows ou au choix dans **Outils > Paramètres**.
+- **Ligne de commande** : `ChainRenamer.Cli` rejoue une chaîne enregistrée sur un dossier, dans des scripts ou des tâches planifiées. Aperçu par défaut, renommage avec `--apply`, annulation avec `--undo`.
 
 ## Prévu
 
@@ -57,7 +58,19 @@ L'extension n'est jamais touchée par Remplacer : seul un module Extension le fe
 - **Variables** utilisables dans tous les modules : `{dossier}`, `{date}`, plus tard l'EXIF et les tags audio.
 - **Listes de dépôt** : coller ou déposer une liste de lignes (titres d'épisodes…), la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom (« après le dernier ` - ` »).
-- **Ligne de commande** : rejouer un fichier `.chain` sur un dossier, dans des scripts ou des tâches planifiées.
+
+## Ligne de commande
+
+```
+ChainRenamer.Cli --chain <chaîne> [--subfolders] [--apply] [--library <dossier>] <dossier>
+ChainRenamer.Cli --undo <journal>
+```
+
+`<chaîne>` est un fichier `.chain` ou le nom d'une chaîne de la bibliothèque (par défaut, celle choisie dans l'App). Sans `--apply`, la commande liste seulement ce qui serait renommé, avec les conflits. Avec, les fichiers sont renommés et la commande affiche le journal à donner à `--undo`. Code de sortie : 0 terminé, 1 conflits ou erreur de renommage, 2 arguments, chaîne ou dossier incorrects. Les messages de la commande sont en anglais.
+
+```
+ChainRenamer.Cli --chain Anime --subfolders "\\nas\video\Speedy"
+```
 
 ## Télécharger
 
@@ -84,7 +97,7 @@ dotnet run --project src/ChainRenamer.App
 
 ```
 src/ChainRenamer.Engine/       le moteur : pipeline, modules, chaînes, renommage (aucune dépendance graphique)
-src/ChainRenamer.Cli/          ligne de commande (à venir)
+src/ChainRenamer.Cli/          ligne de commande
 src/ChainRenamer.App/          application de bureau (Avalonia)
 tests/ChainRenamer.Engine.Tests/  tests du moteur
 tests/ChainRenamer.App.Tests/     tests de l'App sans écran (aide, favoris, traductions)

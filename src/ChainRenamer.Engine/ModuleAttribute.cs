@@ -1,3 +1,5 @@
+﻿using System.Reflection;
+
 namespace ChainRenamer.Engine;
 
 /// <summary>
@@ -8,4 +10,8 @@ namespace ChainRenamer.Engine;
 public sealed class ModuleAttribute(string name) : Attribute
 {
     public string Name { get; } = name;
+
+    /// <summary>The stable name of a module, or null if its type has none.</summary>
+    public static string? NameOf(IModule module) =>
+        module.GetType().GetCustomAttribute<ModuleAttribute>()?.Name;
 }

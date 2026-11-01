@@ -13,6 +13,12 @@ public sealed class Pipeline
 
     public Pipeline(IModule source) => InsertAt(0, new Step(StepId.New(), source));
 
+    /// <summary>A saved chain placed after a source, steps as saved (names, disabled steps).</summary>
+    public Pipeline(IModule source, Chain chain) : this(source)
+    {
+        foreach (var step in chain.Steps) InsertAt(steps.Count, step);
+    }
+
     public IReadOnlyList<Step> Steps => steps;
     public IReadOnlyList<FileItem> Files { get; private set; } = [];
 

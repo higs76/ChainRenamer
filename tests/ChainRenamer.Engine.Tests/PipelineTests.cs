@@ -1,3 +1,5 @@
+using ChainRenamer.Engine.Modules;
+
 namespace ChainRenamer.Engine.Tests;
 
 public class PipelineTests
@@ -266,6 +268,21 @@ public class PipelineTests
         pipeline.Update(Skipping(step, 0));
 
         Assert.Equal(["y-a-b-c", "x-a-b-c"], Names(pipeline.Output));
+    }
+
+    [Fact]
+    public void A_saved_chain_runs_after_the_source()
+    {
+        var chain = Chain.FromJson(new Chain([
+            new(StepId.New(), new ReplaceModule("x", "z"), "Mine"),
+            new(StepId.New(), new CaseModule(TextCase.Upper), IsEnabled: false),
+        ]).ToJson());
+        var replayed = new Pipeline(source, chain);
+        replayed.SetFiles([FileItem.FromPath(@"C:\photos\x.jpg")]);
+
+        Assert.Equal(["z.jpg"], Names(replayed.Output));
+        Assert.Equal([null, "Mine", null], replayed.Steps.Select(s => s.Name));
+        Assert.False(replayed.Steps[2].IsEnabled);
     }
 
     [Fact]
