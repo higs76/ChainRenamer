@@ -20,7 +20,7 @@ public static class HelpCatalog
         new("Selection", H.Group_Start, H.Selection_Title, H.Selection_Intro),
         new("Apply", H.Group_Start, H.Apply_Title, H.Apply_Intro),
         new("Library", H.Group_Start, H.Library_Title, H.Library_Intro),
-        new("Variables", H.Group_Start, H.Variables_Title, H.Variables_Intro)
+        new("Variables", H.Group_Start, H.Variables_Title, H.Variables_Intro + "\n\n" + H.Variables_Metadata)
         {
             OptionsTitle = null,
             Options =
@@ -32,6 +32,9 @@ public static class HelpCatalog
                 new("{date}", H.Variable_Date_Text),
                 new("{today}", H.Variable_Today_Text),
                 new("{size}", H.Variable_Size_Text),
+                new(H.Variable_Taken_Label, H.Variable_Taken_Text),
+                new(H.Variable_Photo_Label, H.Variable_Photo_Text),
+                new(H.Variable_Music_Label, H.Variable_Music_Text),
                 new(H.Variable_Captured_Label, H.Variable_Captured_Text),
             ],
             Examples =
@@ -84,7 +87,7 @@ public static class HelpCatalog
         new("Sort", H.Group_Modules, Strings.Module_Sort, H.Sort_Intro)
         {
             Module = typeof(SortModule),
-            Options = [new(Strings.Sort_Descending, H.Sort_Descending_Text)],
+            Options = [new(Strings.Sort_By, H.SortBy_Text), new(Strings.Sort_Descending, H.Sort_Descending_Text)],
             Examples =
             [
                 new(H.Sort_Example_Natural, new SortModule(), "Episode 10.mkv", "Episode 2.mkv", "Episode 1.mkv"),

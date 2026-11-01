@@ -1,4 +1,6 @@
 using ChainRenamer.App.Resources;
+using ChainRenamer.Engine;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChainRenamer.App.ViewModels;
@@ -22,6 +24,48 @@ public partial class MainViewModel
         source.Folder = folder;
         SelectedStep = Steps[0];
         source.LoadCommand.Execute(null);
+    }
+
+    // ───────────── Metadata ─────────────
+
+    /// <summary>The metadata of the folder is being read: renaming waits, since names may still change.</summary>
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ApplyCommand))]
+    public partial bool IsReadingMetadata { get; set; }
+
+    private CancellationTokenSource? metadataReading;
+
+    /// <summary>
+    /// Reads the shooting dates and music tags after the names are shown, then computes the preview again.
+    /// Loading another folder cancels it.
+    /// </summary>
+    private async Task ReadMetadataAsync(IReadOnlyList<FileItem> files)
+    {
+        metadataReading?.Cancel();
+        if (!files.Any(f => MetadataReader.CanRead(f.FullPath))) return;
+
+        var reading = metadataReading = new CancellationTokenSource();
+        IsReadingMetadata = true;
+        try
+        {
+            var progress = new Progress<int>(n =>
+            {
+                if (n % 25 == 0 && !reading.IsCancellationRequested) SetStatus(string.Format(Strings.Metadata_Reading, n, files.Count));
+            });
+            var read = await MetadataReader.ReadAsync(files, progress, reading.Token);
+            if (reading.IsCancellationRequested) return;
+            pipeline.SetFiles(read);
+            Refresh();
+            SetStatus(string.Format(Strings.Metadata_Done, read.Count(f => !f.Metadata.IsEmpty)));
+        }
+        catch (OperationCanceledException)
+        {
+            // Another folder was loaded meanwhile.
+        }
+        finally
+        {
+            if (metadataReading == reading) IsReadingMetadata = false;
+        }
     }
 
     private void Remember(string folder)

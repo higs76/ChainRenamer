@@ -316,4 +316,12 @@ Un nom auquel manque l'un des textes est laissé tel quel par l'étape, comme s'
 
 Choisissez un marqueur qui n'apparaît jamais dans vos noms. S'il en reste un à la fin, il se voit dans l'aperçu, et `@` est permis dans les noms de fichiers : rien ne casse, mais le nom est faux.</value></data>
   <data name="Markers_Example" xml:space="preserve"><value>Les trois étapes : marqueur après le code d'épisode, liste insérée avant le marqueur, marqueur retiré</value></data>
+  <data name="Variables_Metadata" xml:space="preserve"><value>**Métadonnées.** Quand un dossier contient des photos, des vidéos ou de la musique, ChainRenamer lit leurs métadonnées en arrière-plan une fois les noms affichés, puis l'aperçu se met à jour : la barre d'état montre l'avancement, et le renommage attend la fin. Un fichier sans la métadonnée demandée garde la variable telle quelle, ce qui se voit tout de suite dans l'aperçu.</value></data>
+  <data name="Variable_Taken_Text" xml:space="preserve"><value>`{prise}` ou `{taken}` : la date de prise de vue d'une photo (EXIF), ou la date de création d'une vidéo (MP4, MOV), avec les mêmes formats que `{date}` : `{prise:yyyy-MM-dd HH.mm}`. Lue dans les JPEG, HEIC, PNG, TIFF, WebP et les fichiers bruts de la plupart des appareils.</value></data>
+  <data name="Variable_Photo_Text" xml:space="preserve"><value>`{appareil}` ou `{camera}` le modèle de l'appareil, `{largeur}` et `{hauteur}` (`{width}`, `{height}`) la taille de l'image ou de la vidéo, en pixels.</value></data>
+  <data name="Variable_Music_Text" xml:space="preserve"><value>Les tags des fichiers MP3 (ID3) et FLAC : `{artiste}`, `{album}`, `{titre}`, `{piste}`, `{annee}`, `{genre}` (en anglais `{artist}`, `{title}`, `{track}`, `{year}`). Un nombre après les deux-points complète la piste : `{piste:2}` donne `03`.</value></data>
+  <data name="Variable_Photo_Label" xml:space="preserve"><value>{appareil} {largeur} {hauteur}</value></data>
+  <data name="Variable_Music_Label" xml:space="preserve"><value>{artiste} {album} {titre} {piste}…</value></data>
+  <data name="Variable_Taken_Label" xml:space="preserve"><value>{prise}</value></data>
+  <data name="SortBy_Text" xml:space="preserve"><value>Par nom dans l'ordre naturel (`Episode 2` avant `Episode 10`), par date de modification, par date de prise de vue (un fichier qui n'en a pas suit sa date de modification) ou par taille. Les valeurs égales gardent l'ordre naturel de leurs noms.</value></data>
 </root>

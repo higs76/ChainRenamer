@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using ChainRenamer.Engine;
 using ChainRenamer.Engine.Modules;
@@ -43,6 +43,7 @@ async Task<int> RunAsync(Arguments options, string chainArgument, string folder)
     try
     {
         files = await FileScanner.ScanAsync(source, cancellation.Token);
+        files = await MetadataReader.ReadAsync(files, cancellation: cancellation.Token);     // shooting dates, music tags
     }
     catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
     {

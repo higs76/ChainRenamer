@@ -250,4 +250,4 @@ Décisions :
 2. **Modules de base** : Casse, Supprimer, Nettoyer, Insérer, Numérotation, Extension (faits en 0.9.0), Filtrer, Formater les nombres (faits en 0.10.0) ; aide par module. ✅
 3. **Puissance** : variables communes, Capturer, Modèle, Dates, Table de remplacement, Listes de dépôt, segment de nom, marqueurs. ✅ (0.11.0 et 0.12.0)
 4. **Confort** : enregistrement des chaînes dans l'App, colonne réductible, annulation, menu de l'Explorateur. ✅ (0.13.0)
-5. **Métadonnées** : EXIF, ID3.
+5. **Métadonnées** : EXIF, ID3. ✅ (0.14.0) MetadataExtractor (Apache 2.0, dépend de XmpCore sous licence BSD) pour les photos et les vidéos MP4/MOV ; lecteur maison pour l'ID3 (v2.3, v2.4, v1) et les commentaires FLAC, plutôt que TagLib# (LGPL). Lecture en arrière-plan dans l'App, seulement pour les extensions qui peuvent en contenir ; Trier par date de prise de vue, de modification ou par taille. Restent : M4A, durée des vidéos, MKV.

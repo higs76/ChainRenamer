@@ -376,4 +376,16 @@
   <data name="Csv_Original" xml:space="preserve"><value>Nom actuel</value></data>
   <data name="Csv_New" xml:space="preserve"><value>Nouveau nom</value></data>
   <data name="Csv_Conflict" xml:space="preserve"><value>Conflit</value></data>
+  <data name="Sort_By" xml:space="preserve"><value>Trier par</value></data>
+  <data name="SortBy_Name" xml:space="preserve"><value>nom (ordre naturel)</value></data>
+  <data name="SortBy_Modified" xml:space="preserve"><value>date de modification</value></data>
+  <data name="SortBy_Taken" xml:space="preserve"><value>date de prise de vue (photos, vidéos)</value></data>
+  <data name="SortBy_Size" xml:space="preserve"><value>taille</value></data>
+  <data name="Metadata_Reading" xml:space="preserve"><value>Lecture des métadonnées : {0} / {1}…</value></data>
+  <data name="Metadata_Done" xml:space="preserve"><value>Métadonnées lues : {0} fichiers en ont.</value></data>
+  <data name="Variable_Taken" xml:space="preserve"><value>{prise} : la date de prise de vue (photos, vidéos)</value></data>
+  <data name="Variable_Camera" xml:space="preserve"><value>{appareil} : l'appareil photo</value></data>
+  <data name="Variable_Artist" xml:space="preserve"><value>{artiste} : l'artiste (musique)</value></data>
+  <data name="Variable_SongTitle" xml:space="preserve"><value>{titre} : le titre du morceau</value></data>
+  <data name="Variable_Track" xml:space="preserve"><value>{piste:2} : le numéro de piste, sur deux chiffres</value></data>
 </root>

@@ -17,6 +17,9 @@ public sealed record Item(FileId FileId, string Name)
     /// <summary>The last write time of the file, which never changes.</summary>
     public DateTime Modified { get; init; }
 
+    /// <summary>The metadata of the file (shooting date, music tags…), which never changes.</summary>
+    public ImmutableDictionary<string, string> Metadata { get; init; } = ImmutableDictionary<string, string>.Empty;
+
     /// <summary>The variables captured by the Capture steps so far, by name (case ignored): <c>{season}</c>.</summary>
     public ImmutableDictionary<string, string> Variables { get; init; } = ImmutableDictionary.Create<string, string>(StringComparer.OrdinalIgnoreCase);
 

@@ -314,4 +314,12 @@ A name that lacks one of the texts is left as it is by the step, as if it were u
 
 Choose a marker that never appears in your names. If one is left at the end, it shows in the preview, and `@` is allowed in file names: nothing breaks, but the name is wrong.</value></data>
   <data name="Markers_Example" xml:space="preserve"><value>The three steps: marker after the episode code, list inserted before the marker, marker removed</value></data>
+  <data name="Variables_Metadata" xml:space="preserve"><value>**Metadata.** When a folder holds photos, videos or music, ChainRenamer reads their metadata in the background once the names are shown, then the preview updates: the status bar shows the progress, and renaming waits for the end. A file without the metadata asked keeps the variable as typed, which shows at once in the preview.</value></data>
+  <data name="Variable_Taken_Text" xml:space="preserve"><value>The shooting date of a photo (EXIF), or the creation date of a video (MP4, MOV), with the same formats as `{date}`: `{taken:yyyy-MM-dd HH.mm}`. Read from JPEG, HEIC, PNG, TIFF, WebP and the raw files of most cameras.</value></data>
+  <data name="Variable_Photo_Text" xml:space="preserve"><value>`{camera}` the camera model, `{width}` and `{height}` the size of the image or the video, in pixels.</value></data>
+  <data name="Variable_Music_Text" xml:space="preserve"><value>The tags of MP3 (ID3) and FLAC files: `{artist}`, `{album}`, `{title}`, `{track}`, `{year}`, `{genre}`. A number after the colon pads the track: `{track:2}` gives `03`.</value></data>
+  <data name="Variable_Photo_Label" xml:space="preserve"><value>{camera} {width} {height}</value></data>
+  <data name="Variable_Music_Label" xml:space="preserve"><value>{artist} {album} {title} {track}…</value></data>
+  <data name="Variable_Taken_Label" xml:space="preserve"><value>{taken}</value></data>
+  <data name="SortBy_Text" xml:space="preserve"><value>By name in natural order (`Episode 2` before `Episode 10`), by modification date, by shooting date (a file without one goes by its modification date) or by size. Equal values keep the natural order of their names.</value></data>
 </root>

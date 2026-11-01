@@ -90,4 +90,30 @@ public class SortModuleTests
 
         Assert.Equal(input.Select(i => i.FileId), new SortModule().Apply(input).Select(i => i.FileId));
     }
+
+    private static readonly IReadOnlyList<Item> Photos =
+    [
+        new(FileId.New(), "b.jpg") { Size = 300, Modified = new(2024, 3, 1), Metadata = Taken("2020-06-01T10:00:00") },
+        new(FileId.New(), "a.jpg") { Size = 100, Modified = new(2024, 1, 1) },     // no shooting date: its modification date
+        new(FileId.New(), "c.jpg") { Size = 200, Modified = new(2024, 2, 1), Metadata = Taken("2022-06-01T10:00:00") },
+    ];
+
+    private static System.Collections.Immutable.ImmutableDictionary<string, string> Taken(string date) =>
+        System.Collections.Immutable.ImmutableDictionary<string, string>.Empty.Add("taken", date);
+
+    [Theory]
+    [InlineData(SortBy.Modified, false, new[] { "a.jpg", "c.jpg", "b.jpg" })]
+    [InlineData(SortBy.Taken, false, new[] { "b.jpg", "c.jpg", "a.jpg" })]
+    [InlineData(SortBy.Size, false, new[] { "a.jpg", "c.jpg", "b.jpg" })]
+    [InlineData(SortBy.Size, true, new[] { "b.jpg", "c.jpg", "a.jpg" })]
+    public void Sorts_by_date_or_size(SortBy by, bool descending, string[] expected) =>
+        Assert.Equal(expected, new SortModule(descending, by).Apply(Photos).Names());
+
+    [Fact]
+    public void Equal_values_keep_the_natural_order_of_names()
+    {
+        var input = TestItems.Of("Episode 10.mkv", "Episode 2.mkv");
+
+        Assert.Equal(["Episode 2.mkv", "Episode 10.mkv"], new SortModule(By: SortBy.Size).Apply(input).Names());
+    }
 }

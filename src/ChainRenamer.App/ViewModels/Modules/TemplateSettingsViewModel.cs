@@ -17,7 +17,8 @@ public partial class TemplateSettingsViewModel : ModuleSettingsViewModel
     /// of the interface ("{dossier} : le dossier du fichier"): that is what the menu inserts.
     /// </summary>
     public IReadOnlyList<Choice> Variables { get; } =
-        [.. new[] { Strings.Variable_Name, Strings.Variable_Folder, Strings.Variable_Number, Strings.Variable_Date, Strings.Variable_Size, Strings.Variable_Ext, Strings.Variable_Today }
+        [.. new[] { Strings.Variable_Name, Strings.Variable_Folder, Strings.Variable_Number, Strings.Variable_Date, Strings.Variable_Size, Strings.Variable_Ext, Strings.Variable_Today,
+                    Strings.Variable_Taken, Strings.Variable_Camera, Strings.Variable_Artist, Strings.Variable_SongTitle, Strings.Variable_Track }
             .Select(label => new Choice(label[..(label.IndexOf('}') + 1)], label))];
 
     /// <summary>The menu entries: each one adds its variable at the end of the template.</summary>

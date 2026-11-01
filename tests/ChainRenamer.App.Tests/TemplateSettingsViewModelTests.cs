@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Globalization;
 using ChainRenamer.App.ViewModels.Modules;
 using ChainRenamer.Engine;
@@ -15,7 +16,12 @@ public class TemplateSettingsViewModelTests
         CultureInfo.CurrentUICulture = new CultureInfo(language);
         try
         {
-            var item = new Item(FileId.New(), "a.mkv") { Folder = @"C:\Videos", Size = 10, Modified = DateTime.Today };
+            var metadata = new Dictionary<string, string> { ["taken"] = "2024-05-17T20:30:00", ["camera"] = "X", ["artist"] = "Y", ["title"] = "Z", ["track"] = "3" };
+            var item = new Item(FileId.New(), "a.mkv")
+            {
+                Folder = @"C:\Videos", Size = 10, Modified = DateTime.Today,
+                Metadata = metadata.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase),
+            };
             foreach (var variable in new TemplateSettingsViewModel().Variables.Select(v => (string)v.Value))
                 Assert.NotEqual(variable, Variables.Expand(variable, item, 1));
         }

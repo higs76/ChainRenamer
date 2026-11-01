@@ -39,6 +39,7 @@ public partial class MainViewModel : ViewModelBase
             pipeline.SetFiles(files);
             Remember(source.Folder.Trim());
             Refresh();
+            _ = ReadMetadataAsync(files);
         };
         Attach(new StepViewModel(pipeline.Steps[0].Id, source));
         AddEntries = [.. ModuleCatalog.Addable.Select(t => new MenuEntry(t.Title, new RelayCommand(() => AddStep(t.Create(null)))))];
@@ -255,7 +256,7 @@ public partial class MainViewModel : ViewModelBase
     [NotifyCanExecuteChangedFor(nameof(UndoCommand))]
     public partial string? LastJournal { get; set; }
 
-    private bool CanApply => finalPlan.CanApply && !IsBusy;
+    private bool CanApply => finalPlan.CanApply && !IsBusy && !IsReadingMetadata;
     private bool CanUndo => LastJournal is not null && !IsBusy;
 
     private void Confirm(string text, string yes, Func<Task> action)

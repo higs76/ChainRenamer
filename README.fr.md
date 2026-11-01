@@ -41,6 +41,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - **Capturer** : une expression régulière à groupes nommés transforme des parties du nom en variables, `{saison}`, `{episode}`, réutilisées par les étapes suivantes.
 - **Modèle** : reconstruire tout le nom à partir de texte et de variables : `{dossier:2} - {dossier} - {n:2}`.
 - **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
+- **Photos, vidéos et musique** : `{prise}` la date de prise de vue (EXIF, MP4, MOV), `{appareil}`, `{largeur}`, `{hauteur}` ; `{artiste}`, `{album}`, `{titre}`, `{piste}` depuis les tags MP3 et FLAC. Tri par date de prise de vue.
 - **Variables** dans Modèle, Insérer et Remplacer : `{dossier}`, `{nom}`, `{n}`, `{date}`, `{taille}`, `{aujourdhui}`…
 - **Casse** : minuscules, MAJUSCULES, Titre ou Phrase, avec les petits mots des titres français ou anglais (`Le Seigneur des Anneaux`), des exceptions (`iPhone`, `TV`), les chiffres romains et les sigles.
 - **Numérotation** : `001`, lettres ou chiffres romains, n'importe où dans le nom, en recommençant dans chaque dossier si on le souhaite.
@@ -66,7 +67,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 ChainRenamer vous convient si vous renommez des fichiers par lots, sous Windows, et voulez comprendre ce que fait chaque règle avant que quoi que ce soit change sur le disque. Il est à l'aise avec les épisodes de séries et d'animes, les dossiers de photos, les albums de musique, et les dossiers sur un NAS.
 
 Pas encore :
-- **Métadonnées** : des noms construits à partir de la date EXIF des photos, des tags de musique (ID3) ou des propriétés vidéo sont prévus, pas disponibles.
+- **Certaines métadonnées** : les tags des fichiers de musique M4A et la durée des vidéos ne sont pas encore lus, ni les fichiers MKV.
 - **Autres systèmes** : l'application est construite avec Avalonia, qui fonctionne aussi sous macOS et Linux, mais seule la version Windows est publiée et testée. Ses vérifications suivent les règles de nommage de Windows.
 - **Scripts** : il n'y a pas de module de script ; les expressions régulières et la chaîne couvrent la plupart des besoins.
 
@@ -74,7 +75,7 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 
 ## À venir
 
-- **Variables de métadonnées** : dates EXIF des photos, tags de musique.
+- **Plus de métadonnées** : tags de musique M4A, durée des vidéos.
 
 ## Ligne de commande
 
@@ -93,7 +94,7 @@ La ligne de commande est dans son propre zip dans les [Releases](../../releases)
 
 ## Pour les développeurs
 
-ChainRenamer est écrit en **C# / .NET 10**, avec [Avalonia UI](https://avaloniaui.net/) 12 (thème Fluent), [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) et xUnit. Pour compiler, il faut le [SDK .NET 10](https://dotnet.microsoft.com/download) :
+ChainRenamer est écrit en **C# / .NET 10**, avec [Avalonia UI](https://avaloniaui.net/) 12 (thème Fluent), [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet), [MetadataExtractor](https://github.com/drewnoakes/metadata-extractor-dotnet) (Apache 2.0) et xUnit. Pour compiler, il faut le [SDK .NET 10](https://dotnet.microsoft.com/download) :
 
 ```
 dotnet build

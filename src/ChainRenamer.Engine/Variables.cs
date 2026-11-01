@@ -20,6 +20,14 @@ public static partial class Variables
         ["dossier"] = "folder",
         ["taille"] = "size",
         ["aujourdhui"] = "today",
+        ["prise"] = "taken",
+        ["appareil"] = "camera",
+        ["largeur"] = "width",
+        ["hauteur"] = "height",
+        ["artiste"] = "artist",
+        ["titre"] = "title",
+        ["piste"] = "track",
+        ["annee"] = "year",
     };
 
     [GeneratedRegex(@"\{(?<name>[\p{L}\p{N}_]+)(?::(?<format>[^{}]*))?\}")]
@@ -37,7 +45,13 @@ public static partial class Variables
         if (item.Variables.TryGetValue(name, out var captured))
             return int.TryParse(format, out int width) ? captured.PadLeft(Math.Clamp(width, 1, 12), '0') : captured;
 
-        return (Aliases.GetValueOrDefault(name) ?? name).ToLowerInvariant() switch
+        var key = (Aliases.GetValueOrDefault(name) ?? name).ToLowerInvariant();
+        // Metadata: the shooting date takes a date format, the others a number of digits ({track:2} gives 03).
+        if (item.Metadata.TryGetValue(key, out var meta))
+            return key == "taken" && DateTime.TryParse(meta, Culture, DateTimeStyles.None, out var taken) ? taken.ToString(DateFormat(format), Culture)
+                : int.TryParse(format, out int digits) ? meta.PadLeft(Math.Clamp(digits, 1, 12), '0') : meta;
+
+        return key switch
         {
             "name" => item.Stem,
             "ext" => item.Extension.TrimStart('.'),

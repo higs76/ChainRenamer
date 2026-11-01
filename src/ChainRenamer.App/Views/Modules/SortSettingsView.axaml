@@ -5,7 +5,12 @@
              x:Class="ChainRenamer.App.Views.Modules.SortSettingsView"
              x:DataType="vm:SortSettingsViewModel">
     <StackPanel Spacing="8">
-        <CheckBox IsChecked="{Binding Descending}" Content="{x:Static res:Strings.Sort_Descending}" />
+        <WrapPanel>
+            <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" Text="{x:Static res:Strings.Sort_By}" />
+            <ComboBox ItemsSource="{Binding Choices}" SelectedValue="{Binding By}" MinWidth="240" Margin="0,0,24,0"
+                      SelectedValueBinding="{Binding Value, x:DataType=vm:Choice}" DisplayMemberBinding="{Binding Label, x:DataType=vm:Choice}" />
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding Descending}" Content="{x:Static res:Strings.Sort_Descending}" />
+        </WrapPanel>
         <TextBlock Text="{x:Static res:Strings.Sort_Hint}" Opacity="0.7" TextWrapping="Wrap" />
         <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsManual}">
             <TextBlock Text="{x:Static res:Strings.Sort_Manual}" VerticalAlignment="Center" FontWeight="SemiBold" />

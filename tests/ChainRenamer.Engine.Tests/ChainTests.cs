@@ -34,6 +34,7 @@ public class ChainTests
             new InsertModule("x", InsertAt.After, 3, "a", MatchCase: true),
             new NumberingModule(5, 2, 3, NumberStyle.UpperRoman, InsertAt.End, 4, "b", "_", ResetPerFolder: true, ResetOn: "season"),
             new ExtensionModule(ExtensionAction.Add, "gif"),
+            new SortModule(Descending: true, SortBy.Taken),
             new PadNumbersModule(3, WhichNumbers.Last, TrimZeros: true),
             new ReplaceTableModule([new("a", "b"), new(" x ", "", Enabled: false)], MatchCase: true),
             new TemplateModule("{folder} - {n:2}"),

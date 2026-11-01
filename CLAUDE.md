@@ -186,3 +186,8 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ Colonne de la chaîne réductible (bouton ‹ ›, `Preferences.ChainCollapsed`) : numéro et icône de chaque étape (`ModuleType.Icon`, caractères du texte, pas d'images), le détail au survol. Les éléments à masquer sont regroupés dans une grille `full` : un style ne peut pas l'emporter sur un `IsVisible` lié localement.
 - ✅ Bandeau d'avertissement de la Liste (nombre de lignes, paires sans fichier) ; Fichier > Exporter l'aperçu (CSV).
 - Version 0.13.0.
+
+## Jalon 5 : métadonnées (en cours)
+
+- ✅ Première dépendance du moteur : **MetadataExtractor** 2.9.3 (Apache 2.0 ; XmpCore, BSD). `MetadataReader` (dossier `Engine/Metadata`, espace de noms `ChainRenamer.Engine`) : photos (EXIF), vidéos MP4/MOV, et `AudioTags` maison pour MP3 (ID3) et FLAC. Valeurs dans `FileItem.Metadata` puis `Item.Metadata` ; dates au format `yyyy-MM-ddTHH:mm:ss`. Variables `{taken}`, `{camera}`, `{width}`, `{height}`, `{artist}`, `{album}`, `{title}`, `{track}`, `{year}`, `{genre}` (alias français `{prise}`, `{appareil}`…). L'App lit en arrière-plan après l'affichage des noms (`IsReadingMetadata` bloque « Appliquer ») ; la CLI lit avant de calculer. Trier par nom, date de modification, date de prise de vue ou taille (`SortBy`). Les tests fabriquent leurs JPEG, MP3 et FLAC octet par octet.
+- Version 0.14.0.

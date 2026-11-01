@@ -41,6 +41,7 @@ ChainRenamer replaces the panels with an assembly line:
 - **Capture**: a regular expression with named groups turns parts of the name into variables, `{season}`, `{episode}`, reused by the following steps.
 - **Template**: rebuild the whole name from text and variables: `{folder:2} - {folder} - {n:2}`.
 - **Insert**: a text at the start, at the end, at a position, before or after a text.
+- **Photos, videos and music**: `{taken}` the shooting date (EXIF, MP4, MOV), `{camera}`, `{width}`, `{height}`; `{artist}`, `{album}`, `{title}`, `{track}` from MP3 and FLAC tags. Sort by shooting date.
 - **Variables** in Template, Insert and Replace: `{folder}`, `{name}`, `{n}`, `{date}`, `{size}`, `{today}`…
 - **Case**: lowercase, UPPERCASE, Title Case or Sentence case, with the small words of English or French titles (`The Lord of the Rings`), exceptions (`iPhone`, `TV`), Roman numerals and acronyms.
 - **Numbering**: `001`, letters or Roman numerals, anywhere in the name, starting again in each folder if you want.
@@ -66,7 +67,7 @@ ChainRenamer replaces the panels with an assembly line:
 ChainRenamer suits you if you rename files by batches, on Windows, and want to understand what each rule does before anything changes on the disk. It is at ease with series and anime episodes, photo folders, music albums, and folders on a NAS.
 
 Not there yet:
-- **Metadata**: names built from photo EXIF dates, music tags (ID3) or video properties are planned, not available.
+- **Some metadata**: the tags of M4A music files and the duration of videos are not read yet, nor are MKV files.
 - **Other systems**: the app is built with Avalonia, which also runs on macOS and Linux, but only Windows is published and tested. Its checks follow the Windows naming rules.
 - **Scripting**: there is no script module; regular expressions and the chain cover most needs.
 
@@ -74,7 +75,7 @@ The project is young (version 0.x): it works and is tested, but the list of modu
 
 ## Coming next
 
-- **Metadata variables**: photo EXIF dates, music tags.
+- **More metadata**: M4A music tags, video duration.
 
 ## Command line
 
@@ -93,7 +94,7 @@ The command line comes in its own zip in the [Releases](../../releases), `ChainR
 
 ## For developers
 
-ChainRenamer is written in **C# / .NET 10**, with [Avalonia UI](https://avaloniaui.net/) 12 (Fluent theme), [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) and xUnit. Building requires the [.NET 10 SDK](https://dotnet.microsoft.com/download):
+ChainRenamer is written in **C# / .NET 10**, with [Avalonia UI](https://avaloniaui.net/) 12 (Fluent theme), [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet), [MetadataExtractor](https://github.com/drewnoakes/metadata-extractor-dotnet) (Apache 2.0) and xUnit. Building requires the [.NET 10 SDK](https://dotnet.microsoft.com/download):
 
 ```
 dotnet build
