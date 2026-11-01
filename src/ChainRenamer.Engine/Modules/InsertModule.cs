@@ -28,7 +28,7 @@ public sealed record InsertModule(
     bool MatchCase = false) : INameModule
 {
     public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) =>
-        Text.Length == 0 ? input : [.. input.Select(i => i.With(NamePart.Stem, Insert(i.Stem, Text)))];
+        Text.Length == 0 ? input : [.. input.Select((i, k) => i.With(NamePart.Stem, Insert(i.Stem, Variables.Expand(Text, i, k + 1))))];
 
     /// <summary>Inserts <paramref name="text"/> where this module says; also used by <see cref="NumberingModule"/>.</summary>
     internal string Insert(string name, string text)

@@ -18,6 +18,6 @@ public sealed record RegexReplaceModule(string Pattern, string ReplaceWith, bool
         if (Pattern.Length == 0) return input;
 
         var regex = new Regex(Pattern, MatchCase ? RegexOptions.None : RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, Timeout);
-        return [.. input.Select(i => i.With(NamePart.Stem, regex.Replace(i.Stem, ReplaceWith)))];
+        return [.. input.Select((i, k) => i.With(NamePart.Stem, regex.Replace(i.Stem, Variables.Expand(ReplaceWith, i, k + 1))))];
     }
 }

@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ChainRenamer.App.ViewModels.Modules"
+             xmlns:res="using:ChainRenamer.App.Resources"
+             x:Class="ChainRenamer.App.Views.Modules.TemplateSettingsView"
+             x:DataType="vm:TemplateSettingsViewModel">
+    <StackPanel Spacing="8">
+        <TextBlock Text="{x:Static res:Strings.Template_Label}" />
+        <Grid ColumnDefinitions="*,Auto">
+            <TextBox Text="{Binding Template}" FontFamily="Consolas,monospace" Watermark="{}{folder} - {n:2}" />
+            <!-- Each menu entry adds its variable at the end of the template -->
+            <Button Grid.Column="1" Margin="8,0,0,0" Content="{x:Static res:Strings.Template_AddVariable}">
+                <Button.Flyout>
+                    <MenuFlyout ItemsSource="{Binding Variables}">
+                        <MenuFlyout.ItemContainerTheme>
+                            <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="vm:Choice">
+                                <Setter Property="Header" Value="{Binding Label}" />
+                                <Setter Property="Command" Value="{Binding $parent[UserControl].((vm:TemplateSettingsViewModel)DataContext).AddVariableCommand}" />
+                                <Setter Property="CommandParameter" Value="{Binding Value}" />
+                            </ControlTheme>
+                        </MenuFlyout.ItemContainerTheme>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+        <TextBlock Text="{x:Static res:Strings.Template_Hint}" Opacity="0.7" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

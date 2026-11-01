@@ -311,4 +311,16 @@
   <data name="ReplaceTable_Remove" xml:space="preserve"><value>Supprimer cette ligne</value></data>
   <data name="ReplaceTable_Hint" xml:space="preserve"><value>Collez ou chargez une paire par ligne : le texte et son remplacement séparés par une tabulation (comme copiés depuis un tableur), → ou =. Une ligne seule remplace son texte par rien.</value></data>
   <data name="Picker_Text" xml:space="preserve"><value>Fichiers texte</value></data>
+  <data name="Module_Template" xml:space="preserve"><value>Modèle</value></data>
+  <data name="Template_Description" xml:space="preserve"><value>Remplace tout le nom, sans son extension, par un modèle fait de texte et de variables : {dossier} - {n:2}.</value></data>
+  <data name="Template_Label" xml:space="preserve"><value>Nouveau nom (l'extension est gardée)</value></data>
+  <data name="Template_AddVariable" xml:space="preserve"><value>Insérer une variable</value></data>
+  <data name="Template_Hint" xml:space="preserve"><value>{nom} le nom actuel, {dossier} le dossier ({dossier:2} son parent), {n} le rang ({n:3} sur trois chiffres), {date} la date de modification ({date:yyyyMMdd}), {taille}, {ext}, {aujourdhui}, et les variables d'une étape Capturer. F1 les présente toutes.</value></data>
+  <data name="Variable_Name" xml:space="preserve"><value>{nom} : le nom actuel</value></data>
+  <data name="Variable_Folder" xml:space="preserve"><value>{dossier} : le dossier du fichier</value></data>
+  <data name="Variable_Number" xml:space="preserve"><value>{n:2} : le rang, sur deux chiffres</value></data>
+  <data name="Variable_Date" xml:space="preserve"><value>{date} : la date de modification</value></data>
+  <data name="Variable_Size" xml:space="preserve"><value>{taille} : la taille</value></data>
+  <data name="Variable_Ext" xml:space="preserve"><value>{ext} : l'extension, sans son point</value></data>
+  <data name="Variable_Today" xml:space="preserve"><value>{aujourdhui} : la date du jour</value></data>
 </root>

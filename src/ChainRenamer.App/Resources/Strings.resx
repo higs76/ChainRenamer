@@ -311,4 +311,16 @@
   <data name="ReplaceTable_Remove" xml:space="preserve"><value>Remove this line</value></data>
   <data name="ReplaceTable_Hint" xml:space="preserve"><value>Paste or load one pair per line: the text and its replacement separated by a tab (as copied from a spreadsheet), → or =. A line alone replaces its text by nothing.</value></data>
   <data name="Picker_Text" xml:space="preserve"><value>Text files</value></data>
+  <data name="Module_Template" xml:space="preserve"><value>Template</value></data>
+  <data name="Template_Description" xml:space="preserve"><value>Replaces the whole name, without its extension, by a template made of text and variables: {folder} - {n:2}.</value></data>
+  <data name="Template_Label" xml:space="preserve"><value>New name (the extension is kept)</value></data>
+  <data name="Template_AddVariable" xml:space="preserve"><value>Insert a variable</value></data>
+  <data name="Template_Hint" xml:space="preserve"><value>{name} the current name, {folder} the folder ({folder:2} its parent), {n} the rank ({n:3} on three digits), {date} the modification date ({date:yyyyMMdd}), {size}, {ext}, {today}, and the variables of a Capture step. F1 lists them all.</value></data>
+  <data name="Variable_Name" xml:space="preserve"><value>{name}: the current name</value></data>
+  <data name="Variable_Folder" xml:space="preserve"><value>{folder}: the folder of the file</value></data>
+  <data name="Variable_Number" xml:space="preserve"><value>{n:2}: the rank, on two digits</value></data>
+  <data name="Variable_Date" xml:space="preserve"><value>{date}: the modification date</value></data>
+  <data name="Variable_Size" xml:space="preserve"><value>{size}: the size</value></data>
+  <data name="Variable_Ext" xml:space="preserve"><value>{ext}: the extension, without its dot</value></data>
+  <data name="Variable_Today" xml:space="preserve"><value>{today}: the date of the day</value></data>
 </root>

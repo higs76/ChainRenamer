@@ -25,6 +25,7 @@ public static class ModuleCatalog
         ModuleType.Of<ReplaceModule>(Strings.Module_Replace, m => new ReplaceSettingsViewModel(m)),
         ModuleType.Of<RegexReplaceModule>(Strings.Module_RegexReplace, m => new RegexReplaceSettingsViewModel(m)),
         ModuleType.Of<ReplaceTableModule>(Strings.Module_ReplaceTable, m => new ReplaceTableSettingsViewModel(m)),
+        ModuleType.Of<TemplateModule>(Strings.Module_Template, m => new TemplateSettingsViewModel(m)),
         ModuleType.Of<CaseModule>(Strings.Module_Case, m => new CaseSettingsViewModel(m)),
         ModuleType.Of<RemoveModule>(Strings.Module_Remove, m => new RemoveSettingsViewModel(m)),
         ModuleType.Of<InsertModule>(Strings.Module_Insert, m => new InsertSettingsViewModel(m)),

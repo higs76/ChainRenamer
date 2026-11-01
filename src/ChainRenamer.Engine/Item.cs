@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace ChainRenamer.Engine;
 
 /// <summary>
@@ -14,6 +16,9 @@ public sealed record Item(FileId FileId, string Name)
 
     /// <summary>The last write time of the file, which never changes.</summary>
     public DateTime Modified { get; init; }
+
+    /// <summary>The variables captured by the Capture steps so far, by name (case ignored): <c>{season}</c>.</summary>
+    public ImmutableDictionary<string, string> Variables { get; init; } = ImmutableDictionary.Create<string, string>(StringComparer.OrdinalIgnoreCase);
 
     // Not Path.GetExtension: a module may have put a '\' in the name, which must stay plain text.
     private int ExtensionStart => Name.LastIndexOf('.') is var i and >= 0 && i < Name.Length - 1 ? i : Name.Length;

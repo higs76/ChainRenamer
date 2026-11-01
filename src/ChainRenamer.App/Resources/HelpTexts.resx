@@ -251,4 +251,25 @@ A table is made to be reused: transliteration (`ß` → `ss`, `œ` → `oe`), th
   <data name="ReplaceTable_Example_Tags" xml:space="preserve"><value>Download tags: `VOSTFR` → `VOST`, `[1080p]` → nothing</value></data>
   <data name="ReplaceTable_Example_Chain" xml:space="preserve"><value>In order: `S01` → `Saison 1`, then `Saison` → `Season`</value></data>
   <data name="ReplaceTable_Example_Letters" xml:space="preserve"><value>Transliteration, matching case: `ß` → `ss`, `æ` → `ae`, `ø` → `o`, `Ø` → `O`</value></data>
+  <data name="Variables_Title" xml:space="preserve"><value>Variables</value></data>
+  <data name="Variables_Intro" xml:space="preserve"><value>A variable is a word between braces that each file replaces by its own value: `{folder}` becomes the name of the file's folder, `{n}` its rank. Variables work in **Template**, **Insert**, and in the replacement text of **Replace** and **Replace (advanced)**.
+
+Some take a format after a colon: `{n:3}` gives `007`, `{date:yyyyMMdd}` gives `20240517`. A **Capture** step adds its own variables, named as you wish, such as `{season}`. A word between braces that is not a variable stays as typed.</value></data>
+  <data name="Variable_Name_Text" xml:space="preserve"><value>The current name, without its extension, as the previous steps made it.</value></data>
+  <data name="Variable_Ext_Text" xml:space="preserve"><value>The extension, without its dot: `mkv`.</value></data>
+  <data name="Variable_Folder_Text" xml:space="preserve"><value>The folder of the file: `Season 1`. `{folder:2}` is the folder above it (the series), `{folder:3}` the one above, and so on.</value></data>
+  <data name="Variable_Number_Text" xml:space="preserve"><value>The rank of the file among those the step works on, from 1. `{n:3}` writes it on three digits: `001`. The Numbering module offers more (start, step, letters).</value></data>
+  <data name="Variable_Date_Text" xml:space="preserve"><value>The date the file was last modified: `2024-05-17`. Any .NET date format after the colon: `{date:yyyy}` for the year, `{date:yyyy-MM-dd HH.mm}` with the time.</value></data>
+  <data name="Variable_Today_Text" xml:space="preserve"><value>The date of the day, with the same formats as `{date}`.</value></data>
+  <data name="Variable_Size_Text" xml:space="preserve"><value>The size of the file in the most readable unit: `1.5 MB`. `{size:KB}`, `{size:MB}` or `{size:GB}` give a rounded number in that unit, `{size:B}` the bytes.</value></data>
+  <data name="Variable_Captured_Text" xml:space="preserve"><value>The variables of a Capture step placed earlier in the chain: `{season}`, `{episode}`… They win over a built-in variable of the same name.</value></data>
+  <data name="Variable_Captured_Label" xml:space="preserve"><value>Captured variables</value></data>
+  <data name="Template_Intro" xml:space="preserve"><value>Replaces the whole name, without its extension, by a template: some text and **variables** (see that page), which each file replaces by its own values. The extension is kept.
+
+An empty template leaves the names as they are. Where a Template rebuilds the name entirely, Insert adds to it.</value></data>
+  <data name="Template_Text_Text" xml:space="preserve"><value>The new name: text and variables. **Insert a variable** adds one at the end of the template.</value></data>
+  <data name="Template_Example_Folders" xml:space="preserve"><value>`{folder:2} - {folder} - {n:2}`: the series, the season, the rank</value></data>
+  <data name="Template_Example_Date" xml:space="preserve"><value>`{n:3} - {name}`: the rank in front of the name</value></data>
+  <data name="Insert_Variables_Text" xml:space="preserve"><value>The text may hold **variables**: `[{folder}] ` puts the name of the folder in front of each file.</value></data>
+  <data name="Insert_Example_Variable" xml:space="preserve"><value>The folder in front: `[{folder}] `</value></data>
 </root>

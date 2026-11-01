@@ -36,6 +36,7 @@ public class ChainTests
             new ExtensionModule(ExtensionAction.Add, "gif"),
             new PadNumbersModule(3, WhichNumbers.Last, TrimZeros: true),
             new ReplaceTableModule([new("a", "b"), new(" x ", "", Enabled: false)], MatchCase: true),
+            new TemplateModule("{folder} - {n:2}"),
             new FilterModule(FilterOn.Size, TextTest.Regex, "x", true, 1.5, 3, SizeUnit.GB, new DateOnly(2024, 1, 2), new DateOnly(2025, 3, 4), Exclude: true),
         ];
 

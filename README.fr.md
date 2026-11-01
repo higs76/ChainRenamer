@@ -36,7 +36,9 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - **Remplacer (avancé)** : expressions régulières avec groupes : `(\d+)x(\d+)` → `S$1E$2`.
 - **Table de remplacement** : une liste de textes à remplacer, collée depuis un tableur ou chargée depuis un fichier texte, à réutiliser d'une chaîne à l'autre.
 - **Supprimer** : les premiers ou derniers caractères, une plage de positions, ce qui précède ou suit un texte, chaque partie entre deux textes (`[1080p]`).
+- **Modèle** : reconstruire tout le nom à partir de texte et de variables : `{dossier:2} - {dossier} - {n:2}`.
 - **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
+- **Variables** dans Modèle, Insérer et Remplacer : `{dossier}`, `{nom}`, `{n}`, `{date}`, `{taille}`, `{aujourdhui}`…
 - **Casse** : minuscules, MAJUSCULES, Titre ou Phrase, avec les petits mots des titres français ou anglais (`Le Seigneur des Anneaux`), des exceptions (`iPhone`, `TV`), les chiffres romains et les sigles.
 - **Numérotation** : `001`, lettres ou chiffres romains, n'importe où dans le nom, en recommençant dans chaque dossier si on le souhaite.
 - **Formater les nombres** : `Episode 5` → `Episode 05`, `S1E5` → `S01E05`.
@@ -67,8 +69,8 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 
 ## À venir
 
-- **Modules** : Modèle, Dates, Capturer (des parties du nom réutilisées comme variables).
-- **Variables** dans tous les modules : `{dossier}`, `{date}`, puis l'EXIF des photos et les tags de musique.
+- **Modules** : Dates, Capturer (des parties du nom réutilisées comme variables).
+- **Variables de métadonnées** : dates EXIF des photos, tags de musique.
 - **Listes à déposer** : coller une liste de titres d'épisodes, la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom, comme « après le dernier ` - ` ».
 

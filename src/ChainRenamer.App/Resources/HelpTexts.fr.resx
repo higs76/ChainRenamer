@@ -251,4 +251,27 @@ Une table est faite pour resservir : translittération (`ß` → `ss`, `œ` → 
   <data name="ReplaceTable_Example_Tags" xml:space="preserve"><value>Étiquettes de téléchargement : `VOSTFR` → `VOST`, `[1080p]` → rien</value></data>
   <data name="ReplaceTable_Example_Chain" xml:space="preserve"><value>Dans l'ordre : `S01` → `Saison 1`, puis `Saison` → `Season`</value></data>
   <data name="ReplaceTable_Example_Letters" xml:space="preserve"><value>Translittération, en respectant la casse : `ß` → `ss`, `æ` → `ae`, `ø` → `o`, `Ø` → `O`</value></data>
+  <data name="Variables_Title" xml:space="preserve"><value>Variables</value></data>
+  <data name="Variables_Intro" xml:space="preserve"><value>Une variable est un mot entre accolades que chaque fichier remplace par sa propre valeur : `{dossier}` devient le nom du dossier du fichier, `{n}` son rang. Les variables fonctionnent dans **Modèle**, **Insérer**, et dans le texte de remplacement de **Remplacer** et **Remplacer (avancé)**.
+
+Certaines prennent un format après deux-points : `{n:3}` donne `007`, `{date:yyyyMMdd}` donne `20240517`. Une étape **Capturer** ajoute ses propres variables, nommées comme vous voulez, par exemple `{saison}`. Un mot entre accolades qui n'est pas une variable reste tel quel.
+
+Chaque variable a un nom anglais, qui marche toujours, et parfois un nom français : `{dossier}` et `{folder}` sont la même. Une chaîne écrite avec l'un s'ouvre dans les deux langues de l'interface.</value></data>
+  <data name="Variable_Name_Text" xml:space="preserve"><value>`{nom}` ou `{name}` : le nom actuel, sans son extension, tel que l'ont fait les étapes précédentes.</value></data>
+  <data name="Variable_Ext_Text" xml:space="preserve"><value>`{ext}` : l'extension, sans son point : `mkv`.</value></data>
+  <data name="Variable_Folder_Text" xml:space="preserve"><value>`{dossier}` ou `{folder}` : le dossier du fichier : `Saison 1`. `{dossier:2}` est le dossier au-dessus (la série), `{dossier:3}` celui d'encore au-dessus, et ainsi de suite.</value></data>
+  <data name="Variable_Number_Text" xml:space="preserve"><value>`{n}` : le rang du fichier parmi ceux que l'étape traite, à partir de 1. `{n:3}` l'écrit sur trois chiffres : `001`. Le module Numérotation en offre davantage (début, pas, lettres).</value></data>
+  <data name="Variable_Date_Text" xml:space="preserve"><value>`{date}` : la date de dernière modification du fichier : `2024-05-17`. N'importe quel format de date .NET après les deux-points : `{date:yyyy}` pour l'année, `{date:yyyy-MM-dd HH.mm}` avec l'heure.</value></data>
+  <data name="Variable_Today_Text" xml:space="preserve"><value>`{aujourdhui}` ou `{today}` : la date du jour, avec les mêmes formats que `{date}`.</value></data>
+  <data name="Variable_Size_Text" xml:space="preserve"><value>`{taille}` ou `{size}` : la taille du fichier dans l'unité la plus lisible : `1.5 MB`. `{taille:KB}`, `{taille:MB}` ou `{taille:GB}` donnent un nombre arrondi dans cette unité, `{taille:B}` les octets.</value></data>
+  <data name="Variable_Captured_Text" xml:space="preserve"><value>Les variables d'une étape Capturer placée plus haut dans la chaîne : `{saison}`, `{episode}`… Elles l'emportent sur une variable intégrée du même nom.</value></data>
+  <data name="Variable_Captured_Label" xml:space="preserve"><value>Variables capturées</value></data>
+  <data name="Template_Intro" xml:space="preserve"><value>Remplace tout le nom, sans son extension, par un modèle : du texte et des **variables** (voir cette page), que chaque fichier remplace par ses propres valeurs. L'extension est gardée.
+
+Un modèle vide laisse les noms tels quels. Là où un Modèle reconstruit tout le nom, Insérer y ajoute.</value></data>
+  <data name="Template_Text_Text" xml:space="preserve"><value>Le nouveau nom : du texte et des variables. **Insérer une variable** en ajoute une à la fin du modèle.</value></data>
+  <data name="Template_Example_Folders" xml:space="preserve"><value>`{dossier:2} - {dossier} - {n:2}` : la série, la saison, le rang</value></data>
+  <data name="Template_Example_Date" xml:space="preserve"><value>`{n:3} - {nom}` : le rang devant le nom</value></data>
+  <data name="Insert_Variables_Text" xml:space="preserve"><value>Le texte peut contenir des **variables** : `[{dossier}] ` met le nom du dossier devant chaque fichier.</value></data>
+  <data name="Insert_Example_Variable" xml:space="preserve"><value>Le dossier devant : `[{dossier}] `</value></data>
 </root>

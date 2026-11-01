@@ -19,6 +19,25 @@ public static class HelpCatalog
         new("Selection", H.Group_Start, H.Selection_Title, H.Selection_Intro),
         new("Apply", H.Group_Start, H.Apply_Title, H.Apply_Intro),
         new("Library", H.Group_Start, H.Library_Title, H.Library_Intro),
+        new("Variables", H.Group_Start, H.Variables_Title, H.Variables_Intro)
+        {
+            OptionsTitle = null,
+            Options =
+            [
+                new("{name}", H.Variable_Name_Text),
+                new("{ext}", H.Variable_Ext_Text),
+                new("{folder}", H.Variable_Folder_Text),
+                new("{n}", H.Variable_Number_Text),
+                new("{date}", H.Variable_Date_Text),
+                new("{today}", H.Variable_Today_Text),
+                new("{size}", H.Variable_Size_Text),
+                new(H.Variable_Captured_Label, H.Variable_Captured_Text),
+            ],
+            Examples =
+            [
+                new(H.Template_Example_Folders, new TemplateModule("{folder:2} - {folder} - {n:2}"), @"Speedy\Season 1\speedy.1x01.mkv", @"Speedy\Season 1\speedy.1x02.mkv"),
+            ],
+        },
         new("Shortcuts", H.Group_Start, H.Shortcuts_Title, H.Shortcuts_Intro)
         {
             OptionsTitle = null,
@@ -130,6 +149,16 @@ public static class HelpCatalog
                 new(H.ReplaceTable_Example_Letters, new ReplaceTableModule([new("ß", "ss"), new("æ", "ae"), new("ø", "o"), new("Ø", "O")], MatchCase: true), "Straße.txt", "Kærlighed på Ø.mp3"),
             ],
         },
+        new("Template", H.Group_Modules, Strings.Module_Template, H.Template_Intro)
+        {
+            Module = typeof(TemplateModule),
+            Options = [new(Strings.Template_Label, H.Template_Text_Text), new(Strings.Template_AddVariable, H.Variables_Title)],
+            Examples =
+            [
+                new(H.Template_Example_Folders, new TemplateModule("{folder:2} - {folder} - {n:2}"), @"Speedy\Season 1\speedy.1x01.mkv", @"Speedy\Season 1\speedy.1x02.mkv"),
+                new(H.Template_Example_Date, new TemplateModule("{n:3} - {name}"), "Holiday.jpg", "Beach.jpg"),
+            ],
+        },
         new("Case", H.Group_Modules, Strings.Module_Case, H.Case_Intro)
         {
             Module = typeof(CaseModule),
@@ -188,6 +217,7 @@ public static class HelpCatalog
                 new(Strings.InsertAt_Position, H.InsertAt_Position_Text),
                 new(Strings.InsertAt_Before, H.InsertAt_Before_Text),
                 new(Strings.InsertAt_After, H.InsertAt_After_Text),
+                new(H.Variables_Title, H.Insert_Variables_Text),
             ],
             Examples =
             [
@@ -196,6 +226,7 @@ public static class HelpCatalog
                 new(H.Insert_Example_Position, new InsertModule(" ", InsertAt.Position, 4), "2024Holiday.jpg"),
                 new(H.Insert_Example_Before, new InsertModule("S01", InsertAt.Before, Anchor: "E", MatchCase: true), "Speedy E03.mkv"),
                 new(H.Insert_Example_After, new InsertModule("(Live) ", InsertAt.After, Anchor: " - "), "Queen - Bohemian Rhapsody.mp3"),
+                new(H.Insert_Example_Variable, new InsertModule("[{folder}] ", InsertAt.Start), @"Holiday 2024\IMG_0042.jpg"),
             ],
         },
         new("Numbering", H.Group_Modules, Strings.Module_Numbering, H.Numbering_Intro)

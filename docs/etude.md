@@ -172,6 +172,8 @@ Plutôt que des modules dédiés (Auto Date, Append Folder Name de BRU), le mote
 - les variables de Capturer ;
 - plus tard les métadonnées (`{exif.…}`, ID3, vidéo).
 
+Fait (0.11.0) : noms anglais `{name}`, `{ext}`, `{folder}` / `{folder:2}`, `{n}` / `{n:3}` (rang dans l'étape), `{date}` / `{date:format .NET}` (date de modification), `{today}`, `{size}` / `{size:MB}`, avec les alias français `{nom}`, `{dossier}`, `{taille}`, `{aujourdhui}` (une chaîne s'ouvre dans les deux langues) ; une variable capturée l'emporte ; une variable inconnue reste telle quelle. Utilisées par Modèle, Insérer, Remplacer et Remplacer (avancé). La date de prise de vue et le décalage horaire attendent les métadonnées.
+
 **Segment de nom (option d'étape, à confirmer sur des cas concrets)**
 La portée dit *quels fichiers* une étape touche ; le segment dirait *quelle partie du nom* : « ne travailler qu'entre … et … » (des positions, ou des textes comme du premier `(` au premier `)`). Le pipeline découpe le nom, donne le morceau au module, puis recolle, comme il le fait pour la portée : les modules restent purs. Exemples :
 - `Serie - 01x01 - le titre de l'épisode` : une Casse Titre limitée à ce qui suit le dernier ` - ` ne touche pas au nom de la série ;

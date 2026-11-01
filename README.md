@@ -36,7 +36,9 @@ ChainRenamer replaces the panels with an assembly line:
 - **Replace (advanced)**: regular expressions with groups: `(\d+)x(\d+)` → `S$1E$2`.
 - **Replacement table**: a list of texts to replace, pasted from a spreadsheet or loaded from a text file, to reuse from one chain to another.
 - **Remove**: the first or last characters, a range of positions, what comes before or after a text, every part between two texts (`[1080p]`).
+- **Template**: rebuild the whole name from text and variables: `{folder:2} - {folder} - {n:2}`.
 - **Insert**: a text at the start, at the end, at a position, before or after a text.
+- **Variables** in Template, Insert and Replace: `{folder}`, `{name}`, `{n}`, `{date}`, `{size}`, `{today}`…
 - **Case**: lowercase, UPPERCASE, Title Case or Sentence case, with the small words of English or French titles (`The Lord of the Rings`), exceptions (`iPhone`, `TV`), Roman numerals and acronyms.
 - **Numbering**: `001`, letters or Roman numerals, anywhere in the name, starting again in each folder if you want.
 - **Pad numbers**: `Episode 5` → `Episode 05`, `S1E5` → `S01E05`.
@@ -67,8 +69,8 @@ The project is young (version 0.x): it works and is tested, but the list of modu
 
 ## Coming next
 
-- **Modules**: Template, Dates, Capture (parts of the name reused as variables).
-- **Variables** in every module: `{folder}`, `{date}`, then photo EXIF and music tags.
+- **Modules**: Dates, Capture (parts of the name reused as variables).
+- **Metadata variables**: photo EXIF dates, music tags.
 - **Drop lists**: paste a list of episode titles, line N goes to file N.
 - **Name segment**: limit a step to a part of the name, such as "after the last ` - `".
 

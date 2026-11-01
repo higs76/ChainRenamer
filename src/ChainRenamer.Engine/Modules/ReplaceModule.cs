@@ -28,11 +28,11 @@ public sealed record ReplaceModule(
     private StringComparison Comparison => MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
     public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) =>
-        Find.Length == 0 ? input : [.. input.Select(i => i.With(NamePart.Stem, Replace(i.Stem)))];
+        Find.Length == 0 ? input : [.. input.Select((i, k) => i.With(NamePart.Stem, Replace(i.Stem, Variables.Expand(ReplaceWith, i, k + 1))))];
 
-    private string Replace(string text)
+    private string Replace(string text, string replaceWith)
     {
-        if (Occurrence == Occurrence.All) return text.Replace(Find, ReplaceWith, Comparison);
+        if (Occurrence == Occurrence.All) return text.Replace(Find, replaceWith, Comparison);
 
         int at = Occurrence switch
         {
@@ -41,6 +41,6 @@ public sealed record ReplaceModule(
             Occurrence.Start => text.StartsWith(Find, Comparison) ? 0 : -1,
             _ => text.EndsWith(Find, Comparison) ? text.Length - Find.Length : -1,
         };
-        return at < 0 ? text : string.Concat(text.AsSpan(0, at), ReplaceWith, text.AsSpan(at + Find.Length));
+        return at < 0 ? text : string.Concat(text.AsSpan(0, at), replaceWith, text.AsSpan(at + Find.Length));
     }
 }
