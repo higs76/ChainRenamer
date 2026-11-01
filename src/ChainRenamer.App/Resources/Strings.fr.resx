@@ -349,4 +349,13 @@
   <data name="List_Watermark" xml:space="preserve"><value>Collez ou tapez une ligne par fichier, ou déposez ici un fichier texte</value></data>
   <data name="List_Hint" xml:space="preserve"><value>La ligne N va au fichier N, dans l'ordre de la liste : placez une étape Trier avant. Une ligne vide garde le nom de son fichier, comme les fichiers au-delà de la dernière ligne. L'extension est gardée.</value></data>
   <data name="List_PairsHint" xml:space="preserve"><value>Une paire par ligne : l'ancien nom et le nouveau séparés par une tabulation, → ou =. Écrit avec son extension, l'ancien nom donne tout le nouveau nom ; sans, l'extension est gardée. Le fichier est retrouvé par son nom, quel que soit son rang.</value></data>
+  <data name="Segment_Header" xml:space="preserve"><value>Partie du nom : {0}</value></data>
+  <data name="Segment_After" xml:space="preserve"><value>Seulement après</value></data>
+  <data name="Segment_Last" xml:space="preserve"><value>sa dernière occurrence</value></data>
+  <data name="Segment_Before" xml:space="preserve"><value>et avant</value></data>
+  <data name="Segment_Hint" xml:space="preserve"><value>Laissez les deux vides pour tout le nom. Speedy - 01x01 - le premier tour : après le dernier « - », une Casse Titre laisse la série tranquille. Un nom sans ces textes est laissé tel quel par cette étape.</value></data>
+  <data name="Segment_Whole" xml:space="preserve"><value>tout le nom</value></data>
+  <data name="Segment_SummaryAfter" xml:space="preserve"><value>après « {0} »</value></data>
+  <data name="Segment_SummaryLastAfter" xml:space="preserve"><value>après le dernier « {0} »</value></data>
+  <data name="Segment_SummaryBefore" xml:space="preserve"><value>avant « {0} »</value></data>
 </root>

@@ -174,10 +174,12 @@ Plutôt que des modules dédiés (Auto Date, Append Folder Name de BRU), le mote
 
 Fait (0.11.0) : noms anglais `{name}`, `{ext}`, `{folder}` / `{folder:2}`, `{n}` / `{n:3}` (rang dans l'étape), `{date}` / `{date:format .NET}` (date de modification), `{today}`, `{size}` / `{size:MB}`, avec les alias français `{nom}`, `{dossier}`, `{taille}`, `{aujourdhui}` (une chaîne s'ouvre dans les deux langues) ; une variable capturée l'emporte ; une variable inconnue reste telle quelle. Utilisées par Modèle, Insérer, Remplacer et Remplacer (avancé). La date de prise de vue et le décalage horaire attendent les métadonnées.
 
-**Segment de nom (option d'étape, à confirmer sur des cas concrets)**
+**Segment de nom (option d'étape)**
 La portée dit *quels fichiers* une étape touche ; le segment dirait *quelle partie du nom* : « ne travailler qu'entre … et … » (des positions, ou des textes comme du premier `(` au premier `)`). Le pipeline découpe le nom, donne le morceau au module, puis recolle, comme il le fait pour la portée : les modules restent purs. Exemples :
 - `Serie - 01x01 - le titre de l'épisode` : une Casse Titre limitée à ce qui suit le dernier ` - ` ne touche pas au nom de la série ;
 - `Film (2019) [1080p]` : un Remplacer ou un Nettoyer limité à ce qui est avant ` (` ne risque pas d'abîmer l'année ni les étiquettes.
+
+Fait (0.12.0) : après un texte (première ou dernière occurrence) et/ou avant un texte, sans tenir compte de la casse ; un nom sans ces textes est laissé tel quel par l'étape ; l'extension reste à l'étape ; le segment est enregistré avec la chaîne (contrairement à la portée). Les positions numériques n'ont pas été retenues : les textes suffisent dans les cas rencontrés.
 
 **Listes de dépôt**
 On colle une liste de lignes (presse-papiers), ou on dépose un fichier texte dans le module, par exemple des titres copiés depuis TheTVDB.

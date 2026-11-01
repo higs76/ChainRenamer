@@ -349,4 +349,13 @@
   <data name="List_Watermark" xml:space="preserve"><value>Paste or type one line per file, or drop a text file here</value></data>
   <data name="List_Hint" xml:space="preserve"><value>Line N goes to file N, in the order of the list: put a Sort step before. An empty line keeps its file's name, and so do the files beyond the last line. The extension is kept.</value></data>
   <data name="List_PairsHint" xml:space="preserve"><value>One pair per line: the old name and the new one separated by a tab, → or =. Written with its extension, the old name gives the whole new name; without, the extension is kept. The file is found by its name, whatever its rank.</value></data>
+  <data name="Segment_Header" xml:space="preserve"><value>Part of the name: {0}</value></data>
+  <data name="Segment_After" xml:space="preserve"><value>Only after</value></data>
+  <data name="Segment_Last" xml:space="preserve"><value>its last occurrence</value></data>
+  <data name="Segment_Before" xml:space="preserve"><value>and before</value></data>
+  <data name="Segment_Hint" xml:space="preserve"><value>Leave both empty for the whole name. Speedy - 01x01 - the first lap: after the last " - ", a Title case leaves the series alone. A name without these texts is left as it is by this step.</value></data>
+  <data name="Segment_Whole" xml:space="preserve"><value>the whole name</value></data>
+  <data name="Segment_SummaryAfter" xml:space="preserve"><value>after “{0}”</value></data>
+  <data name="Segment_SummaryLastAfter" xml:space="preserve"><value>after the last “{0}”</value></data>
+  <data name="Segment_SummaryBefore" xml:space="preserve"><value>before “{0}”</value></data>
 </root>

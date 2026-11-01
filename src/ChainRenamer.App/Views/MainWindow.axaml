@@ -332,6 +332,19 @@
                     </Grid>
                     <Separator />
                     <ContentControl Content="{Binding Settings}" />
+                    <!-- The part of the name a name step works on -->
+                    <Expander IsVisible="{Binding IsNameStep}" HorizontalAlignment="Stretch" Header="{Binding SegmentHeader}">
+                        <StackPanel Spacing="6">
+                            <WrapPanel>
+                                <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" Text="{x:Static res:Strings.Segment_After}" />
+                                <TextBox Text="{Binding SegmentAfter}" Width="140" FontFamily="Consolas,monospace" Margin="0,0,8,0" />
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding SegmentLast}" Content="{x:Static res:Strings.Segment_Last}" Margin="0,0,16,0" />
+                                <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" Text="{x:Static res:Strings.Segment_Before}" />
+                                <TextBox Text="{Binding SegmentBefore}" Width="140" FontFamily="Consolas,monospace" />
+                            </WrapPanel>
+                            <TextBlock Text="{x:Static res:Strings.Segment_Hint}" Opacity="0.7" TextWrapping="Wrap" FontSize="12" />
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </Border>
         </Grid>

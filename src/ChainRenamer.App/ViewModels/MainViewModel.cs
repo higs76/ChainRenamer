@@ -81,9 +81,9 @@ public partial class MainViewModel : ViewModelBase
         Refresh();
     }
 
-    private StepViewModel AddStep(ModuleSettingsViewModel settings, string? name, bool enabled)
+    private StepViewModel AddStep(ModuleSettingsViewModel settings, string? name, bool enabled, Segment? segment = null)
     {
-        var step = new StepViewModel(pipeline.Add(settings.ToModule()).Id, settings) { Name = name, IsEnabled = enabled };
+        var step = new StepViewModel(pipeline.Add(settings.ToModule()).Id, settings) { Name = name, IsEnabled = enabled, Segment = segment };
         pipeline.Update(step.ToStep());
         return Attach(step);
     }

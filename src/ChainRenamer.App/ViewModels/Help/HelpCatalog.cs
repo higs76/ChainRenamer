@@ -39,6 +39,16 @@ public static class HelpCatalog
                 new(H.Template_Example_Folders, new TemplateModule("{folder:2} - {folder} - {n:2}"), @"Speedy\Season 1\speedy.1x01.mkv", @"Speedy\Season 1\speedy.1x02.mkv"),
             ],
         },
+        new("Segment", H.Group_Start, H.Segment_Title, H.Segment_Intro)
+        {
+            OptionsTitle = null,
+            Options = [new(Strings.Segment_After, H.Segment_After_Text), new(Strings.Segment_Before, H.Segment_Before_Text)],
+            Examples =
+            [
+                new(H.Segment_Example, new Step(StepId.New(), new CaseModule(SmallWords: SmallWords.English)) { Segment = new(" - ", LastAfter: true) }.AsModule(),
+                    "SPEEDY - 01x01 - the first lap.mkv", "SPEEDY - 01x02 - rain on the track.mkv"),
+            ],
+        },
         new("Shortcuts", H.Group_Start, H.Shortcuts_Title, H.Shortcuts_Intro)
         {
             OptionsTitle = null,
@@ -366,6 +376,14 @@ public static class HelpCatalog
     }
 
     private static IModule Then(params IModule[] modules) => new Chained(modules);
+
+    /// <summary>A step seen as a module, for an example that needs the step's options (part of the name).</summary>
+    private sealed record StepAsModule(Step Step) : IModule
+    {
+        public IReadOnlyList<Item> Apply(IReadOnlyList<Item> input) => Step.Apply(input);
+    }
+
+    private static IModule AsModule(this Step step) => new StepAsModule(step);
 
     // "Occurrences: First"
     private static HelpOption Choice(string choice, string text) => Choice(Strings.Replace_Occurrence, choice, text);

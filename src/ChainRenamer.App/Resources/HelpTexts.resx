@@ -298,4 +298,13 @@ Line N goes to file N, in the order the files have at this step: put a **Sort** 
   <data name="List_Example_Titles" xml:space="preserve"><value>Episode titles, one per line</value></data>
   <data name="List_Example_Insert" xml:space="preserve"><value>Inserted at the end: ` - The First Lap`, ` - Rain on the Track`</value></data>
   <data name="List_Example_Pairs" xml:space="preserve"><value>Pairs: `Speedy 02 → Finale`, `Speedy 01 → Pilot`</value></data>
+  <data name="Segment_Title" xml:space="preserve"><value>Part of the name</value></data>
+  <data name="Segment_Intro" xml:space="preserve"><value>A step that changes names can work on a part of the name only: open **Part of the name** under its settings. The step sees that part as if it were the whole name, then the name is put back together.
+
+`Speedy - 01x01 - the first lap`: a Case step **only after** ` - ` with **its last occurrence** checked capitalizes the title of the episode and leaves the series alone. `Le.Fabuleux.Destin (2001) [1080p]`: a Replace of `.` by a space **before** ` (` spares the year and the tags.
+
+A name that lacks one of the texts is left as it is by the step, as if it were unchecked in its grid. The extension stays with the step: an Extension step still changes it. Unlike unchecked files, the part of the name is saved with the chain.</value></data>
+  <data name="Segment_After_Text" xml:space="preserve"><value>The part starts just after this text, case ignored; empty: at the start of the name. With **its last occurrence**, after the last time the text appears.</value></data>
+  <data name="Segment_Before_Text" xml:space="preserve"><value>The part ends just before this text, searched after the start; empty: at the end of the name.</value></data>
+  <data name="Segment_Example" xml:space="preserve"><value>A Case step, only after the last ` - `</value></data>
 </root>

@@ -54,7 +54,7 @@ public sealed record Chain(ImmutableArray<Step> Steps)
     // The file layout. A setting missing from the file takes the default value of the module's parameter.
     private sealed record Header(int Version);
     private sealed record ChainFile(int Version, List<StepFile> Steps);
-    private sealed record StepFile(string Type, string? Name = null, bool Enabled = true, JsonElement? Settings = null);
+    private sealed record StepFile(string Type, string? Name = null, bool Enabled = true, JsonElement? Settings = null, Segment? Segment = null);
 
     public string ToJson() => JsonSerializer.Serialize(new ChainFile(Version, [.. Steps.Select(ToFile)]), Options);
 
@@ -94,7 +94,8 @@ public sealed record Chain(ImmutableArray<Step> Steps)
         var type = step.Module.GetType();
         var name = type.GetCustomAttribute<ModuleAttribute>()?.Name
             ?? throw new InvalidOperationException($"{type.Name} has no [Module] attribute, so it cannot be saved.");
-        return new(name, step.Name, step.IsEnabled, JsonSerializer.SerializeToElement(step.Module, type, Options));
+        return new(name, step.Name, step.IsEnabled, JsonSerializer.SerializeToElement(step.Module, type, Options),
+            step.Segment is { IsWhole: false } segment ? segment : null);
     }
 
     private static Step FromFile(StepFile file)
@@ -104,7 +105,7 @@ public sealed record Chain(ImmutableArray<Step> Steps)
         {
             var settings = file.Settings ?? JsonSerializer.SerializeToElement(new { });
             var module = (IModule)settings.Deserialize(type, Options)!;
-            return new(StepId.New(), module, file.Name, file.Enabled);
+            return new(StepId.New(), module, file.Name, file.Enabled) { Segment = file.Segment };
         }
         catch (JsonException ex)
         {

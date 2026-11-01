@@ -74,7 +74,7 @@ public partial class MainViewModel
             Steps.Remove(step);
         }
         foreach (var step in chain.Steps)
-            if (ModuleCatalog.SettingsOf(step.Module) is { } settings) AddStep(settings, step.Name, step.IsEnabled);
+            if (ModuleCatalog.SettingsOf(step.Module) is { } settings) AddStep(settings, step.Name, step.IsEnabled, step.Segment);
 
         SelectedStep = Steps[^1];
         Saved(name, chain);

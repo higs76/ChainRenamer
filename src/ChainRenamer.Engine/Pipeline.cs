@@ -98,17 +98,8 @@ public sealed class Pipeline
     // the step keeps its input and reports the error.
     private static StepResult Apply(Step step, IReadOnlyList<Item> input)
     {
-        try { return new(Run(step, input)); }
+        try { return new(step.Apply(input)); }
         catch (Exception ex) { return new(input, ex); }
-    }
-
-    // Skipped files are hidden from a name module, then put back unchanged, at their rank.
-    private static IReadOnlyList<Item> Run(Step step, IReadOnlyList<Item> input)
-    {
-        if (step.Skipped.IsEmpty || step.Module is not INameModule) return step.Module.Apply(input);
-
-        var renamed = step.Module.Apply([.. input.Where(i => !step.Skipped.Contains(i.FileId))]).ToDictionary(i => i.FileId);
-        return [.. input.Select(i => renamed.GetValueOrDefault(i.FileId, i))];
     }
 
     private void InvalidateFrom(int index)

@@ -21,6 +21,7 @@ ChainRenamer replaces the panels with an assembly line:
 - **Each step does one simple thing.** The power comes from chaining them, in any order, as many times as needed.
 - **You see every step.** Click a step: the grid shows each name before and after it. A rule that goes wrong is spotted at once, and you fix that step only.
 - **Nothing touches the disk before you apply.** Problems (two files with the same name, characters Windows refuses, reserved names such as `CON`, paths too long) are shown in red at every step.
+- **A rule can work on part of the name only**, such as after the last ` - `: the title of the episode changes, the name of the series does not.
 - **A rule can spare a few files.** If a step suits every file but three, uncheck those three in its grid: that step leaves them alone, the others still apply.
 - **A chain is a recipe.** Save it, then replay it on another folder: the same clean-up for every new season of a series, every card of photos, every album.
 
@@ -73,7 +74,6 @@ The project is young (version 0.x): it works and is tested, but the list of modu
 ## Coming next
 
 - **Metadata variables**: photo EXIF dates, music tags.
-- **Name segment**: limit a step to a part of the name, such as "after the last ` - `".
 
 ## Command line
 

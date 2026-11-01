@@ -21,6 +21,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 - **Chaque étape fait une seule chose simple.** La puissance vient de leur enchaînement, dans n'importe quel ordre, autant de fois que nécessaire.
 - **On voit chaque étape.** Un clic sur une étape : la grille montre chaque nom avant et après elle. Une règle qui se trompe se repère tout de suite, et l'on corrige cette étape seulement.
 - **Rien ne touche le disque avant d'appliquer.** Les problèmes (deux fichiers du même nom, caractères refusés par Windows, noms réservés comme `CON`, chemins trop longs) s'affichent en rouge à chaque étape.
+- **Une règle peut ne travailler que sur une partie du nom**, par exemple après le dernier ` - ` : le titre de l'épisode change, le nom de la série non.
 - **Une règle peut épargner quelques fichiers.** Si une étape convient à tous les fichiers sauf trois, on décoche ces trois-là dans sa grille : cette étape les laisse tels quels, les autres s'appliquent toujours.
 - **Une chaîne est une recette.** On l'enregistre, puis on la rejoue sur un autre dossier : le même nettoyage pour chaque nouvelle saison d'une série, chaque carte de photos, chaque album.
 
@@ -73,7 +74,6 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 ## À venir
 
 - **Variables de métadonnées** : dates EXIF des photos, tags de musique.
-- **Segment de nom** : limiter une étape à une partie du nom, comme « après le dernier ` - ` ».
 
 ## Ligne de commande
 
