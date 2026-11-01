@@ -241,4 +241,14 @@ A number is a run of digits from 0 to 9. A number already longer than asked is k
   <data name="PadNumbers_Example_Automatic" xml:space="preserve"><value>Automatic: three digits, as for 120</value></data>
   <data name="PadNumbers_Example_Last" xml:space="preserve"><value>The last number only: the year and the resolution stay</value></data>
   <data name="PadNumbers_Example_Trim" xml:space="preserve"><value>Remove the extra zeros</value></data>
+  <data name="ReplaceTable_Intro" xml:space="preserve"><value>Replaces several texts at once, from a list: each line replaces a text by another, in the name without its extension. The lines apply in order, each on the result of the previous one.
+
+A table is made to be reused: transliteration (`ß` → `ss`, `œ` → `oe`), the tags of your downloads (`VOSTFR` → `VOST`), your own vocabulary (`S01` → `Season 1`). Save it to a text file, then load it in another chain. Replace is simpler for one text; Replace (advanced) handles patterns.</value></data>
+  <data name="ReplaceTable_Lines_Text" xml:space="preserve"><value>Each line: the text to find and its replacement, empty to remove the text. Unchecked, the line stays in the table without being applied: handy to try without losing it.</value></data>
+  <data name="ReplaceTable_Paste_Text" xml:space="preserve"><value>Adds the lines of the clipboard, one pair per line: the text and its replacement separated by a tab (two columns copied from a spreadsheet), `→`, `-&gt;` or `=`. A line without separator replaces its text by nothing.</value></data>
+  <data name="ReplaceTable_Files_Text" xml:space="preserve"><value>**Load** adds the lines of a text file written the same way; **Save** writes the table to a file, one pair per line separated by a tab, which a spreadsheet opens as two columns.</value></data>
+  <data name="ReplaceTable_MatchCase_Text" xml:space="preserve"><value>Checked, `VOSTFR` does not find `vostfr`. Applies to every line.</value></data>
+  <data name="ReplaceTable_Example_Tags" xml:space="preserve"><value>Download tags: `VOSTFR` → `VOST`, `[1080p]` → nothing</value></data>
+  <data name="ReplaceTable_Example_Chain" xml:space="preserve"><value>In order: `S01` → `Saison 1`, then `Saison` → `Season`</value></data>
+  <data name="ReplaceTable_Example_Letters" xml:space="preserve"><value>Transliteration, matching case: `ß` → `ss`, `æ` → `ae`, `ø` → `o`, `Ø` → `O`</value></data>
 </root>

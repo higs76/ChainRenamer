@@ -241,4 +241,14 @@ Un nombre est une suite de chiffres de 0 à 9. Un nombre déjà plus long que de
   <data name="PadNumbers_Example_Automatic" xml:space="preserve"><value>Automatique : trois chiffres, comme pour 120</value></data>
   <data name="PadNumbers_Example_Last" xml:space="preserve"><value>Le dernier nombre seulement : l'année et la résolution restent</value></data>
   <data name="PadNumbers_Example_Trim" xml:space="preserve"><value>Retirer les zéros en trop</value></data>
+  <data name="ReplaceTable_Intro" xml:space="preserve"><value>Remplace plusieurs textes d'un coup, à partir d'une liste : chaque ligne remplace un texte par un autre, dans le nom sans son extension. Les lignes s'appliquent dans l'ordre, chacune sur le résultat de la précédente.
+
+Une table est faite pour resservir : translittération (`ß` → `ss`, `œ` → `oe`), étiquettes de vos téléchargements (`VOSTFR` → `VOST`), votre propre vocabulaire (`S01` → `Saison 1`). Enregistrez-la dans un fichier texte, puis chargez-la dans une autre chaîne. Remplacer est plus simple pour un seul texte ; Remplacer (avancé) gère les motifs.</value></data>
+  <data name="ReplaceTable_Lines_Text" xml:space="preserve"><value>Chaque ligne : le texte à chercher et son remplacement, vide pour supprimer le texte. Décochée, la ligne reste dans la table sans s'appliquer : pratique pour essayer sans la perdre.</value></data>
+  <data name="ReplaceTable_Paste_Text" xml:space="preserve"><value>Ajoute les lignes du presse-papiers, une paire par ligne : le texte et son remplacement séparés par une tabulation (deux colonnes copiées depuis un tableur), `→`, `-&gt;` ou `=`. Une ligne sans séparateur remplace son texte par rien.</value></data>
+  <data name="ReplaceTable_Files_Text" xml:space="preserve"><value>**Charger** ajoute les lignes d'un fichier texte écrit de la même façon ; **Enregistrer** écrit la table dans un fichier, une paire par ligne séparée par une tabulation, qu'un tableur ouvre en deux colonnes.</value></data>
+  <data name="ReplaceTable_MatchCase_Text" xml:space="preserve"><value>Cochée, `VOSTFR` ne trouve pas `vostfr`. Vaut pour toutes les lignes.</value></data>
+  <data name="ReplaceTable_Example_Tags" xml:space="preserve"><value>Étiquettes de téléchargement : `VOSTFR` → `VOST`, `[1080p]` → rien</value></data>
+  <data name="ReplaceTable_Example_Chain" xml:space="preserve"><value>Dans l'ordre : `S01` → `Saison 1`, puis `Saison` → `Season`</value></data>
+  <data name="ReplaceTable_Example_Letters" xml:space="preserve"><value>Translittération, en respectant la casse : `ß` → `ss`, `æ` → `ae`, `ø` → `o`, `Ø` → `O`</value></data>
 </root>

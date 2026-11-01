@@ -166,3 +166,9 @@ Ordre revu le 31/10/2026 : l'interface d'abord, en aperçu seul, pour que Higs76
 - ✅ Module **Formater les nombres** (`PadNumbers` : tous, premier ou dernier nombre ; chiffres fixes ou automatiques ; zéros en trop).
 - ✅ Test de charge sur 50 000 fichiers (voir « Gros dossiers » dans la partie App).
 - Version 0.10.0 : jalon 2 terminé.
+
+## Jalon 3 (en cours)
+
+- ✅ `Applier` : seuls les fichiers dont le nouveau nom est encore pris passent par un nom temporaire.
+- ✅ Module **Table de remplacement** (`ReplaceTable`, paires `ReplacePair` avec case active ; `Parse` / `Format` pour le collage et les fichiers texte). Un `ImmutableArray` dans un record de module impose de redéfinir `Equals` (sinon comparaison par référence) ; dans les tests xUnit, comparer des tableaux (`ToArray()`).
+- Reste : variables communes et Modèle, Capturer, Dates.

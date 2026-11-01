@@ -34,6 +34,7 @@ ChainRenamer remplace les panneaux par une chaîne de montage :
 **Changer les noms**
 - **Remplacer** : un texte par un autre ; toutes les occurrences, la première, la dernière, au début ou à la fin du nom.
 - **Remplacer (avancé)** : expressions régulières avec groupes : `(\d+)x(\d+)` → `S$1E$2`.
+- **Table de remplacement** : une liste de textes à remplacer, collée depuis un tableur ou chargée depuis un fichier texte, à réutiliser d'une chaîne à l'autre.
 - **Supprimer** : les premiers ou derniers caractères, une plage de positions, ce qui précède ou suit un texte, chaque partie entre deux textes (`[1080p]`).
 - **Insérer** : un texte au début, à la fin, à une position, avant ou après un texte.
 - **Casse** : minuscules, MAJUSCULES, Titre ou Phrase, avec les petits mots des titres français ou anglais (`Le Seigneur des Anneaux`), des exceptions (`iPhone`, `TV`), les chiffres romains et les sigles.
@@ -66,7 +67,7 @@ Le projet est jeune (version 0.x) : il fonctionne et il est testé, mais la list
 
 ## À venir
 
-- **Modules** : Table de remplacement, Modèle, Dates, Capturer (des parties du nom réutilisées comme variables).
+- **Modules** : Modèle, Dates, Capturer (des parties du nom réutilisées comme variables).
 - **Variables** dans tous les modules : `{dossier}`, `{date}`, puis l'EXIF des photos et les tags de musique.
 - **Listes à déposer** : coller une liste de titres d'épisodes, la ligne N va au fichier N.
 - **Segment de nom** : limiter une étape à une partie du nom, comme « après le dernier ` - ` ».

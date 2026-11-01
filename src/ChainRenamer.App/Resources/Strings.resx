@@ -299,4 +299,16 @@
   <data name="PadNumbers_Digits" xml:space="preserve"><value>to digits:</value></data>
   <data name="PadNumbers_Automatic" xml:space="preserve"><value>Automatic: as many as the longest number</value></data>
   <data name="PadNumbers_TrimZeros" xml:space="preserve"><value>Remove the extra zeros (007 → 07)</value></data>
+  <data name="Module_ReplaceTable" xml:space="preserve"><value>Replacement table</value></data>
+  <data name="ReplaceTable_Description" xml:space="preserve"><value>Replaces a list of texts, line by line, in order. Paste it from a spreadsheet or load it from a text file to reuse it in another chain.</value></data>
+  <data name="ReplaceTable_Find" xml:space="preserve"><value>Text</value></data>
+  <data name="ReplaceTable_With" xml:space="preserve"><value>Replace with</value></data>
+  <data name="ReplaceTable_Add" xml:space="preserve"><value>+ Add a line</value></data>
+  <data name="ReplaceTable_Paste" xml:space="preserve"><value>Paste</value></data>
+  <data name="ReplaceTable_Load" xml:space="preserve"><value>Load…</value></data>
+  <data name="ReplaceTable_Save" xml:space="preserve"><value>Save…</value></data>
+  <data name="ReplaceTable_Enabled" xml:space="preserve"><value>Apply this line</value></data>
+  <data name="ReplaceTable_Remove" xml:space="preserve"><value>Remove this line</value></data>
+  <data name="ReplaceTable_Hint" xml:space="preserve"><value>Paste or load one pair per line: the text and its replacement separated by a tab (as copied from a spreadsheet), → or =. A line alone replaces its text by nothing.</value></data>
+  <data name="Picker_Text" xml:space="preserve"><value>Text files</value></data>
 </root>

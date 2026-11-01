@@ -299,4 +299,16 @@
   <data name="PadNumbers_Digits" xml:space="preserve"><value>sur un nombre de chiffres de</value></data>
   <data name="PadNumbers_Automatic" xml:space="preserve"><value>Automatique : autant que le plus long nombre</value></data>
   <data name="PadNumbers_TrimZeros" xml:space="preserve"><value>Retirer les zéros en trop (007 → 07)</value></data>
+  <data name="Module_ReplaceTable" xml:space="preserve"><value>Table de remplacement</value></data>
+  <data name="ReplaceTable_Description" xml:space="preserve"><value>Remplace une liste de textes, ligne par ligne, dans l'ordre. On la colle depuis un tableur ou on la charge depuis un fichier texte pour la réutiliser dans une autre chaîne.</value></data>
+  <data name="ReplaceTable_Find" xml:space="preserve"><value>Texte</value></data>
+  <data name="ReplaceTable_With" xml:space="preserve"><value>Remplacer par</value></data>
+  <data name="ReplaceTable_Add" xml:space="preserve"><value>+ Ajouter une ligne</value></data>
+  <data name="ReplaceTable_Paste" xml:space="preserve"><value>Coller</value></data>
+  <data name="ReplaceTable_Load" xml:space="preserve"><value>Charger…</value></data>
+  <data name="ReplaceTable_Save" xml:space="preserve"><value>Enregistrer…</value></data>
+  <data name="ReplaceTable_Enabled" xml:space="preserve"><value>Appliquer cette ligne</value></data>
+  <data name="ReplaceTable_Remove" xml:space="preserve"><value>Supprimer cette ligne</value></data>
+  <data name="ReplaceTable_Hint" xml:space="preserve"><value>Collez ou chargez une paire par ligne : le texte et son remplacement séparés par une tabulation (comme copiés depuis un tableur), → ou =. Une ligne seule remplace son texte par rien.</value></data>
+  <data name="Picker_Text" xml:space="preserve"><value>Fichiers texte</value></data>
 </root>

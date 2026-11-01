@@ -113,6 +113,23 @@ public static class HelpCatalog
                 new(H.Regex_Example_Spaces, new RegexReplaceModule(@"\s+", " "), "Speedy   01  final.mkv"),
             ],
         },
+        new("ReplaceTable", H.Group_Modules, Strings.Module_ReplaceTable, H.ReplaceTable_Intro)
+        {
+            Module = typeof(ReplaceTableModule),
+            Options =
+            [
+                new($"{Strings.ReplaceTable_Find} → {Strings.ReplaceTable_With}", H.ReplaceTable_Lines_Text),
+                new(Strings.ReplaceTable_Paste, H.ReplaceTable_Paste_Text),
+                new($"{Strings.ReplaceTable_Load} / {Strings.ReplaceTable_Save}", H.ReplaceTable_Files_Text),
+                new(Strings.Replace_MatchCase, H.ReplaceTable_MatchCase_Text),
+            ],
+            Examples =
+            [
+                new(H.ReplaceTable_Example_Tags, new ReplaceTableModule([new("VOSTFR", "VOST"), new(" [1080p]", "")]), "Speedy 01 VOSTFR [1080p].mkv"),
+                new(H.ReplaceTable_Example_Chain, new ReplaceTableModule([new("S01", "Saison 1"), new("Saison", "Season")]), "Speedy S01 E03.mkv"),
+                new(H.ReplaceTable_Example_Letters, new ReplaceTableModule([new("ß", "ss"), new("æ", "ae"), new("ø", "o"), new("Ø", "O")], MatchCase: true), "Straße.txt", "Kærlighed på Ø.mp3"),
+            ],
+        },
         new("Case", H.Group_Modules, Strings.Module_Case, H.Case_Intro)
         {
             Module = typeof(CaseModule),
